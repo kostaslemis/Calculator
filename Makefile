@@ -1,18 +1,14 @@
-PROGRAM = Matrix
-
-IncludePath = include
-
-ModulePath = module
-
 COMPILER = g++
 
+PROGRAM = Matrix
+
 run:
-	$(COMPILER) $(ModulePath)/$(PROGRAM).cpp -o $(PROGRAM) -I $(IncludePath)
-	./$(ModulePath/)$(PROGRAM)
+	$(COMPILER) $(PROGRAM).cpp -o $(PROGRAM)
+	./$(PROGRAM)
 
 valgrind:
-	$(COMPILER) $(ModulePath)/$(PROGRAM).cpp -o $(PROGRAM) -I $(IncludePath)
-	valgrind ./$(ModulePath/)$(PROGRAM)
+	$(COMPILER) $(PROGRAM).cpp -o $(PROGRAM)
+	valgrind $(PROGRAM)
 
 clean:
 	rm $(PROGRAM)
