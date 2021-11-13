@@ -1,6 +1,6 @@
 # Matrix-Calculator
 
-__The essense of this project is the header file.__
+# The essense of this project is the header file.
 Which is intented to be used as an include file in programms that need the use of Matrices.
 
 The __.cpp__ file is simply a demonstration of the capabilities of the header file.
