@@ -14,8 +14,9 @@ public:
        ~Matrix();
     short rows() const { return _rows; };
     short cols() const { return _cols; };
-    double& operator() (const short, const short);
-    Matrix& operator = (Matrix&);
+    double& operator() (const short row, const short col);
+    double elem(short row, short col) const;
+    Matrix& operator = (const Matrix&);
 };
 
 Matrix::Matrix (const short r = 0, const short c = 0) : _rows(r), _cols(c) {
@@ -24,7 +25,7 @@ Matrix::Matrix (const short r = 0, const short c = 0) : _rows(r), _cols(c) {
         elems[r] = new double[_cols]; 
 }
 
-Matrix::Matrix(const Matrix& p) : _rows(p._rows), _cols(p._cols) {
+Matrix::Matrix(const Matrix &p) : _rows(p._rows), _cols(p._cols) {
     elems = new double*[_rows];
     for (int r = 0; r < _rows; r++)
         elems[r] = new double[_cols];
@@ -47,7 +48,14 @@ double& Matrix::operator() (const short row, const short col) {
         : dummy;
 }
 
-Matrix& Matrix::operator = (Matrix &p) {
+double Matrix::elem(short row, short col) const {
+    static double dummy = 0.0;
+    return (row >= 1 && row <= _rows && col >= 1 && col <= _cols)
+        ? elems[row - 1][col - 1]
+        : dummy;
+}
+
+Matrix& Matrix::operator = (const Matrix &p) {
     if (this->elems == NULL) {
         elems = new double*[p.rows()];
         for (int r = 0; r < _rows; r++)
@@ -61,33 +69,33 @@ Matrix& Matrix::operator = (Matrix &p) {
     return *this;
 }
 
-std::ostream& operator << (std::ostream& os, Matrix &matrix) {
+std::ostream& operator << (std::ostream& os, const Matrix &matrix) {
     for (int r = 1; r <= matrix.rows(); r++) {
         for (int c = 1; c <= matrix.cols(); c++)
-            os << matrix(r, c) << "  ";
+            os << matrix.elem(r, c) << "  ";
         os << std::endl;
     }
 
     return os;
 }
 
-bool equalRowsCols(Matrix &p, Matrix &q) {
+bool equalRowsCols(const Matrix &p, const Matrix &q) {
     return p.rows() == q.rows() && p.cols() == q.cols();
 }
 
-Matrix operator + (Matrix &p, Matrix &q) {
+Matrix operator + (const Matrix &p, const Matrix &q) {
     Matrix matrix(p.rows(), q.cols());
     if (!equalRowsCols(p, q))
         return matrix;
         
     for (int r = 1; r <= p.rows(); r++)
         for (int c = 1; c <= q.cols(); c++)
-            matrix(r, c) = p(r, c) + q(r, c);
+            matrix(r, c) = p.elem(r, c) + q.elem(r, c);
 
     return matrix;
 }
 
-Matrix operator - (Matrix &p, Matrix &q) {
+Matrix operator - (const Matrix &p, const Matrix &q) {
     Matrix matrix(p.rows(), q.cols());
 
     if (equalRowsCols(p, q))
@@ -95,12 +103,12 @@ Matrix operator - (Matrix &p, Matrix &q) {
 
     for (int r = 1; r <= p.rows(); r++)
         for (int c = 1; c <= q.cols(); c++)
-            matrix(r, c) = p(r, c) - q(r, c);
+            matrix(r, c) = p.elem(r, c) - q.elem(r, c);
 
     return matrix;
 }
 
-Matrix operator * (Matrix &p, Matrix &q) {
+Matrix operator * (const Matrix &p, const Matrix &q) {
     Matrix m(p.rows(), q.cols());
     
     if (p.cols() != q.rows()) 
@@ -109,82 +117,80 @@ Matrix operator * (Matrix &p, Matrix &q) {
     for (int r = 1; r <= p.rows(); r++)
         for (int c = 1; c <= q.cols(); c++)
             for (int k = 1; k <= p.cols(); k++)
-                m(r, c) += p(r, k) * q(k, c);
+                m(r, c) += p.elem(r, k) * q.elem(k, c);
 
     return m;
 }
 
-Matrix operator * (double k, Matrix &p) {
+Matrix operator * (double k, const Matrix &p) {
     Matrix m(p.rows(), p.cols());
 
     for (int r = 1; r <= p.rows(); r++)
         for (int c = 1; c <= p.cols(); c++)
-            m(r, c) = k * p(r, c);
+            m(r, c) = k * p.elem(r, c);
   
     return m;
 }
 
 
-bool operator == (Matrix &p, Matrix &q) {
+bool operator == (const Matrix &p, const Matrix &q) {
     if (!equalRowsCols(p, q))
         return false;
 
     for (int r = 1; r <= p.rows(); r++)
         for (int c = 1; c <= p.cols(); c++)
-            if (p(r, c) != q(r, c))
+            if (p.elem(r, c) != q.elem(r, c))
                 return false;
 
     return true;
 }
 
-bool operator != (Matrix &p, Matrix &q) {
+bool operator != (const Matrix &p, const Matrix &q) {
     if (!equalRowsCols(p, q))
         return false;
 
     return !(p == q);
 }
 
-inline bool isSquareMatrix(Matrix &p) {
+inline bool isSquareMatrix(const Matrix &p) {
     return p.rows() == p.cols();
 }
 
-double trace(Matrix &p) {
+double trace(const Matrix &p) {
     double trace = 0;
     for (int i = 1; i <= p.cols(); i++)
-        trace += p(i, i);
+        trace += p.elem(i, i);
     return trace;
 }
 
-Matrix subMatrix(Matrix &p, int col) {
+Matrix subMatrix(const Matrix &p, int col) {
     Matrix m(p.rows() - 1, p.cols() - 1);
 
     for (int r = 2; r <= p.rows(); r++)
         for (int c = 1; c <= p.cols(); c++) {
             if (c < col) 
-                m(r - 1, c) = p(r, c);
+                m(r - 1, c) = p.elem(r, c);
             else if (c > col)
-                m(r - 1, c - 1) = p(r, c);
+                m(r - 1, c - 1) = p.elem(r, c);
         }
 
     return m;
 }
 
-double det(Matrix &p) {
+double det(const Matrix &p) {
     if (!isSquareMatrix(p))
         return 0.0;
 
     if (p.rows() == 1 && p.rows() == 1)
-        return p(1, 1);
+        return p.elem(1, 1);
 
     if (p.rows() == 2 && p.cols() == 2)
-        return p(1, 1)*p(2, 2) - p(1, 2)*p(2, 1);
+        return p.elem(1, 1)*p.elem(2, 2) - p.elem(1, 2)*p.elem(2, 1);
 
-    int sign = 1;
     double Sum = 0;
-    for (int c = 1; c <= p.cols(); c++, sign *= -1) {
-        Matrix sub_matrix = subMatrix(p, c);
-        Sum += p(1, c) * det(sub_matrix) * sign;
-    }
+    for (int c = 1, sign = 1; c <= p.cols(); c++, sign *= -1)
+        Sum += p.elem(1, c) * det(subMatrix(p, c)) * sign;
+
     return Sum;
 }
 
@@ -196,7 +202,7 @@ Matrix identity_matrix(int n) {
     return I;
 }
 
-Matrix pow(Matrix &p, int exponent) {
+Matrix pow(const Matrix &p, int exponent) {
     Matrix dummy(0, 0);
     if (!isSquareMatrix(p)) return dummy;
 
@@ -211,57 +217,53 @@ Matrix pow(Matrix &p, int exponent) {
     return pow_matrix;
 }
 
-Matrix transpose(Matrix &p) {
+Matrix transpose(const Matrix &p) {
     Matrix matrix(p.cols(), p.rows());
 
     for (int r = 1; r <= p.rows(); r++)
         for (int c = 1; c <= p.cols(); c++)
-            matrix(c, r) = p(r, c);
+            matrix(c, r) = p.elem(r, c);
 
     return matrix;
 }
 
-Matrix minor(Matrix &p, int row, int col) {
+Matrix minor(const Matrix &p, int row, int col) {
     Matrix matrix(p.rows() - 1, p.cols() - 1);
     // Really bad code
     for (int r = 1; r <= p.rows(); r++) {
         if (r < row)
             for (int c = 1; c <= p.cols(); c++) {
                 if (c < col)
-                    matrix(r, c) = p(r, c);
+                    matrix(r, c) = p.elem(r, c);
                 else if (c > col)
-                    matrix(r, c - 1) = p(r, c);
+                    matrix(r, c - 1) = p.elem(r, c);
             }
         else if (r > row)
             for (int c = 1; c <= p.cols(); c++) {
                 if (c < col)
-                    matrix(r - 1, c) = p(r, c);
+                    matrix(r - 1, c) = p.elem(r, c);
                 else if (c > col)
-                    matrix(r - 1, c - 1) = p(r, c);
+                    matrix(r - 1, c - 1) = p.elem(r, c);
             }  
     }
 
     return matrix; 
 }
 
-Matrix cofactor(Matrix &p) {
+Matrix cofactor(const Matrix &p) {
     Matrix matrix(p.rows(), p.cols());
 
     for (int r = 1; r <= p.rows(); r++)
-        for (int c = 1; c <= p.cols(); c++) {
-            Matrix minor_matrix = minor(p, r, c);
-            matrix(r, c) = pow(-1, r + c)*det(minor_matrix);
-        }
+        for (int c = 1; c <= p.cols(); c++)
+            matrix(r, c) = pow(-1, r + c)*det(minor(p, r, c));
 
     return matrix;
 }
 
-Matrix adj(Matrix &p) {
-    Matrix cofactor_matrix = cofactor(p);
-    return transpose(cofactor_matrix);
+Matrix adj(const Matrix &p) {
+    return transpose(cofactor(p));
 }
 
-Matrix inverse(Matrix &p) {
-    Matrix adjoint = adj(p);
-    return 1/det(p)*adjoint;
+Matrix inverse(const Matrix &p) {
+    return 1/det(p)*adj(p);
 }
