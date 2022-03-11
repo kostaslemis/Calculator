@@ -1,5 +1,7 @@
 #include <iostream>
+#include <vector>
 #include <math.h>
+#include "Polynomial.h"
 
 
 class Matrix
@@ -9,7 +11,7 @@ private:
     const short _cols;
     double **elems = NULL;
 public:
-        Matrix(const short, const short);
+        Matrix(const short r, const short c);
         Matrix(const Matrix&);
        ~Matrix();
     short rows() const { return _rows; };
@@ -19,7 +21,7 @@ public:
     Matrix& operator = (const Matrix&);
 };
 
-Matrix::Matrix (const short r = 0, const short c = 0) : _rows(r), _cols(c) {
+Matrix::Matrix (const short r, const short c) : _rows(r), _cols(c) {
     elems = new double*[_rows];
     for (int r = 0; r < _rows; r++)
         elems[r] = new double[_cols]; 
@@ -37,20 +39,20 @@ Matrix::Matrix(const Matrix &p) : _rows(p._rows), _cols(p._cols) {
 
 Matrix::~Matrix() {
     for (int r = 0; r < _rows; r++)
-        delete[] elems[r];
+        if (elems != NULL) delete[] elems[r];
     delete[] elems;
 }
 
 double& Matrix::operator() (const short row, const short col) {
     static double dummy = 0.0;
-    return (row >= 1 && row <= _rows && col >= 1 && col <= _cols)
+    return (row >= 1 && row <= _rows && col >= 1 && col <= _cols && elems != NULL)
         ? elems[row - 1][col - 1]
         : dummy;
 }
 
 double Matrix::elem(short row, short col) const {
     static double dummy = 0.0;
-    return (row >= 1 && row <= _rows && col >= 1 && col <= _cols)
+    return (row >= 1 && row <= _rows && col >= 1 && col <= _cols && elems != NULL)
         ? elems[row - 1][col - 1]
         : dummy;
 }
@@ -110,7 +112,7 @@ Matrix operator - (const Matrix &p, const Matrix &q) {
 
 Matrix operator * (const Matrix &p, const Matrix &q) {
     Matrix m(p.rows(), q.cols());
-    
+
     if (p.cols() != q.rows()) 
         return m;
 
@@ -158,8 +160,9 @@ inline bool isSquareMatrix(const Matrix &p) {
 
 double trace(const Matrix &p) {
     double trace = 0;
-    for (int i = 1; i <= p.cols(); i++)
+    for (int i = 1; i <= p.rows(); i++)
         trace += p.elem(i, i);
+
     return trace;
 }
 
@@ -181,16 +184,16 @@ double det(const Matrix &p) {
     if (!isSquareMatrix(p))
         return 0.0;
 
-    if (p.rows() == 1 && p.rows() == 1)
+    if (p.rows() == 1)          // 1 x 1 Matrix
         return p.elem(1, 1);
 
-    if (p.rows() == 2 && p.cols() == 2)
+    if (p.rows() == 2)          // 2 x 2 Matrix
         return p.elem(1, 1)*p.elem(2, 2) - p.elem(1, 2)*p.elem(2, 1);
 
-    double Sum = 0;
+    double Sum = 0;             // n x n Matrix
     for (int c = 1, sign = 1; c <= p.cols(); c++, sign *= -1)
-        Sum += p.elem(1, c) * det(subMatrix(p, c)) * sign;
-
+        Sum += p.elem(1, c)*det(subMatrix(p, c))*sign;
+        
     return Sum;
 }
 
@@ -207,14 +210,11 @@ Matrix pow(const Matrix &p, int exponent) {
     if (!isSquareMatrix(p)) return dummy;
 
     Matrix pow_matrix = identity_matrix(p.rows());
-    if (exponent = 0) return p;
+    if (exponent == 0) return pow_matrix;
 
-    for (int i = 0; i < exponent; i++) {
-        Matrix result = pow_matrix * p;
-        pow_matrix = result;
-    }
+    if (exponent == 1) return p;
 
-    return pow_matrix;
+    return pow(p, exponent-1)*p;
 }
 
 Matrix transpose(const Matrix &p) {
@@ -229,7 +229,7 @@ Matrix transpose(const Matrix &p) {
 
 Matrix minor(const Matrix &p, int row, int col) {
     Matrix matrix(p.rows() - 1, p.cols() - 1);
-    // Really bad code
+    // Bad code
     for (int r = 1; r <= p.rows(); r++) {
         if (r < row)
             for (int c = 1; c <= p.cols(); c++) {
@@ -266,4 +266,32 @@ Matrix adj(const Matrix &p) {
 
 Matrix inverse(const Matrix &p) {
     return 1/det(p)*adj(p);
+}
+
+Polynomial char_poly(const Matrix &p) {
+    Polynomial dummy(0);
+    if (!isSquareMatrix(p)) return dummy;
+
+    int n = p.rows();
+    Polynomial char_poly(n);
+
+    if (p.rows() == 2) {        // 2 x 2 Matrix        
+        char_poly(2) = 1;  char_poly(1) = -trace(p);  char_poly(0) = det(p);
+        return char_poly;
+    }
+
+    char_poly(n) = 1; 
+    char_poly(0) = pow(-1, n)*det(p);
+    std::vector<int> coeffs; coeffs.push_back(1);
+    for (int m = 1; m < n; m++) {
+        double Sum = 0;
+        for (int k = 1; k <= m; k++)
+            Sum += coeffs[k-1]*(trace(pow(p, m-k+1)));
+
+        double c_k = -Sum/m;
+        coeffs.push_back(c_k);
+        char_poly(n-m) = c_k;
+    }
+
+    return char_poly;
 }
