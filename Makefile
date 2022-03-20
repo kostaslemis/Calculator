@@ -1,14 +1,27 @@
-COMPILER = g++
-
 PROGRAM = Matrix
 
+IncludePath = includes
+
+ModulePath = modules
+
+TestPath = tests
+
+COMPILER = g++
+
 run:
-	$(COMPILER) $(PROGRAM).cpp -o $(PROGRAM)
+	$(COMPILER) $(ModulePath)/$(PROGRAM).cpp -o $(PROGRAM) -I $(IncludePath)
 	./$(PROGRAM)
 
+test:
+	$(COMPILER) $(TestPath)/$(PROGRAM)_test.cpp -o $(PROGRAM)_test -I $(IncludePath)
+	./$(PROGRAM)_test
+
 valgrind:
-	$(COMPILER) $(PROGRAM).cpp -o $(PROGRAM)
-	valgrind $(PROGRAM)
+	$(COMPILER) $(ModulePath)/$(PROGRAM).cpp -o $(PROGRAM) -I $(IncludePath)
+	valgrind ./$(PROGRAM)
 
 clean:
 	rm $(PROGRAM)
+
+clean_test:
+	rm $(PROGRAM)_test

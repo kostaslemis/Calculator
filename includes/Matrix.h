@@ -7,21 +7,21 @@
 class Matrix
 {
 private:
-    const short _rows;
-    const short _cols;
+    const int _rows;
+    const int _cols;
     double **elems = NULL;
 public:
-        Matrix(const short r, const short c);
+        Matrix(const int r, const int c);
         Matrix(const Matrix&);
        ~Matrix();
-    short rows() const { return _rows; };
-    short cols() const { return _cols; };
-    double& operator() (const short row, const short col);
-    double elem(short row, short col) const;
+    int rows() const { return _rows; };
+    int cols() const { return _cols; };
+    double& operator() (const int row, const int col);
+    double elem(int row, int col) const;
     Matrix& operator = (const Matrix&);
 };
 
-Matrix::Matrix (const short r, const short c) : _rows(r), _cols(c) {
+Matrix::Matrix (const int r, const int c) : _rows(r), _cols(c) {
     elems = new double*[_rows];
     for (int r = 0; r < _rows; r++)
         elems[r] = new double[_cols]; 
@@ -31,6 +31,8 @@ Matrix::Matrix(const Matrix &p) : _rows(p._rows), _cols(p._cols) {
     elems = new double*[_rows];
     for (int r = 0; r < _rows; r++)
         elems[r] = new double[_cols];
+
+    // std::cout << "Matrix constructed by reference" << std::endl;
 
     for (int r = 0; r < _rows; r++)
         for (int c = 0; c < _cols; c++)
@@ -43,14 +45,14 @@ Matrix::~Matrix() {
     delete[] elems;
 }
 
-double& Matrix::operator() (const short row, const short col) {
+double& Matrix::operator() (const int row, const int col) {
     static double dummy = 0.0;
     return (row >= 1 && row <= _rows && col >= 1 && col <= _cols && elems != NULL)
         ? elems[row - 1][col - 1]
         : dummy;
 }
 
-double Matrix::elem(short row, short col) const {
+double Matrix::elem(int row, int col) const {
     static double dummy = 0.0;
     return (row >= 1 && row <= _rows && col >= 1 && col <= _cols && elems != NULL)
         ? elems[row - 1][col - 1]
@@ -110,8 +112,11 @@ Matrix operator - (const Matrix &p, const Matrix &q) {
     return matrix;
 }
 
-Matrix operator * (const Matrix &p, const Matrix &q) {
+Matrix operator * (const Matrix p, const Matrix q) {
     Matrix m(p.rows(), q.cols());
+    for (int r = 1; r <= p.rows(); r++)
+        for (int c = 1; c <= p.cols(); c++)
+            m(r, c) = 0;
 
     if (p.cols() != q.rows()) 
         return m;
@@ -199,22 +204,26 @@ double det(const Matrix &p) {
 
 Matrix identity_matrix(int n) {
     Matrix I(n, n);
-    for (int i = 1; i <= n; i++)
-        I(i, i) = 1;
-    
+    for (int r = 1; r <= n; r++)
+        for (int c = 1; c <= n; c++)
+            I(r,c) = r == c ? 1 : 0;
+
     return I;
 }
 
-Matrix pow(const Matrix &p, int exponent) {
+Matrix pow(const Matrix p, int exponent) {
     Matrix dummy(0, 0);
     if (!isSquareMatrix(p)) return dummy;
 
     Matrix pow_matrix = identity_matrix(p.rows());
     if (exponent == 0) return pow_matrix;
 
-    if (exponent == 1) return p;
+    for (int i = 0; i < exponent; i++) {
+        Matrix result = pow_matrix*p;
+        pow_matrix = result;
+    }
 
-    return pow(p, exponent-1)*p;
+    return pow_matrix;
 }
 
 Matrix transpose(const Matrix &p) {
