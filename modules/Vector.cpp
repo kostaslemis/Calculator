@@ -1,4 +1,4 @@
-#include "Vector.h"
+#include "Vector.h"     // TO DO : Throw Exceptions
 
 
 Vector::Vector(const int size) : _size(size) {

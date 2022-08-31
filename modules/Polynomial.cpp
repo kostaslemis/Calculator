@@ -1,4 +1,4 @@
-#include <cmath>
+#include <cmath>    // TO DO : Throw Exceptions
 
 #include "Polynomial.h"
 

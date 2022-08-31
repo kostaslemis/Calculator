@@ -1,15 +1,20 @@
-PROGRAM = Matrix
+PROGRAM = example
 
 IncludePath = includes
-
 ModulePath = modules
-
 TestPath = tests
+
+Matrix = $(ModulePath)/Matrix.cpp $(ModulePath)/Matrix_Operations.cpp
+Vector = $(ModulePath)/Vector.cpp $(ModulePath)/Vector_Operations.cpp
+Polynomial = $(ModulePath)/Polynomial.cpp $(ModulePath)/Polynomial_Operations.cpp
+
+Calculator = $(Matrix) $(Vector) $(Polynomial)
 
 COMPILER = g++
 
+
 run:
-	$(COMPILER) $(ModulePath)/$(PROGRAM).cpp -o $(PROGRAM) -I $(IncludePath)
+	$(COMPILER) $(PROGRAM).cpp $(Calculator) -o $(PROGRAM) -I $(IncludePath)
 	./$(PROGRAM)
 
 test:

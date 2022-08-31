@@ -1,4 +1,4 @@
-#include <Matrix.h>
+#include <Matrix.h>     // TO DO : Throw Exceptions
 
 
 Matrix::Matrix (const int r, const int c) : _rows(r), _cols(c) {
@@ -76,7 +76,7 @@ double Matrix::elem(int row, int col) const {
 std::ostream& operator << (std::ostream& os, const Matrix& matrix) {
     for (int r = 0; r < matrix._rows; r++) {
         for (int c = 0; c < matrix._cols; c++)
-            os << matrix._elements[r, c] << "  ";
+            os << matrix._elements[r][c] << "  ";
         os << std::endl;
     }
 
