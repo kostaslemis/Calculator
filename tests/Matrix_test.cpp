@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "acutest.h"
-#include "Matrix.h"
+#include "Matrix_Operations.h"
 
 
 void test_det(void) {
@@ -25,6 +25,6 @@ void test_det(void) {
 
 
 TEST_LIST = {
-    { "Determinant", test_det},
+    { "test_det", test_det},
     { NULL, NULL }
 };
