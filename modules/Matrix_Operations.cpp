@@ -153,7 +153,7 @@ Matrix pow(const Matrix& p, const int exponent) {
         return new_matrix;
 
     for (int i = 0; i < exponent; i++) {
-        Matrix result = new_matrix*p;
+        Matrix result = new_matrix * p;
         new_matrix = result;
     }
 
@@ -256,6 +256,23 @@ Vector get_col(const Matrix& matrix, const int col) {
         vector_col.insert_last(matrix.elem(r, col));
 
     return vector_col;
+}
+
+unsigned int factorial(unsigned int n) {
+    if (n == 0 || n == 1)
+        return 1;
+    return n * factorial(n - 1);
+}
+
+Matrix exp(const Matrix& matrix) {
+    Matrix exp_matrix(matrix.rows(), matrix.cols());
+    
+    for (int i = 0; i < 10; i++) {
+        Matrix pow_matrix = pow(matrix, i);
+        exp_matrix = exp_matrix + 1.0/factorial(i)*pow_matrix;
+    }
+
+    return exp_matrix;
 }
 
 // Matrix echelon_form(const Matrix& matrix) {
