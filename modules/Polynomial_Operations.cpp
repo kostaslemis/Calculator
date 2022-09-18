@@ -7,11 +7,11 @@ static int max(int a, int b) {
     return  a > b ? a : b;
 }
 
-double find_random_root(const Polynomial& p, const int accuracy) {
+double find_random_root(const Polynomial &p, unsigned int accuracy) {
     return 0.0;
 }
 
-Vector linear_formula(const Polynomial& polynomial) {
+Vector linear_formula(const Polynomial &polynomial) {
     Vector dummy(0);
     if (polynomial.coeff(1) == 0)
         return dummy;
@@ -23,7 +23,7 @@ Vector linear_formula(const Polynomial& polynomial) {
     return root;
 }
 
-Vector quantratic_formula(const Polynomial& polynomial) {
+Vector quantratic_formula(const Polynomial &polynomial) {
     if (polynomial.coeff(2) == 0)
         return linear_formula(polynomial);
 
@@ -38,7 +38,7 @@ Vector quantratic_formula(const Polynomial& polynomial) {
     return roots;
 }
 
-Vector roots(const Polynomial& polynomial) {
+Vector roots(const Polynomial &polynomial) {
     if (polynomial.degree() == 2)
         return quantratic_formula(polynomial);
 
@@ -46,7 +46,7 @@ Vector roots(const Polynomial& polynomial) {
     return dummy;
 }
 
-Polynomial operator + (const Polynomial& p, const Polynomial& q) {
+Polynomial operator+(const Polynomial &p, const Polynomial &q) {
     int degree = max(p.degree(), q.degree());
     Polynomial new_polynomial(degree);
 
@@ -56,7 +56,7 @@ Polynomial operator + (const Polynomial& p, const Polynomial& q) {
     return new_polynomial;
 }
 
-Polynomial operator - (const Polynomial& p, const Polynomial& q) {
+Polynomial operator-(const Polynomial &p, const Polynomial &q) {
     int degree = max(p.degree(), q.degree());
     Polynomial new_polynomial(degree);
 
@@ -66,7 +66,7 @@ Polynomial operator - (const Polynomial& p, const Polynomial& q) {
     return new_polynomial;
 }
 
-Polynomial operator * (const Polynomial &p, const Polynomial &q) {
+Polynomial operator*(const Polynomial &p, const Polynomial &q) {
     int degree = p.degree() + q.degree();
     Polynomial new_polynomial(degree);
 
@@ -86,7 +86,7 @@ Polynomial operator * (const Polynomial &p, const Polynomial &q) {
     return new_polynomial;
 }
 
-Polynomial operator * (const double k, const Polynomial& polynomial) {
+Polynomial operator*(double k, const Polynomial &polynomial) {
     Polynomial new_polynomial(polynomial.degree());
 
     for (int n = 0; n <= polynomial.degree(); n++)
@@ -96,7 +96,7 @@ Polynomial operator * (const double k, const Polynomial& polynomial) {
 }
 
 
-bool operator == (const Polynomial &p, const Polynomial &q) {
+bool operator==(const Polynomial &p, const Polynomial &q) {
     int degree = max(p.degree(), q.degree());
 
     for (int n = 0; n <= degree; n++)
@@ -110,7 +110,7 @@ bool operator == (const Polynomial &p, const Polynomial &q) {
 
 // }
 
-bool operator != (const Polynomial &p, const Polynomial &q) {
+bool operator!=(const Polynomial &p, const Polynomial &q) {
     int degree = max(p.degree(), q.degree());
     
     for (int n = 0; n <= degree; n++)
@@ -120,7 +120,7 @@ bool operator != (const Polynomial &p, const Polynomial &q) {
     return true;
 }
 
-Polynomial derivative(const Polynomial& polynomial) {
+Polynomial derivative(const Polynomial &polynomial) {
     Polynomial new_polynomial(polynomial.degree()-1);
 
     for (int n = polynomial.degree(); n >= 1; n--)
@@ -129,7 +129,7 @@ Polynomial derivative(const Polynomial& polynomial) {
     return new_polynomial;
 }
 
-Polynomial anti_derivative(const Polynomial& polynomial) {
+Polynomial anti_derivative(const Polynomial &polynomial) {
     Polynomial new_polynomial(polynomial.degree() + 1);
 
     for (int n = polynomial.degree(); n >= 0; n--)
@@ -138,7 +138,7 @@ Polynomial anti_derivative(const Polynomial& polynomial) {
     return new_polynomial;
 }
 
-double integral(const Polynomial& polynomial, const int a, const int b) {
+double integral(const Polynomial &polynomial, double a, double b) {
     Polynomial new_polynomial = anti_derivative(polynomial);
 
     return new_polynomial.P_x(b) - new_polynomial.P_x(a);

@@ -3,14 +3,14 @@
 #include "Polynomial.h"
 
 
-Polynomial::Polynomial(const int degree) : _degree(degree) {
+Polynomial::Polynomial(unsigned int degree) : _degree(degree) {
     _coefficients = new double[_degree + 1];
 
     for (int i = 0; i <= _degree; i++)
         _coefficients[i] = 0;
 }
 
-Polynomial::Polynomial(const Polynomial& polynomial) : _degree(polynomial._degree) {
+Polynomial::Polynomial(const Polynomial &polynomial) : _degree(polynomial._degree) {
     _coefficients = new double[_degree + 1];
 
     for (int i = 0; i <= _degree; i++)
@@ -21,7 +21,7 @@ Polynomial::~Polynomial() {
     delete[] _coefficients;
 }
 
-Polynomial& Polynomial::operator = (const Polynomial& polynomial) {
+Polynomial &Polynomial::operator=(const Polynomial& polynomial) {
     if (_coefficients == NULL)
         _coefficients = new double[polynomial._degree + 1];
 
@@ -32,7 +32,7 @@ Polynomial& Polynomial::operator = (const Polynomial& polynomial) {
 }
 
 
-void Polynomial::scan_polynomial(const std::string& polynomial) {
+void Polynomial::scan_polynomial(const std::string &string) {
 
 }
 
@@ -41,7 +41,7 @@ int Polynomial::degree() const {
 };
 
 
-double& Polynomial::operator() (const int n) {
+double &Polynomial::operator()(unsigned int n) {
     static double dummy = 0.0;
     if (_coefficients == NULL)
         return dummy;
@@ -51,7 +51,7 @@ double& Polynomial::operator() (const int n) {
         : dummy;
 }
 
-double Polynomial::coeff(const int n) const {
+double Polynomial::coeff(unsigned int n) const {
     static double dummy = 0.0;
     if (_coefficients == NULL)
         return dummy;
@@ -68,37 +68,37 @@ void sign(double number) {
         std::cout << " - ";
 }
 
-std::ostream& operator << (std::ostream& os, const Polynomial& p) {
-    int degree = p.degree();
+std::ostream &operator<<(std::ostream &os, const Polynomial &polynomial) {
+    int degree = polynomial.degree();
 
-    if (abs(p.coeff(degree)) > 1)
-        os << p.coeff(degree)<<"x^"<<degree;
-    else if (p.coeff(degree) == -1)
+    if (abs(polynomial.coeff(degree)) > 1)
+        os << polynomial.coeff(degree)<<"x^"<<degree;
+    else if (polynomial.coeff(degree) == -1)
         os << "-x^"<<degree;
-    else if (p.coeff(degree) == 1)
+    else if (polynomial.coeff(degree) == 1)
         os << "x^"<<degree;
 
     for (int n = degree-1; n > 1; n--) {
-        if (abs(p.coeff(n)) > 1) {
-            sign(p.coeff(n));
-            os << abs(p.coeff(n))<<"x^"<<n;
-        } else if (abs(p.coeff(n)) == 1) {
-            sign(p.coeff(n));
+        if (abs(polynomial.coeff(n)) > 1) {
+            sign(polynomial.coeff(n));
+            os << abs(polynomial.coeff(n))<<"x^"<<n;
+        } else if (abs(polynomial.coeff(n)) == 1) {
+            sign(polynomial.coeff(n));
             os << "x^"<<n;
         }    
     }
     
-    if (abs(p.coeff(1)) > 1) {
-        sign(p.coeff(1));
-        os << abs(p.coeff(1))<<"x"; 
-    } else if (p.coeff(1) == 1) {
-        sign(p.coeff(1));
+    if (abs(polynomial.coeff(1)) > 1) {
+        sign(polynomial.coeff(1));
+        os << abs(polynomial.coeff(1))<<"x"; 
+    } else if (polynomial.coeff(1) == 1) {
+        sign(polynomial.coeff(1));
         os << "x";
     }
 
-    if (p.coeff(0) != 0) {
-        sign(p.coeff(0));
-        os << abs(p.coeff(0));
+    if (polynomial.coeff(0) != 0) {
+        sign(polynomial.coeff(0));
+        os << abs(polynomial.coeff(0));
     }
 
     os << std::endl;
@@ -106,7 +106,7 @@ std::ostream& operator << (std::ostream& os, const Polynomial& p) {
     return os;
 }
 
-double Polynomial::P_x(const double x) {
+double Polynomial::P_x(double x) {
     _x = x;
     double _P_x = 0.0;
 

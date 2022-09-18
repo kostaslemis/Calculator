@@ -3,11 +3,11 @@
 #include "Matrix_Operations.h"
 
 
-bool equal_size(const Vector& v, const Vector& u) {
+bool equal_size(const Vector &v, const Vector &u) {
     return v.size() == u.size();
 }
 
-Vector operator + (const Vector& v, const Vector& u) {
+Vector operator+(const Vector &v, const Vector &u) {
     Vector new_vector(v.size());
     if (!equal_size(v, u))
         return new_vector;
@@ -18,7 +18,7 @@ Vector operator + (const Vector& v, const Vector& u) {
     return new_vector; 
 }
 
-Vector operator - (const Vector& v, const Vector& u) {
+Vector operator-(const Vector &v, const Vector &u) {
     Vector new_vector(v.size());
     if (!equal_size(v, u))
         return new_vector;
@@ -29,7 +29,7 @@ Vector operator - (const Vector& v, const Vector& u) {
     return new_vector; 
 }
 
-Vector operator * (double k, const Vector& v) {
+Vector operator*(double k, const Vector &v) {
     Vector new_vector(v.size());
 
     for (int i = 1; i <= v.size(); i++)
@@ -38,7 +38,7 @@ Vector operator * (double k, const Vector& v) {
     return new_vector;
 }
 
-bool operator == (const Vector& v, const Vector& u) {
+bool operator==(const Vector &v, const Vector &u) {
     if (!equal_size(v, u))
         return false;
     
@@ -49,7 +49,7 @@ bool operator == (const Vector& v, const Vector& u) {
     return true;
 }
 
-bool operator != (const Vector& v, const Vector& u) {
+bool operator!=(const Vector &v, const Vector &u) {
     if (!equal_size(v, u))
         return true;
 
@@ -60,7 +60,7 @@ bool operator != (const Vector& v, const Vector& u) {
     return true;
 }
 
-double dot_product(const Vector& v, const Vector& u) {
+double dot_product(const Vector &v, const Vector &u) {
     double sum = 0.0;
     if (!equal_size(v, u))
         return sum;
@@ -71,7 +71,7 @@ double dot_product(const Vector& v, const Vector& u) {
     return sum;
 }
 
-Vector cross_product(const Vector& u, const Vector& v) {
+Vector cross_product(const Vector &u, const Vector &v) {
     Vector new_vector(u.size());
     if (!equal_size(u, v))
         return new_vector;
@@ -89,7 +89,7 @@ Vector cross_product(const Vector& u, const Vector& v) {
     return new_vector;
 }
 
-Vector tensor_product(const Vector& v, const Vector& u) {
+Vector tensor_product(const Vector &v, const Vector &u) {
     Vector new_vector(v.size() * u.size());
 
     for (int i = 1, j = 1, k = 1; i <= new_vector.size(); i++, k++) {
@@ -104,7 +104,7 @@ Vector tensor_product(const Vector& v, const Vector& u) {
     return new_vector;
 }
 
-double vector_length(const Vector& vector) {
+double vector_length(const Vector &vector) {
     double sum = 0.0;
 
     for (int i = 1; i <= vector.size(); i++)

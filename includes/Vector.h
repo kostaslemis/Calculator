@@ -9,23 +9,23 @@
 
 class Vector {
     private:
-        int _size;
-        int _capacity;
+        unsigned int _size;
+        unsigned int _capacity;
         double* _elements;
     public:
-            Vector(const int size);
-            Vector(const Vector& vector);
+            Vector(unsigned int size);
+            Vector(const Vector &vector);
            ~Vector();
-        Vector& operator = (const Vector& vector);
-        void scan_vector(const std::string& string);
+        Vector &operator= (const Vector &vector);
+        void scan_vector(const std::string &string);
 
-        int size() const;
+        unsigned int size() const;
 
-        double& operator () (const int i);
-        double elem(const int i) const;
+        double &operator()(unsigned int i);
+        double elem(unsigned int i) const;
 
-        friend std::ostream& operator << (std::ostream& os, const Vector& vector);
+        friend std::ostream &operator<<(std::ostream &os, const Vector &vector);
 
-        void insert_last(const double new_value);
+        void insert_last(double new_value);
         void remove_last();
 };

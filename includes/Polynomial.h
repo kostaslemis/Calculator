@@ -9,18 +9,18 @@ class Polynomial {
         const int _degree;
         double* _coefficients;
     public:
-            Polynomial(const int degree);
-            Polynomial(const Polynomial& polynomial);
+            Polynomial(unsigned int degree);
+            Polynomial(const Polynomial &polynomial);
            ~Polynomial();
-        Polynomial& operator = (const Polynomial& polynomial);
-        void scan_polynomial(const std::string& string);
+        Polynomial &operator=(const Polynomial &polynomial);
+        void scan_polynomial(const std::string &string);
 
         int degree() const;
 
-        double& operator () (const int n);
-        double coeff(const int n) const;
+        double& operator()(unsigned int n);
+        double coeff(unsigned int n) const;
 
-        friend std::ostream& operator << (std::ostream& os, const Polynomial& polynomial);
+        friend std::ostream &operator<<(std::ostream &os, const Polynomial &polynomial);
 
-        double P_x(const double x);
+        double P_x(double x);
 };

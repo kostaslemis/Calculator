@@ -1,7 +1,7 @@
 #include "Vector.h"     // TO DO : Throw Exceptions
 
 
-Vector::Vector(const int size) : _size(size) {
+Vector::Vector(unsigned int size) : _size(size) {
     _capacity = _size < VECTOR_MIN_CAPACITY ? VECTOR_MIN_CAPACITY : _size;
     _elements = new double[_capacity];
 
@@ -9,7 +9,7 @@ Vector::Vector(const int size) : _size(size) {
         _elements[i] = 0;
 }
 
-Vector::Vector(const Vector& vector) : _size(vector._size) {
+Vector::Vector(const Vector &vector) : _size(vector._size) {
     _elements = new double[vector._capacity];
 
     for (int i = 0; i < _size; i++)
@@ -20,7 +20,7 @@ Vector::~Vector() {
     delete[] _elements;
 }
 
-Vector& Vector::operator = (const Vector& vector) {
+Vector &Vector::operator=(const Vector &vector) {
     if (_elements == NULL)
         _elements = new double[vector._capacity];
 
@@ -30,15 +30,15 @@ Vector& Vector::operator = (const Vector& vector) {
     return *this;
 }
 
-void Vector::scan_vector(const std::string& string) {
+void Vector::scan_vector(const std::string &string) {
 
 }
 
-int Vector::size() const {
+unsigned Vector::size() const {
     return _size;
 }
 
-double& Vector::operator () (const int i) {
+double &Vector::operator()(unsigned int i) {
     static double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -48,7 +48,7 @@ double& Vector::operator () (const int i) {
         : dummy;
 }
 
-double Vector::elem(const int i) const {
+double Vector::elem(unsigned int i) const {
     static double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -58,7 +58,7 @@ double Vector::elem(const int i) const {
         : dummy;
 }
 
-std::ostream& operator << (std::ostream& os, const Vector& vector) {
+std::ostream &operator<<(std::ostream &os, const Vector &vector) {
     os << "(";
     for (int i = 0; i < vector._size - 1; i++)
         os << vector._elements[i] << ", ";
@@ -68,7 +68,7 @@ std::ostream& operator << (std::ostream& os, const Vector& vector) {
     return os;
 }
 
-void Vector::insert_last(const double new_value) {
+void Vector::insert_last(double new_value) {
 	// Μεγαλώνουμε τον πίνακα, ώστε να χωράει τουλάχιστον size στοιχεία
 	if (_capacity == _size) {
 		_capacity *= 2;

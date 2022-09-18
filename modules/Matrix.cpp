@@ -1,7 +1,7 @@
 #include <Matrix.h>     // TO DO : Throw Exceptions
 
 
-Matrix::Matrix (const int r, const int c) : _rows(r), _cols(c) {
+Matrix::Matrix(unsigned int r, unsigned int c) : _rows(r), _cols(c) {
     _elements = new double*[_rows];
     for (int r = 0; r < _rows; r++)
         _elements[r] = new double[_cols];
@@ -11,7 +11,7 @@ Matrix::Matrix (const int r, const int c) : _rows(r), _cols(c) {
             _elements[r][c] = 0;
 }
 
-Matrix::Matrix(const Matrix& matrix) : _rows(matrix._rows), _cols(matrix._cols) {
+Matrix::Matrix(const Matrix &matrix) : _rows(matrix._rows), _cols(matrix._cols) {
     _elements = new double*[_rows];
     for (int r = 0; r < _rows; r++)
         _elements[r] = new double[_cols];
@@ -27,7 +27,7 @@ Matrix::~Matrix() {
     delete[] _elements;
 }
 
-Matrix& Matrix::operator = (const Matrix& matrix) {
+Matrix &Matrix::operator=(const Matrix &matrix) {
     if (_elements == NULL) {
         _elements = new double*[matrix._rows];
         for (int r = 0; r < _rows; r++)
@@ -41,19 +41,19 @@ Matrix& Matrix::operator = (const Matrix& matrix) {
     return *this;
 }
 
-void Matrix::scan_matrix(const std::string& string) {
+void Matrix::scan_matrix(const std::string &string) {
 
 }
 
-int Matrix::rows() const {
+unsigned int Matrix::rows() const {
     return _rows;
 }
 
-int Matrix::cols() const {
+unsigned int Matrix::cols() const {
     return _cols;
 }
 
-double& Matrix::operator() (const int row, const int col) {
+double &Matrix::operator()(unsigned int row, unsigned int col) {
     static double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -63,7 +63,7 @@ double& Matrix::operator() (const int row, const int col) {
         : dummy;
 }
 
-double Matrix::elem(int row, int col) const {
+double Matrix::elem(unsigned int row, unsigned int col) const {
     static double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -73,7 +73,7 @@ double Matrix::elem(int row, int col) const {
         : dummy;
 }
 
-std::ostream& operator << (std::ostream& os, const Matrix& matrix) {
+std::ostream &operator<<(std::ostream &os, const Matrix &matrix) {
     for (int r = 0; r < matrix._rows; r++) {
         for (int c = 0; c < matrix._cols; c++)
             os << matrix._elements[r][c] << "  ";
@@ -84,7 +84,7 @@ std::ostream& operator << (std::ostream& os, const Matrix& matrix) {
 }
 
 // row_a <-> row_b : swap row_a with row_b
-void Matrix::swap(const int row_a, const int row_b) {
+void Matrix::swap(unsigned int row_a, unsigned int row_b) {
     // Check row_a and row_b
 
     // temp_row <= row_a
@@ -104,7 +104,7 @@ void Matrix::swap(const int row_a, const int row_b) {
 }              
 
 // k * row : multiply row with k
-void Matrix::scalar(const double k, const int row) {
+void Matrix::scalar(double k, unsigned int row) {
     // Check row and k != 0
 
     for (int c = 0; c < _cols; c++)
@@ -112,7 +112,7 @@ void Matrix::scalar(const double k, const int row) {
 }
 
 // row_b <= k*row_a + row_b : replace row_b by the sum of itself and a multiple of row_a
-void Matrix::pivot(const double k, const int row_a, const int row_b) {
+void Matrix::pivot(double k, unsigned int row_a, unsigned int row_b) {
     // Check row_a and row_b - k != 0
 
     for (int c = 0; c < _cols; c++)

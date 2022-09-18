@@ -5,50 +5,50 @@
 #include "Vector.h"
 
 
-bool equal_dimensions(const Matrix& p, const Matrix& q);
+bool equal_dimensions(const Matrix &A, const Matrix &B);
 
-bool square_matrix(const Matrix& matrix);
+bool square_matrix(const Matrix &matrix);
 
-bool diagonal_matrix(const Matrix& matrix);
+bool diagonal_matrix(const Matrix &matrix);
 
-Matrix operator + (const Matrix& p, const Matrix& q);
+Matrix operator+(const Matrix &A, const Matrix &B);
 
-Matrix operator - (const Matrix& p, const Matrix& q);
+Matrix operator-(const Matrix &A, const Matrix &B);
 
-Matrix operator * (const Matrix& p, const Matrix& q);
+Matrix operator*(const Matrix &A, const Matrix &B);
 
-Matrix operator * (const double k, const Matrix& p);
+Matrix operator*(double k, const Matrix &matrix);
 
-bool operator == (const Matrix& p, const Matrix& q);
+bool operator==(const Matrix &A, const Matrix &B);
 
-bool operator != (const Matrix& p, const Matrix& q);
+bool operator!=(const Matrix &A, const Matrix &B);
 
-double trace(const Matrix& matrix);
+double trace(const Matrix &matrix);
 
-Matrix sub_matrix(const Matrix& matrix, const int col);
+Matrix sub_matrix(const Matrix &matrix, unsigned int col);
 
-double det(const Matrix matrix);
+double det(const Matrix &matrix);
 
-Matrix identity_matrix(const int n);
+Matrix identity_matrix(unsigned int n);
 
-Matrix pow(const Matrix& p, const int exponent);
+Matrix pow(const Matrix &matrix, unsigned int exponent);
 
-Matrix transpose(const Matrix& matrix);
+Matrix transpose(const Matrix &matrix);
 
-Matrix minor(const Matrix& matrix, const int row, const int col);
+Matrix minor(const Matrix &matrix, unsigned int row, unsigned int col);
 
-Matrix cofactor(const Matrix& matrix);
+Matrix cofactor(const Matrix &matrix);
 
-Matrix adj(const Matrix& matrix);
+Matrix adj(const Matrix &matrix);
 
-Matrix inverse(const Matrix& matrix);
+Matrix inverse(const Matrix &matrix);
 
 // Faddeev–LeVerrier Algorithm - https://en.wikipedia.org/wiki/Faddeev%E2%80%93LeVerrier_algorithm
-Polynomial characteristic_polynomial(const Matrix& matrix);
+Polynomial characteristic_polynomial(const Matrix &matrix);
 
-Vector get_row(const Matrix& matrix, const int row);
+Vector get_row(const Matrix &matrix, unsigned int row);
 
-Vector get_col(const Matrix& matrix, const int col);
+Vector get_col(const Matrix &matrix, unsigned int col);
 
 // Matrix echelon_form(const Matrix& matrix) {
 

@@ -3,15 +3,15 @@
 #include "Matrix_Operations.h"
 
 
-bool equal_dimensions(const Matrix& p, const Matrix& q) {
-    return p.rows() == q.rows() && p.cols() == q.cols();
+bool equal_dimensions(const Matrix &A, const Matrix &B) {
+    return A.rows() == B.rows() && A.cols() == B.cols();
 }
 
-bool square_matrix(const Matrix& matrix) {
+bool square_matrix(const Matrix &matrix) {
     return matrix.rows() == matrix.cols();
 }
 
-bool diagonal_matrix(const Matrix& matrix) {
+bool diagonal_matrix(const Matrix &matrix) {
     for (int r = 1; r <= matrix.rows(); r++)
         for (int c = 1; c <= matrix.cols(); c++)
             if (r != c && matrix.elem(r, c) != 0)
@@ -20,81 +20,80 @@ bool diagonal_matrix(const Matrix& matrix) {
     return true;
 }
 
-Matrix operator + (const Matrix& p, const Matrix& q) {
-    Matrix new_matrix(p.rows(), q.cols());
-    if (!equal_dimensions(p, q))
+Matrix operator+(const Matrix &A, const Matrix &B) {
+    Matrix new_matrix(A.rows(), B.cols());
+    if (!equal_dimensions(A, B))
         return new_matrix;
         
-    for (int r = 1; r <= p.rows(); r++)
-        for (int c = 1; c <= q.cols(); c++)
-            new_matrix(r, c) = p.elem(r, c) + q.elem(r, c);
+    for (int r = 1; r <= A.rows(); r++)
+        for (int c = 1; c <= B.cols(); c++)
+            new_matrix(r, c) = A.elem(r, c) + B.elem(r, c);
 
     return new_matrix;
 }
 
-Matrix operator - (const Matrix& p, const Matrix& q) {
-    Matrix new_matrix(p.rows(), q.cols());
+Matrix operator-(const Matrix &A, const Matrix &B) {
+    Matrix new_matrix(A.rows(), B.cols());
 
-    if (!equal_dimensions(p, q))
+    if (!equal_dimensions(A, B))
         return new_matrix;
 
-    for (int r = 1; r <= p.rows(); r++)
-        for (int c = 1; c <= q.cols(); c++)
-            new_matrix(r, c) = p.elem(r, c) - q.elem(r, c);
+    for (int r = 1; r <= A.rows(); r++)
+        for (int c = 1; c <= B.cols(); c++)
+            new_matrix(r, c) = A.elem(r, c) - B.elem(r, c);
 
     return new_matrix;
 }
 
-Matrix operator * (const Matrix& p, const Matrix& q) {
-    Matrix new_matrix(p.rows(), q.cols());
+Matrix operator*(const Matrix &A, const Matrix &B) {
+    Matrix new_matrix(A.rows(), B.cols());
 
-    if (p.cols() != q.rows()) 
+    if (A.cols() != B.rows()) 
         return new_matrix;
 
-    for (int r = 1; r <= p.rows(); r++)
-        for (int c = 1; c <= q.cols(); c++)
-            for (int k = 1; k <= p.cols(); k++)
-                new_matrix(r, c) += p.elem(r, k) * q.elem(k, c);
+    for (int r = 1; r <= A.rows(); r++)
+        for (int c = 1; c <= B.cols(); c++)
+            for (int k = 1; k <= A.cols(); k++)
+                new_matrix(r, c) += A.elem(r, k) * B.elem(k, c);
 
     return new_matrix;
 }
 
-Matrix operator * (const double k, const Matrix& p) {
-    Matrix new_matrix(p.rows(), p.cols());
+Matrix operator*(double k, const Matrix &matrix) {
+    Matrix new_matrix(matrix.rows(), matrix.cols());
 
-    for (int r = 1; r <= p.rows(); r++)
-        for (int c = 1; c <= p.cols(); c++)
-            new_matrix(r, c) = k * p.elem(r, c);
+    for (int r = 1; r <= matrix.rows(); r++)
+        for (int c = 1; c <= matrix.cols(); c++)
+            new_matrix(r, c) = k * matrix.elem(r, c);
   
     return new_matrix;
 }
 
-
-bool operator == (const Matrix& p, const Matrix& q) {
-    if (!equal_dimensions(p, q))
+bool operator==(const Matrix &A, const Matrix &B) {
+    if (!equal_dimensions(A, B))
         return false;
 
-    for (int r = 1; r <= p.rows(); r++)
-        for (int c = 1; c <= p.cols(); c++)
-            if (p.elem(r, c) != q.elem(r, c))
+    for (int r = 1; r <= A.rows(); r++)
+        for (int c = 1; c <= B.cols(); c++)
+            if (A.elem(r, c) != B.elem(r, c))
                 return false;
 
     return true;
 }
 
-bool operator != (const Matrix& p, const Matrix& q) {
-    if (!equal_dimensions(p, q))
+bool operator!=(const Matrix &A, const Matrix &B) {
+    if (!equal_dimensions(A, B))
         return true;
 
-    for (int r = 1; r <= p.rows(); r++)
-        for (int c = 1; c <= p.cols(); c++)
-            if (p.elem(r, c) == p.elem(r, c))
+    for (int r = 1; r <= A.rows(); r++)
+        for (int c = 1; c <= B.cols(); c++)
+            if (A.elem(r, c) == B.elem(r, c))
                 return false;
 
     return true;
 }
 
-double trace(const Matrix& matrix) {
+double trace(const Matrix &matrix) {
     double trace = 0.0;
     for (int i = 1; i <= matrix.rows(); i++)
         trace += matrix.elem(i, i);
@@ -102,7 +101,7 @@ double trace(const Matrix& matrix) {
     return trace;
 }
 
-Matrix sub_matrix(const Matrix& matrix, const int col) {
+Matrix sub_matrix(const Matrix &matrix, unsigned int col) {
     Matrix new_matrix(matrix.rows() - 1, matrix.cols() - 1);
 
     for (int r = 2; r <= matrix.rows(); r++) {
@@ -117,7 +116,7 @@ Matrix sub_matrix(const Matrix& matrix, const int col) {
     return new_matrix;
 }
 
-double det(const Matrix matrix) {
+double det(const Matrix &matrix) {
     if (!square_matrix(matrix))
         return 0.0;
 
@@ -134,7 +133,7 @@ double det(const Matrix matrix) {
     return sum;
 }
 
-Matrix identity_matrix(const int n) {
+Matrix identity_matrix(unsigned int n) {
     Matrix new_matrix(n, n);
 
     for (int r = 1; r <= n; r++)
@@ -144,23 +143,23 @@ Matrix identity_matrix(const int n) {
     return new_matrix;
 }
 
-Matrix pow(const Matrix& p, const int exponent) {
-    Matrix new_matrix = identity_matrix(p.rows());
-    if (!square_matrix(p))
+Matrix pow(const Matrix &matrix, unsigned int exponent) {
+    Matrix new_matrix = identity_matrix(matrix.rows());
+    if (!square_matrix(matrix))
         return new_matrix;
 
     if (exponent == 0)
         return new_matrix;
 
     for (int i = 0; i < exponent; i++) {
-        Matrix result = new_matrix * p;
+        Matrix result = new_matrix * matrix;
         new_matrix = result;
     }
 
     return new_matrix;
 }
 
-Matrix transpose(const Matrix& matrix) {
+Matrix transpose(const Matrix &matrix) {
     Matrix new_matrix(matrix.cols(), matrix.rows());
 
     for (int r = 1; r <= matrix.rows(); r++)
@@ -170,7 +169,7 @@ Matrix transpose(const Matrix& matrix) {
     return new_matrix;
 }
 
-Matrix minor(const Matrix& matrix, const int row, const int col) {
+Matrix minor(const Matrix &matrix, const int row, const int col) {
     Matrix new_matrix(matrix.rows() - 1, matrix.cols() - 1);
 
     for (int r = 1; r <= matrix.rows(); r++) {
@@ -189,7 +188,7 @@ Matrix minor(const Matrix& matrix, const int row, const int col) {
     return new_matrix; 
 }
 
-Matrix cofactor(const Matrix& matrix) {
+Matrix cofactor(const Matrix &matrix) {
     Matrix new_matrix(matrix.rows(), matrix.cols());
 
     for (int r = 1; r <= matrix.rows(); r++)
@@ -199,15 +198,15 @@ Matrix cofactor(const Matrix& matrix) {
     return new_matrix;
 }
 
-Matrix adj(const Matrix& matrix) {
+Matrix adj(const Matrix &matrix) {
     return transpose(cofactor(matrix));
 }
 
-Matrix inverse(const Matrix& matrix) {
+Matrix inverse(const Matrix &matrix) {
     return 1.0/det(matrix)*adj(matrix);
 }
 
-Polynomial characteristic_polynomial(const Matrix& matrix) {
+Polynomial characteristic_polynomial(const Matrix &matrix) {
     int n = matrix.rows();
     Polynomial char_poly(n);
 
@@ -240,7 +239,7 @@ Polynomial characteristic_polynomial(const Matrix& matrix) {
     return char_poly;
 }
 
-Vector get_row(const Matrix& matrix, const int row) {
+Vector get_row(const Matrix &matrix, unsigned int row) {
     Vector vector_row(0);
 
     for (int c = 1; c <= matrix.cols(); c++)
@@ -249,7 +248,7 @@ Vector get_row(const Matrix& matrix, const int row) {
     return vector_row;
 }
 
-Vector get_col(const Matrix& matrix, const int col) {
+Vector get_col(const Matrix &matrix, unsigned int col) {
     Vector vector_col(0);
 
     for (int r = 1; r <= matrix.rows(); r++)
@@ -264,7 +263,7 @@ unsigned int factorial(unsigned int n) {
     return n * factorial(n - 1);
 }
 
-Matrix exp(const Matrix& matrix) {
+Matrix exp(const Matrix &matrix) {
     Matrix exp_matrix(matrix.rows(), matrix.cols());
     
     for (int i = 0; i < 10; i++) {
