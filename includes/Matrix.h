@@ -22,6 +22,8 @@ class Matrix {
         double elem(unsigned int row, unsigned int col) const;
 
         friend std::ostream &operator<<(std::ostream &os, const Matrix &matrix);
+
+        void operator+=(const Matrix &matrix);
         
         void swap(unsigned int row_a, unsigned int row_b);                
         void scalar(double k, unsigned int row);

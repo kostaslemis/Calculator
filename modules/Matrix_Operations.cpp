@@ -263,13 +263,12 @@ unsigned int factorial(unsigned int n) {
     return n * factorial(n - 1);
 }
 
-Matrix exp(const Matrix &matrix) {
+// e^(At) = Sum_of (t^n/n!)A^n , n from -inf to inf
+Matrix exp(const Matrix &matrix, double t) {
     Matrix exp_matrix(matrix.rows(), matrix.cols());
     
-    for (int i = 0; i < 10; i++) {
-        Matrix pow_matrix = pow(matrix, i);
-        exp_matrix = exp_matrix + 1.0/factorial(i)*pow_matrix;
-    }
+    for (int n = 0; n < 10; n++)
+        exp_matrix = exp_matrix + pow(t, n)/factorial(n)*pow(matrix, n);
 
     return exp_matrix;
 }
