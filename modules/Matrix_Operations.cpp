@@ -273,14 +273,65 @@ Matrix exp(const Matrix &matrix, double t) {
     return exp_matrix;
 }
 
-// Matrix echelon_form(const Matrix& matrix) {
+Matrix format(const Matrix &matrix) {
+    Matrix format_matrix = matrix;
 
-// }
+    int format_rows = 1; 
+    for (int c = 1; c <= format_matrix.cols(); c++) {
+        int pivots = 0;
+        for (int r = format_rows; r <= format_matrix.rows(); r++) {
+            if (format_matrix.elem(r, c) != 0)
+                pivots++;
+        }
 
-// Matrix reduced_echelon_form(const Matrix& matrix) {
+        int format_pivots = 0;
+        for (int r = format_rows; r <= format_matrix.rows(); r++) {
+            if (format_matrix.elem(r, c) == 0)
+                break;
+            format_pivots++;
+        }
 
-// }
+        if (pivots == format_pivots)
+            continue;
 
-// int matrix_rank(const Matrix matrix) {
+        int swaps = 0;
+        for (int r = format_rows + format_pivots; r <= format_matrix.rows(); r++) {
+            if (format_matrix.elem(r, c) != 0) {
+                format_matrix.swap(r, format_rows + format_pivots + swaps);
+                swaps++;
+            }
+        }
 
-// }
+        format_rows += pivots;
+    }
+
+    return format_matrix;
+
+}
+
+Matrix echelon_form(const Matrix &matrix) {
+    Matrix echelon_matrix = format(matrix);
+
+    return echelon_matrix;
+}
+
+Matrix reduced_echelon_form(const Matrix &matrix) {
+    Matrix reduced_echelon_matrix = format(matrix);
+
+    return reduced_echelon_matrix;
+}
+
+int matrix_rank(const Matrix &matrix) {
+    Matrix reduced_echelon_matrix = echelon_form(matrix);
+
+    int rank = 0;
+    for (int r = 1; r <= reduced_echelon_matrix.rows(); r++) {
+        for (int c = 1; c <= reduced_echelon_matrix.cols(); c++) {
+            if (reduced_echelon_matrix.elem(r, c) != 0)
+                continue;
+        }
+        rank++;
+    }
+
+    return rank;
+}

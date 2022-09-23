@@ -3,7 +3,7 @@
 #include "Polynomial_Operations.h"
 
 
-static int max(int a, int b) {
+int max(int a, int b) {
     return  a > b ? a : b;
 }
 
@@ -35,6 +35,11 @@ Vector quantratic_formula(const Polynomial &polynomial) {
     roots(1) = (-b + sqrt_b2_4ac)/_2a;
     roots(2) = (-b - sqrt_b2_4ac)/_2a;
 
+    return roots;
+}
+
+Vector qubic_formula(const Polynomial &polynomial) {
+    Vector roots(2);
     return roots;
 }
 
@@ -106,7 +111,7 @@ bool operator==(const Polynomial &p, const Polynomial &q) {
     return true;
 }
 
-// bool operator == (const Polynomial &p, const std::string& polynomial) {
+// bool operator==(const Polynomial &p, const std::string &string) {
 
 // }
 

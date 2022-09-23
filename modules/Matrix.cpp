@@ -100,7 +100,7 @@ void Matrix::swap(unsigned int row_a, unsigned int row_b) {
     for (int c = 0; c < _cols; c++)
         _elements[row_b - 1][c] = temp_row[c];
 
-    free(temp_row);
+    delete[] temp_row;
 }              
 
 // k * row : multiply row with k
