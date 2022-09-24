@@ -8,20 +8,16 @@ class Fraction {
         int _x, _y;
         double _num;
     public:
-        Fraction(int x, int y);
+            Fraction(int x, int y);
+            Fraction(const Fraction &fraction);
+        Fraction &operator=(const Fraction &fraction);
+        void scan_fraction(const std::string &string);
 
-    int numerator() const { return _x; }
-    int denominator() const { return _y; }
-    double value() const { return _num; }
+        int numerator() const;
+        int denominator() const;
+        double value() const;
+
+        friend std::ostream &operator<<(std::ostream &os, const Fraction &fraction);
+
+        void simplify();
 };
-
-Fraction::Fraction(int x, int y) {
-    _x = x; _y = y;
-    _num = (double)_x/_y;
-} 
-
-std::ostream &operator <<(std::ostream &os, const Fraction &fraction) {
-    os << fraction.numerator() << "/" << fraction.denominator() << std::endl; 
-
-    return os;
-}

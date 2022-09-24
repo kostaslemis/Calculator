@@ -1,6 +1,7 @@
+#include "Fraction_Operations.h"
 #include "Matrix_Operations.h"
-#include "Vector_Operations.h"
 #include "Polynomial_Operations.h"
+#include "Vector_Operations.h"
 
 
 int main() {
@@ -30,6 +31,10 @@ int main() {
     v(1) = 0; v(2) = 1; v(3) = 0;
 
     std::cout << cross_product(u, v) << std::endl;
+
+    Fraction fraction(1, 4);
+    fraction = fraction + fraction;
+    std::cout << fraction << std::endl;
 
     return EXIT_SUCCESS;
 }

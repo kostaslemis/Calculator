@@ -55,8 +55,8 @@ Matrix exp(const Matrix &matrix, double t);
 
 Matrix format(const Matrix &matrix);
 
-// Matrix echelon_form(const Matrix &matrix) {
+Matrix echelon_form(const Matrix &matrix);
 
-// Matrix reduced_echelon_form(const Matrix &matrix);
+Matrix reduced_echelon_form(const Matrix &matrix);
 
-// int matrix_rank(const Matrix &matrix);
+int matrix_rank(const Matrix &matrix);

@@ -4,11 +4,12 @@ IncludePath = includes
 ModulePath = modules
 TestPath = tests
 
+Fraction = $(ModulePath)/Fraction.cpp $(ModulePath)/Fraction_Operations.cpp
 Matrix = $(ModulePath)/Matrix.cpp $(ModulePath)/Matrix_Operations.cpp
-Vector = $(ModulePath)/Vector.cpp $(ModulePath)/Vector_Operations.cpp
 Polynomial = $(ModulePath)/Polynomial.cpp $(ModulePath)/Polynomial_Operations.cpp
+Vector = $(ModulePath)/Vector.cpp $(ModulePath)/Vector_Operations.cpp
 
-Calculator = $(Matrix) $(Vector) $(Polynomial)
+Calculator = $(Fraction) $(Matrix) $(Polynomial) $(Vector)
 
 COMPILER = g++
 
