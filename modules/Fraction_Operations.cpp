@@ -1,5 +1,6 @@
 #include "Fraction_Operations.h"
 
+
 static int gcd(int x, int y) {
     // Base Case
     if (x == y)
@@ -32,46 +33,42 @@ Fraction operator+(const Fraction &a, const Fraction &b) {
 
     if (a.denominator() != b.denominator()) {
         _denominator = lcm(a.denominator(), b.denominator());
-        _numerator = a.numerator()/_denominator + b.numerator()/_denominator;
+        _numerator = a.numerator()*_denominator/a.denominator() + b.numerator()*_denominator/b.denominator();
     }
 
     Fraction new_fraction(_numerator, _denominator);
-    new_fraction.simplify();
-    return new_fraction;
+    return new_fraction.simplify();
 }
 
 Fraction operator+(const Fraction &fraction, int k) {
     int _numerator = fraction.numerator() + k * fraction.denominator();
 
     Fraction new_fraction(_numerator, fraction.denominator());
-    new_fraction.simplify();
-    return new_fraction;
+    return new_fraction.simplify();
 }
 
 Fraction operator-(const Fraction &a, const Fraction &b) {
     int _numerator, _denominator;
     
     if (a.denominator() == b.denominator()) {
-        _numerator = a.numerator() + b.numerator();
+        _numerator = a.numerator() - b.numerator();
         _denominator = a.denominator();
     }
 
     if (a.denominator() != b.denominator()) {
         _denominator = lcm(a.denominator(), b.denominator());
-        _numerator = a.numerator()/_denominator - b.numerator()/_denominator;
+        _numerator = a.numerator()*_denominator/a.denominator() - b.numerator()*_denominator/b.denominator();
     }
 
     Fraction new_fraction(_numerator, _denominator);
-    new_fraction.simplify();
-    return new_fraction;
+    return new_fraction.simplify();
 }
 
 Fraction operator-(const Fraction &fraction, int k) {
     int _numerator = fraction.numerator() - k * fraction.denominator();
 
     Fraction new_fraction(_numerator, fraction.denominator());
-    new_fraction.simplify();
-    return new_fraction;
+    return new_fraction.simplify();
 }
 
 Fraction operator*(const Fraction &a, const Fraction &b) {
@@ -79,16 +76,14 @@ Fraction operator*(const Fraction &a, const Fraction &b) {
     int _denominator = a.denominator() * b.denominator();
 
     Fraction new_fraction(_numerator, _denominator);
-    new_fraction.simplify();
-    return new_fraction;
+    return new_fraction.simplify();
 }
 
 Fraction operator*(int k, const Fraction &fraction) {
     int _numerator = k * fraction.numerator();
 
     Fraction new_fraction(_numerator, fraction.denominator());
-    new_fraction.simplify();
-    return new_fraction;
+    return new_fraction.simplify();
 }
 
 Fraction operator/(const Fraction &a, const Fraction &b) {
@@ -96,16 +91,14 @@ Fraction operator/(const Fraction &a, const Fraction &b) {
     int _denominator = a.denominator() * b.numerator();
 
     Fraction new_fraction(_numerator, _denominator);
-    new_fraction.simplify();
-    return new_fraction;
+    return new_fraction.simplify();
 }
 
 Fraction operator/(const Fraction &fraction, int k) {
     int _denominator = k * fraction.denominator();
 
     Fraction new_fraction(fraction.numerator(), _denominator);
-    new_fraction.simplify();
-    return new_fraction;
+    return new_fraction.simplify();
 }
 
 bool operator==(const Fraction &a, const Fraction &b) {
@@ -114,4 +107,9 @@ bool operator==(const Fraction &a, const Fraction &b) {
 
 bool operator!=(const Fraction &a, const Fraction &b) {
     return a.numerator() != b.numerator() || a.denominator() != b.denominator();
+}
+
+Fraction irreducible_fraction(const Fraction fraction) {
+    Fraction new_fraction = fraction;
+    return new_fraction.simplify();
 }

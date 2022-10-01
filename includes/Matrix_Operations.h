@@ -50,10 +50,10 @@ Vector get_row(const Matrix &matrix, unsigned int row);
 
 Vector get_col(const Matrix &matrix, unsigned int col);
 
-// e^(At) = Sum of (t^n/n!)A^n , n from -inf to inf
+// e^(At) = Sum of (t^n/n!)A^n , n from 0 to inf
 Matrix exp(const Matrix &matrix, double t);
 
-Matrix format(const Matrix &matrix);
+Matrix format_matrix(const Matrix &matrix);
 
 Matrix echelon_form(const Matrix &matrix);
 

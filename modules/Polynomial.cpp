@@ -32,7 +32,7 @@ Polynomial &Polynomial::operator=(const Polynomial& polynomial) {
 }
 
 
-void Polynomial::scan_polynomial(const std::string &string) {
+void Polynomial::scan_polynomial(const char *string) {
 
 }
 

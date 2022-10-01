@@ -13,7 +13,7 @@ class Polynomial {
             Polynomial(const Polynomial &polynomial);
            ~Polynomial();
         Polynomial &operator=(const Polynomial &polynomial);
-        void scan_polynomial(const std::string &string);
+        void scan_polynomial(const char *string);
 
         int degree() const;
 

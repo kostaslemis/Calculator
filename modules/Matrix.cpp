@@ -41,7 +41,7 @@ Matrix &Matrix::operator=(const Matrix &matrix) {
     return *this;
 }
 
-void Matrix::scan_matrix(const std::string &string) {
+void Matrix::scan_matrix(const char *string) {
 
 }
 

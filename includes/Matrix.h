@@ -13,7 +13,7 @@ class Matrix {
             Matrix(const Matrix &matrix);
            ~Matrix();
         Matrix &operator=(const Matrix& matrix);
-        void scan_matrix(const std::string& string);
+        void scan_matrix(const char *string);
 
         unsigned int rows() const;
         unsigned int cols() const;

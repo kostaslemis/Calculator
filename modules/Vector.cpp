@@ -30,7 +30,7 @@ Vector &Vector::operator=(const Vector &vector) {
     return *this;
 }
 
-void Vector::scan_vector(const std::string &string) {
+void Vector::scan_vector(const char *string) {
 
 }
 

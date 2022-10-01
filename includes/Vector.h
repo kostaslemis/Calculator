@@ -17,7 +17,7 @@ class Vector {
             Vector(const Vector &vector);
            ~Vector();
         Vector &operator= (const Vector &vector);
-        void scan_vector(const std::string &string);
+        void scan_vector(const char *string);
 
         unsigned int size() const;
 
