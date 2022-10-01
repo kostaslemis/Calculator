@@ -5,18 +5,18 @@
 
 
 int main() {
-    Matrix a(3, 3);
-    a(1, 1) = 1; a(1, 2) = 2; a(1, 3) = 3;
-    a(2, 1) = 4; a(2, 2) = 2; a(2, 3) = 4;
-    a(3, 1) = 5; a(3, 2) = 6; a(3, 3) = 4;
+    Matrix A(3, 3);
+    A(1, 1) = 1; A(1, 2) = 2; A(1, 3) = 3;
+    A(2, 1) = 4; A(2, 2) = 2; A(2, 3) = 4;
+    A(3, 1) = 5; A(3, 2) = 6; A(3, 3) = 4;
 
-    std::cout << a << std::endl;
-    std::cout << characteristic_polynomial(a) << std::endl;
+    std::cout << A << std::endl;
+    std::cout << characteristic_polynomial(A) << std::endl;
 
-    std::cout << get_row(a, 2) << std::endl;
+    std::cout << get_row(A, 2) << std::endl;
 
-    a.swap(1, 2);
-    std::cout << a << std::endl;
+    A.swap(1, 2);
+    std::cout << A << std::endl;
 
     Polynomial p(2);
     p(2) = 1; p(1) = 0; p(0) = -1;
@@ -32,9 +32,14 @@ int main() {
 
     std::cout << cross_product(u, v) << std::endl;
 
-    Fraction fraction(1, 4);
-    fraction = fraction + fraction;
+    Fraction a(1, 4);
+    Fraction b(1, 3);
+    Fraction fraction = a + b;
     std::cout << fraction << std::endl;
+    
+    Fraction c(1, 12);
+    std::cout << fraction + c << std::endl;
+
 
     return EXIT_SUCCESS;
 }
