@@ -44,53 +44,62 @@ static Vector fraction_regex(const char *string) {
 
 
 Fraction::Fraction(int x, int y) {
-    _x = x; _y = y;
+    _x = x;
+    _y = y;
     _value = (double)_x/(double)_y;
 }
 
 Fraction::Fraction(int x) {
-    _x = x; _y = 1;
+    _x = x;
+    _y = 1;
     _value = (double)_x/(double)_y;
 }
 
 Fraction::Fraction(const char *string) {
     Vector vector = fraction_regex(string);
-    _x = vector(1); _y = vector(2);
+    _x = vector(1);
+    _y = vector(2);
     _value = (double)_x/(double)_y;
 }
 
 Fraction::Fraction(const Fraction &fraction) {
-    _x = fraction._x; _y = fraction._y;
+    _x = fraction._x;
+    _y = fraction._y;
     _value = fraction._value;
 }
 
 Fraction::Fraction() {
-    _x = 0; _y = 1;
+    _x = 0;
+    _y = 1;
     _value = 0;
 }
 
 Fraction &Fraction::operator=(int x) {
-    _x = x; _y = 1;
+    _x = x;
+    _y = 1;
     _value = (double)_x/(double)_y;
     return *this;
 }
 
 Fraction &Fraction::operator=(const char *string) {
     Vector vector = fraction_regex(string);
-    _x = vector(1); _y = vector(2);
+    _x = vector(1);
+    _y = vector(2);
     _value = (double)_x/(double)_y;
     return *this;
 }
 
 Fraction &Fraction::operator=(const Fraction &fraction) {
-    _x = fraction._x; _y = fraction._y;
+    _x = fraction._x;
+    _y = fraction._y;
     _value = fraction._value;
     return *this;
 }
 
 void Fraction::scan_fraction(const char *string) {
     Vector vector = fraction_regex(string);
-    _x = vector(1); _y = vector(2);
+    _x = vector(1);
+    _y = vector(2);
     _value = (double)_x/(double)_y;
 }
 
