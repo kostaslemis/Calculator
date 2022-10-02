@@ -1,4 +1,46 @@
+#include <regex>
+
 #include "Fraction.h"
+#include "Vector.h"
+
+static Vector fraction_regex(const char *string) {
+    std::smatch matches;
+    int i = 0, j = 0, k = 0;
+    
+    std::string str_check = string;
+    std::regex reg_check ("[^-\\d\\/]");
+    while (std::regex_search(str_check, matches, reg_check)) {
+        std::cout << matches.str(1) << std::endl;
+        str_check = matches.suffix().str();
+        i++;
+    }
+
+    std::string str_input = string;
+    std::regex reg_input("((-)?\\d\\/(-)?\\d)");
+    while (std::regex_search(str_input, matches, reg_input)) {
+        str_input = matches.suffix().str();
+        j++;
+    }
+
+    Vector vector(0);
+    std::string str_values = string;
+    std::regex reg_values("((-)?\\d)");
+    while (std::regex_search(str_values, matches, reg_values)) {
+        std::string value = matches.str();
+        vector.insert_last(stoi(value));
+        str_values = matches.suffix().str();
+        k++;
+    }
+
+    if (i > 0 || j != 1 || k != 2) {
+        std::cout << "Invalid input" << std::endl;
+        std::cout << "Follow specific format : \"x/y\"" << std::endl;
+        Vector error_vector(0);
+        return error_vector;
+    }
+
+    return vector;
+}
 
 
 Fraction::Fraction(int x, int y) {
@@ -12,8 +54,8 @@ Fraction::Fraction(int x) {
 }
 
 Fraction::Fraction(const char *string) {
-    std::cout << string << std::endl;
-    _x = 4; _y = 3; // REGEX
+    Vector vector = fraction_regex(string);
+    _x = vector(1); _y = vector(2);
     _value = (double)_x/(double)_y;
 }
 
@@ -34,8 +76,8 @@ Fraction &Fraction::operator=(int x) {
 }
 
 Fraction &Fraction::operator=(const char *string) {
-    std::cout << string << std::endl;
-    _x = 4; _y = 3; // REGEX
+    Vector vector = fraction_regex(string);
+    _x = vector(1); _y = vector(2);
     _value = (double)_x/(double)_y;
     return *this;
 }
@@ -46,8 +88,10 @@ Fraction &Fraction::operator=(const Fraction &fraction) {
     return *this;
 }
 
-void scan_fraction(const char *string) {
-    // REGEX
+void Fraction::scan_fraction(const char *string) {
+    Vector vector = fraction_regex(string);
+    _x = vector(1); _y = vector(2);
+    _value = (double)_x/(double)_y;
 }
 
 int Fraction::numerator() const {

@@ -32,14 +32,9 @@ int main() {
 
     std::cout << cross_product(u, v) << std::endl;
 
-    Fraction a(1, 4);
-    Fraction b(1, 3);
-    Fraction fraction = a + b;
-    std::cout << fraction << std::endl;
-    
-    Fraction c(1, 12);
-    std::cout << fraction + c << std::endl;
-
+    Fraction a = "-1/3";
+    Fraction b = "2/3";
+    std::cout << a + b  << std::endl;
 
     return EXIT_SUCCESS;
 }
