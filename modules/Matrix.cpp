@@ -1,7 +1,68 @@
-#include <Matrix.h>     // TO DO : Throw Exceptions
+#include <regex>
+
+#include "Matrix.h"     // TO DO : Throw Exceptions
+#include "Vector.h"
+
+static Matrix matrix_regex(const char *string, unsigned int rows, unsigned int cols) {
+    std::smatch matches;
+    int i = 0, j = 0, r = 0, c = 0;
+    
+    std::string str_check = string;
+    std::regex reg_check ("[^-,\\s\\d{}]");
+    while (std::regex_search(str_check, matches, reg_check)) {
+        str_check = matches.suffix().str();
+        i++;
+    }
+
+    std::string str_input = string;
+    std::regex reg_input("(^\\{(\\s)*?((\\{((-)?(\\d)+(\\s)*?,(\\s)*?)*(-)?(\\d)+(\\s)*?\\})(\\s)*?,(\\s)*?)*(\\{((-)?(\\d)+(\\s)*?,(\\s)*?)*(-)?(\\d)+(\\s)*?\\})(\\s)*?\\}$)");
+    while (std::regex_search(str_input, matches, reg_input)) {
+        str_input = matches.suffix().str();
+        j++;
+    }
+
+    Matrix matrix(rows, cols);
+    std::string str_rows = string;
+    std::regex reg_rows("(\\{((-)?(\\d)+(\\s)*?,(\\s)*?)*(-)?(\\d)+(\\s)*?\\})");
+    while (std::regex_search(str_rows, matches, reg_rows)) {
+        int c = 0;
+        std::string str_values = matches.str();
+        std::regex reg_values("((-)?(\\d)+)");
+        std::sregex_iterator current_match(str_values.begin(), str_values.end(), reg_values);
+        std::sregex_iterator last_match;
+        while (current_match != last_match) {
+            std::smatch match = *current_match;
+            std::string value = match.str();
+            matrix(r + 1, c + 1) = stoi(value);
+            current_match++;
+            c++;
+        }
+
+        if (c > cols) {
+            r = -1;
+            break;
+        }
+        
+        str_rows= matches.suffix().str();
+        r++;
+    }
+
+    if (i > 0 || j != 1 || r != rows) {
+        std::cout << "Invalid input" << std::endl;
+        std::cout << "Follow specific format :" << std::endl; 
+        std::cout << "{(x_11, x_12, ..., x_1n},{x_21, x_22, ..., x_2n}, ..., {x_n1, x_n2, ..., x_nn}}\"" << std::endl;
+        Matrix error_matrix(0, 0);
+        return error_matrix;
+    }
+
+    return matrix;
+}
+
+static void row_operation_regex(const char *string) {
+}
 
 
-Matrix::Matrix(unsigned int r, unsigned int c) : _rows(r), _cols(c) {
+Matrix::Matrix(unsigned int rows, unsigned int cols) : _rows(rows), _cols(cols) {
     _elements = new double*[_rows];
     for (int r = 0; r < _rows; r++)
         _elements[r] = new double[_cols];
@@ -42,7 +103,10 @@ Matrix &Matrix::operator=(const Matrix &matrix) {
 }
 
 void Matrix::scan_matrix(const char *string) {
-
+    Matrix matrix = matrix_regex(string, _rows, _cols);
+    for (int r = 0; r < _rows; r++)
+        for (int c = 0; c < _cols; c++)
+            this->_elements[r][c] = matrix._elements[r][c];
 }
 
 unsigned int Matrix::rows() const {
@@ -119,6 +183,6 @@ void Matrix::pivot(double k, unsigned int row_a, unsigned int row_b) {
         _elements[row_b - 1][c] = k * _elements[row_a - 1][c] + _elements[row_b - 1][c];
 }
 
-void Matrix::row_operation(const std::string& string) {
+void Matrix::row_operation(const char *string) {
 
 }

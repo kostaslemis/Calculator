@@ -9,7 +9,7 @@ class Matrix {
         const unsigned int _cols;
         double** _elements;
     public:
-            Matrix(unsigned int r, unsigned int c);
+            Matrix(unsigned int rows, unsigned int cols);
             Matrix(const Matrix &matrix);
            ~Matrix();
         Matrix &operator=(const Matrix& matrix);
@@ -23,10 +23,13 @@ class Matrix {
 
         friend std::ostream &operator<<(std::ostream &os, const Matrix &matrix);
 
+        // TO DO
         // void operator+=(const Matrix &matrix);
+        // void operator-=(const Matrix &matrix);
+        // void operator*=(const Matrix &matrix);
         
         void swap(unsigned int row_a, unsigned int row_b);                
         void scalar(double k, unsigned int row);
         void pivot(double k, unsigned int row_a, unsigned int row_b);
-        void row_operation(const std::string &string);                      
+        void row_operation(const char *string);                      
 };
