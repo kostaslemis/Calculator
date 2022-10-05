@@ -6,9 +6,7 @@
 
 int main() {
     Matrix A(3, 3);
-    A(1, 1) = 1; A(1, 2) = 2; A(1, 3) = 3;
-    A(2, 1) = 4; A(2, 2) = 2; A(2, 3) = 4;
-    A(3, 1) = 5; A(3, 2) = 6; A(3, 3) = 4;
+    A.scan_matrix("{{1, 2, 3}, {4, 2, 4}, {5, 6, 4}}");
 
     std::cout << A << std::endl;
     std::cout << characteristic_polynomial(A) << std::endl;
@@ -25,16 +23,17 @@ int main() {
     std::cout << quantratic_formula(p) << std::endl;
 
     Vector u(3);
-    u(1) = 1; u(2) = 0; u(3) = 0;
+    u.scan_vector("(1, 0, 0)");
+    std::cout << u << std::endl;
 
     Vector v(3);
-    v(1) = 0; v(2) = 1; v(3) = 0;
+    v.scan_vector("(0, 1, 0)");
 
     std::cout << cross_product(u, v) << std::endl;
 
-    Fraction a = "-1/3";
+    Fraction a = "-12/3";
     Fraction b = "2/3";
-    std::cout << a + b  << std::endl;
+    std::cout << a + b << std::endl;
 
     return EXIT_SUCCESS;
 }
