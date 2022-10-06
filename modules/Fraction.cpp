@@ -1,16 +1,8 @@
 #include <regex>
 
 #include "Fraction.h"   // TO DO : Throw Exceptions
-#include "Vector.h"
 
-static void fraction_sign(int &x, int &y) {
-    if (y < 0) {
-        x *= -1;
-        y *= -1;
-    }
-}
-
-static Vector fraction_regex(const char *string) {
+static Fraction fraction_regex(const char *string) {
     std::smatch matches;
     int i = 0, j = 0, k = 0;
     
@@ -28,31 +20,39 @@ static Vector fraction_regex(const char *string) {
         j++;
     }
 
-    Vector vector(0);
+    Fraction fraction;
+    int _numerator, _denominator;
     std::string str_values = string;
     std::regex reg_values("((-)?(\\d)+)");
     while (std::regex_search(str_values, matches, reg_values)) {
         std::string value = matches.str();
-        vector.insert_last(stoi(value));
         str_values = matches.suffix().str();
+        if (k == 0)
+            _numerator = stoi(value);
+        else if (k == 1)
+            _denominator = stoi(value);
         k++;
     }
 
     if (i > 0 || j != 1 || k != 2) {
         std::cout << "Invalid input" << std::endl;
         std::cout << "Follow specific format : \"x/y\"" << std::endl;
-        Vector error_vector(0);
-        return error_vector;
+        Fraction error_fraction(0, 0);
+        return error_fraction;
     }
 
-    return vector;
+    fraction.set_fraction(_numerator, _denominator);
+    return fraction;
 }
 
 
 Fraction::Fraction(int x, int y) {
     _x = x;
     _y = y;
-    fraction_sign(_x, _y);
+    if (y < 0) {
+        _x *= -1;
+        _y *= -1;
+    }
     _value = (double)_x/(double)_y;
 }
 
@@ -63,10 +63,9 @@ Fraction::Fraction(int x) {
 }
 
 Fraction::Fraction(const char *string) {
-    Vector vector = fraction_regex(string);
-    _x = vector(1);
-    _y = vector(2);
-    fraction_sign(_x, _y);
+    Fraction fraction = fraction_regex(string);
+    _x = fraction.numerator();
+    _y = fraction.denominator();
     _value = (double)_x/(double)_y;
 }
 
@@ -90,10 +89,9 @@ Fraction &Fraction::operator=(int x) {
 }
 
 Fraction &Fraction::operator=(const char *string) {
-    Vector vector = fraction_regex(string);
-    _x = vector(1);
-    _y = vector(2);
-    fraction_sign(_x, _y);
+    Fraction fraction = fraction_regex(string);
+    _x = fraction.numerator();
+    _y = fraction.denominator();
     _value = (double)_x/(double)_y;
     return *this;
 }
@@ -106,10 +104,9 @@ Fraction &Fraction::operator=(const Fraction &fraction) {
 }
 
 void Fraction::scan_fraction(const char *string) {
-    Vector vector = fraction_regex(string);
-    _x = vector(1);
-    _y = vector(2);
-    fraction_sign(_x, _y);
+    Fraction fraction = fraction_regex(string);
+    _x = fraction.numerator();
+    _y = fraction.denominator();
     _value = (double)_x/(double)_y;
 }
 
@@ -123,6 +120,11 @@ int Fraction::denominator() const {
 
 double Fraction::value() const {
     return _value;
+}
+
+void Fraction::set_fraction(int x, int y) {
+    Fraction fraction(x, y);
+    *this = fraction;
 }
 
 std::ostream &operator<<(std::ostream &os, const Fraction &fraction) {

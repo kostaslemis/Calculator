@@ -1,7 +1,6 @@
 #include <regex>
 
 #include "Matrix.h"     // TO DO : Throw Exceptions
-#include "Vector.h"
 
 static Matrix matrix_regex(const char *string, unsigned int rows, unsigned int cols) {
     std::smatch matches;

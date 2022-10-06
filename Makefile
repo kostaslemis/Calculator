@@ -23,7 +23,7 @@ test:
 	./$(PROGRAM)_test
 
 valgrind:
-	$(COMPILER) $(ModulePath)/$(PROGRAM).cpp -o $(PROGRAM) -I $(IncludePath)
+	$(COMPILER) $(PROGRAM).cpp $(Calculator) -o $(PROGRAM) -I $(IncludePath)
 	valgrind ./$(PROGRAM)
 
 clean:

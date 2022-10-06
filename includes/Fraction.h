@@ -22,7 +22,7 @@ class Fraction {
         int denominator() const;
         double value() const;
 
-        void set(int x, int y);
+        void set_fraction(int x, int y);
 
         friend std::ostream &operator<<(std::ostream &os, const Fraction &fraction);
 

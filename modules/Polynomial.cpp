@@ -2,6 +2,11 @@
 
 #include "Polynomial.h"
 
+static Polynomial polynomial_regex(const char *string, unsigned int size) {
+    Polynomial polynomial(0);
+    return polynomial;
+}
+
 
 Polynomial::Polynomial(unsigned int degree) : _degree(degree) {
     _coefficients = new double[_degree + 1];
