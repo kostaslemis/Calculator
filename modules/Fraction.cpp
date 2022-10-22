@@ -53,6 +53,7 @@ Fraction::Fraction(int x, int y) {
         _x *= -1;
         _y *= -1;
     }
+    this->simplify();
     _value = (double)_x/(double)_y;
 }
 

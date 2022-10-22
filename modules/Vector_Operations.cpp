@@ -49,6 +49,12 @@ bool operator==(const Vector &v, const Vector &u) {
     return true;
 }
 
+bool operator==(const Vector &vector, const char *string) {
+    Vector new_vector(vector.size());
+    new_vector.scan_vector(string);
+    return vector == new_vector;
+}
+
 bool operator!=(const Vector &v, const Vector &u) {
     if (!equal_size(v, u))
         return true;
@@ -58,6 +64,12 @@ bool operator!=(const Vector &v, const Vector &u) {
             return false;
 
     return true;
+}
+
+bool operator!=(const Vector &vector, const char *string) {
+    Vector new_vector(vector.size());
+    new_vector.scan_vector(string);
+    return vector != new_vector;
 }
 
 double dot_product(const Vector &v, const Vector &u) {

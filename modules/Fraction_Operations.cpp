@@ -105,8 +105,18 @@ bool operator==(const Fraction &a, const Fraction &b) {
     return a.numerator() == b.numerator() && a.denominator() == b.denominator();
 }
 
+bool operator==(const Fraction &a, const char *string) {
+    Fraction fraction = string;
+    return a == fraction;
+}
+
 bool operator!=(const Fraction &a, const Fraction &b) {
     return a.numerator() != b.numerator() || a.denominator() != b.denominator();
+}
+
+bool operator!=(const Fraction &a, const char *string) {
+    Fraction fraction = string;
+    return a != fraction;
 }
 
 Fraction irreducible_fraction(const Fraction fraction) {

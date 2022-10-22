@@ -81,6 +81,12 @@ bool operator==(const Matrix &A, const Matrix &B) {
     return true;
 }
 
+bool operator==(const Matrix &matrix, const char *string) {
+    Matrix new_matrix(matrix.rows(), matrix.cols());
+    new_matrix.scan_matrix(string);
+    return matrix == new_matrix;
+}
+
 bool operator!=(const Matrix &A, const Matrix &B) {
     if (!equal_dimensions(A, B))
         return true;
@@ -91,6 +97,12 @@ bool operator!=(const Matrix &A, const Matrix &B) {
                 return false;
 
     return true;
+}
+
+bool operator!=(const Matrix &matrix, const char *string) {
+    Matrix new_matrix(matrix.rows(), matrix.cols());
+    new_matrix.scan_matrix(string);
+    return matrix != new_matrix;
 }
 
 double trace(const Matrix &matrix) {
