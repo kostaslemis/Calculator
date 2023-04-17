@@ -1,6 +1,6 @@
 # Matrix-Calculator
 
-All of the main matrix aperations have been implemented.
+All of the main matrix operations have been implemented.
 Along with them, there are plenty of operations for vectors and polynomials.
 
 A really basic __Makefile__ had been provided in order to help you with the compilation and deletion of executables, as well as memory check.
