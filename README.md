@@ -1,15 +1,15 @@
 # Matrix-Calculator
 
-# The essense of this project is the header file.
-Which is intented to be used as an include file in applications that use Matrices.
-
-The __.cpp__ file is simply a demonstration of the capabilities of the header file.
-
-All of the main matrix calculation have been implemented.
+All of the main matrix operations have been implemented.
+Along with them, there are plenty of operations for vectors and polynomials.
 
 A really basic __Makefile__ had been provided in order to help you with the compilation and deletion of executables, as well as memory check.
 
+# Check the example.cpp file
+It will help you understand the way each module is intended to be used.
+
 Anynone intrested is welcome to join me in developing this project further.
 
-__New feature !!!__
-- Characteristic Polynomial of a Matrix
+__New features !!!__
+- Fractions
+- Regex
