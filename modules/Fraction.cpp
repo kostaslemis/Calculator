@@ -63,11 +63,8 @@ Fraction::Fraction(int x) {
     _value = (double)_x/(double)_y;
 }
 
-Fraction::Fraction(const char *string) {
-    Fraction fraction = fraction_regex(string);
-    _x = fraction.numerator();
-    _y = fraction.denominator();
-    _value = (double)_x/(double)_y;
+Fraction::Fraction(double z) {
+    // ?
 }
 
 Fraction::Fraction(const Fraction &fraction) {
@@ -75,6 +72,14 @@ Fraction::Fraction(const Fraction &fraction) {
     _y = fraction._y;
     _value = fraction._value;
 }
+
+Fraction::Fraction(const char *string) {
+    Fraction fraction = fraction_regex(string);
+    _x = fraction.numerator();
+    _y = fraction.denominator();
+    _value = (double)_x/(double)_y;
+}
+
 
 Fraction::Fraction() {
     _x = 0;
@@ -89,18 +94,22 @@ Fraction &Fraction::operator=(int x) {
     return *this;
 }
 
-Fraction &Fraction::operator=(const char *string) {
-    Fraction fraction = fraction_regex(string);
-    _x = fraction.numerator();
-    _y = fraction.denominator();
-    _value = (double)_x/(double)_y;
-    return *this;
-}
+// Fraction &Fraction::operator=(double z) {
+//     // ??
+// }
 
 Fraction &Fraction::operator=(const Fraction &fraction) {
     _x = fraction._x;
     _y = fraction._y;
     _value = fraction._value;
+    return *this;
+}
+
+Fraction &Fraction::operator=(const char *string) {
+    Fraction fraction = fraction_regex(string);
+    _x = fraction.numerator();
+    _y = fraction.denominator();
+    _value = (double)_x/(double)_y;
     return *this;
 }
 

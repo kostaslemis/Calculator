@@ -2,9 +2,9 @@
 
 #include "Matrix.h"     // TO DO : Throw Exceptions
 
-static Matrix matrix_regex(const char *string, unsigned int rows, unsigned int cols) {
+static Matrix matrix_regex(const char *string, size_t rows, size_t cols) {
     std::smatch matches;
-    int i = 0, j = 0, r = 0, c = 0;
+    size_t i = 0, j = 0, r = 0;
     
     std::string str_check = string;
     std::regex reg_check ("[^-,\\s\\d{}]");
@@ -24,7 +24,7 @@ static Matrix matrix_regex(const char *string, unsigned int rows, unsigned int c
     std::string str_rows = string;
     std::regex reg_rows("(\\{((-)?(\\d)+(\\s)*?,(\\s)*?)*(-)?(\\d)+(\\s)*?\\})");
     while (std::regex_search(str_rows, matches, reg_rows)) {
-        int c = 0;
+        size_t c = 0;
         std::string str_values = matches.str();
         std::regex reg_values("((-)?(\\d)+)");
         std::sregex_iterator current_match(str_values.begin(), str_values.end(), reg_values);
@@ -49,7 +49,7 @@ static Matrix matrix_regex(const char *string, unsigned int rows, unsigned int c
     if (i > 0 || j != 1 || r != rows) {
         std::cout << "Invalid input" << std::endl;
         std::cout << "Follow specific format :" << std::endl; 
-        std::cout << "{(x_11, x_12, ..., x_1n},{x_21, x_22, ..., x_2n}, ..., {x_n1, x_n2, ..., x_nn}}\"" << std::endl;
+        std::cout << "\"{{x_11, x_12, ..., x_1n},{x_21, x_22, ..., x_2n}, ..., {x_n1, x_n2, ..., x_nn}}\"" << std::endl;
         Matrix error_matrix(0, 0);
         return error_matrix;
     }
@@ -57,32 +57,33 @@ static Matrix matrix_regex(const char *string, unsigned int rows, unsigned int c
     return matrix;
 }
 
-static void row_operation_regex(const char *string) {
-}
+// static void row_operation_regex(const char *string) {
+
+// }
 
 
-Matrix::Matrix(unsigned int rows, unsigned int cols) : _rows(rows), _cols(cols) {
+Matrix::Matrix(size_t rows, size_t cols) : _rows(rows), _cols(cols) {
     _elements = new double*[_rows];
-    for (int r = 0; r < _rows; r++)
+    for (size_t r = 0; r < _rows; r++)
         _elements[r] = new double[_cols];
 
-    for (int r = 0; r < _rows; r++)
-        for (int c = 0; c < _cols; c++)
+    for (size_t r = 0; r < _rows; r++)
+        for (size_t c = 0; c < _cols; c++)
             _elements[r][c] = 0;
 }
 
 Matrix::Matrix(const Matrix &matrix) : _rows(matrix._rows), _cols(matrix._cols) {
     _elements = new double*[_rows];
-    for (int r = 0; r < _rows; r++)
+    for (size_t r = 0; r < _rows; r++)
         _elements[r] = new double[_cols];
 
-    for (int r = 0; r < _rows; r++)
-        for (int c = 0; c < _cols; c++)
+    for (size_t r = 0; r < _rows; r++)
+        for (size_t c = 0; c < _cols; c++)
             _elements[r][c] = matrix._elements[r][c];
 }
 
 Matrix::~Matrix() {
-    for (int r = 0; r < _rows; r++)
+    for (size_t r = 0; r < _rows; r++)
         delete[] _elements[r];
     delete[] _elements;
 }
@@ -90,12 +91,12 @@ Matrix::~Matrix() {
 Matrix &Matrix::operator=(const Matrix &matrix) {
     if (_elements == NULL) {
         _elements = new double*[matrix._rows];
-        for (int r = 0; r < _rows; r++)
+        for (size_t r = 0; r < _rows; r++)
             _elements[r] = new double[matrix._cols];
     }
 
-    for (int r = 0; r < matrix._rows; r++)
-        for (int c = 0; c < matrix._cols; c++)
+    for (size_t r = 0; r < matrix._rows; r++)
+        for (size_t c = 0; c < matrix._cols; c++)
             _elements[r][c] = matrix._elements[r][c];
     
     return *this;
@@ -103,20 +104,20 @@ Matrix &Matrix::operator=(const Matrix &matrix) {
 
 void Matrix::scan_matrix(const char *string) {
     Matrix matrix = matrix_regex(string, _rows, _cols);
-    for (int r = 0; r < _rows; r++)
-        for (int c = 0; c < _cols; c++)
+    for (size_t r = 0; r < _rows; r++)
+        for (size_t c = 0; c < _cols; c++)
             this->_elements[r][c] = matrix._elements[r][c];
 }
 
-unsigned int Matrix::rows() const {
+size_t Matrix::rows() const {
     return _rows;
 }
 
-unsigned int Matrix::cols() const {
+size_t Matrix::cols() const {
     return _cols;
 }
 
-double &Matrix::operator()(unsigned int row, unsigned int col) {
+double &Matrix::operator()(size_t row, size_t col) {
     static double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -126,7 +127,7 @@ double &Matrix::operator()(unsigned int row, unsigned int col) {
         : dummy;
 }
 
-double Matrix::elem(unsigned int row, unsigned int col) const {
+double Matrix::elem(size_t row, size_t col) const {
     static double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -137,8 +138,8 @@ double Matrix::elem(unsigned int row, unsigned int col) const {
 }
 
 std::ostream &operator<<(std::ostream &os, const Matrix &matrix) {
-    for (int r = 0; r < matrix._rows; r++) {
-        for (int c = 0; c < matrix._cols; c++)
+    for (size_t r = 0; r < matrix._rows; r++) {
+        for (size_t c = 0; c < matrix._cols; c++)
             os << matrix._elements[r][c] << "  ";
         os << std::endl;
     }
@@ -146,42 +147,69 @@ std::ostream &operator<<(std::ostream &os, const Matrix &matrix) {
     return os;
 }
 
+void Matrix::operator+=(const Matrix &matrix) {
+    if (_rows != matrix._rows || _cols != matrix._cols)
+        return;
+
+    for (size_t r = 0; r < _rows; r++)
+        for (size_t c = 0; c < _cols; c++)
+            _elements[r][c] = _elements[r][c] + matrix._elements[r][c];
+}
+
+void Matrix::operator-=(const Matrix &matrix) {
+    if (_rows != matrix._rows || _cols != matrix._cols)
+        return;
+
+    for (size_t r = 0; r < _rows; r++)
+        for (size_t c = 0; c < _cols; c++)
+            _elements[r][c] = _elements[r][c] - matrix._elements[r][c];
+}
+
+void Matrix::operator*=(double z) {
+    if (z == 0)
+        return;
+
+    for (size_t r = 0; r < _rows; r++)
+        for (size_t c = 0; c < _cols; c++)
+            _elements[r][c] = z * _elements[r][c];
+}
+
 // row_a <-> row_b : swap row_a with row_b
-void Matrix::swap(unsigned int row_a, unsigned int row_b) {
+void Matrix::swap(size_t row_a, size_t row_b) {
     // Check row_a and row_b
 
     // temp_row <= row_a
     double* temp_row = new double[_cols];
-    for (int i = 0; i < _cols; i++)
+    for (size_t i = 0; i < _cols; i++)
         temp_row[i] = _elements[row_a - 1][i]; 
 
     // row_a <= row_b
-    for (int c = 0; c < _cols; c++)
+    for (size_t c = 0; c < _cols; c++)
         _elements[row_a - 1][c] = _elements[row_b - 1][c];
 
     // row_b <= temp_row
-    for (int c = 0; c < _cols; c++)
+    for (size_t c = 0; c < _cols; c++)
         _elements[row_b - 1][c] = temp_row[c];
 
     delete[] temp_row;
-}              
+}
 
 // k * row : multiply row with k
-void Matrix::scalar(double k, unsigned int row) {
+void Matrix::scalar(double k, size_t row) {
     // Check row and k != 0
 
-    for (int c = 0; c < _cols; c++)
+    for (size_t c = 0; c < _cols; c++)
         _elements[row - 1][c] = k * _elements[row - 1][c];
 }
 
 // row_b <= k*row_a + row_b : replace row_b by the sum of itself and a multiple of row_a
-void Matrix::pivot(double k, unsigned int row_a, unsigned int row_b) {
-    // Check row_a and row_b - k != 0
+void Matrix::pivot(double k, size_t row_a, size_t row_b) {
+    // Check row_a, row_b and k != 0
 
-    for (int c = 0; c < _cols; c++)
+    for (size_t c = 0; c < _cols; c++)
         _elements[row_b - 1][c] = k * _elements[row_a - 1][c] + _elements[row_b - 1][c];
 }
 
-void Matrix::row_operation(const char *string) {
+// void Matrix::row_operation(const char *string) {
 
-}
+// }

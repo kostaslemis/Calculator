@@ -1,11 +1,10 @@
 #include "Fraction_Operations.h"
 
-
 static int gcd(int x, int y) {
     // Base Case
     if (x == y)
         return x;
-  
+ 
     if (x > y)
         return gcd(x - y, y);
     else
@@ -22,6 +21,7 @@ static int lcm(int x, int y) {
 
     return result;
 }
+
 
 Fraction operator+(const Fraction &a, const Fraction &b) {
     int _numerator, _denominator;

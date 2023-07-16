@@ -52,37 +52,37 @@ Vector roots(const Polynomial &polynomial) {
 }
 
 Polynomial operator+(const Polynomial &p, const Polynomial &q) {
-    int degree = max(p.degree(), q.degree());
+    size_t degree = max(p.degree(), q.degree());
     Polynomial new_polynomial(degree);
 
-    for (int n = 0; n <= degree; n++)
+    for (size_t n = 0; n <= degree; n++)
         new_polynomial(n) = p.coeff(n) + q.coeff(n);
 
     return new_polynomial;
 }
 
 Polynomial operator-(const Polynomial &p, const Polynomial &q) {
-    int degree = max(p.degree(), q.degree());
+    size_t degree = max(p.degree(), q.degree());
     Polynomial new_polynomial(degree);
 
-    for (int n = 0; n <= degree; n++)
+    for (size_t n = 0; n <= degree; n++)
         new_polynomial(n) = p.coeff(n) - q.coeff(n);
 
     return new_polynomial;
 }
 
 Polynomial operator*(const Polynomial &p, const Polynomial &q) {
-    int degree = p.degree() + q.degree();
+    size_t degree = p.degree() + q.degree();
     Polynomial new_polynomial(degree);
 
-    int n = max(p.degree(), q.degree());
-    for (int k = 0; k <= 2*n; k++) {
+    size_t n = max(p.degree(), q.degree());
+    for (size_t k = 0; k <= 2*n; k++) {
         double diagonal_sum_k = 0;
         if (k <= n)
-            for (int i = 0, j = k; i <= k && j >= 0; i++, j--)
+            for (size_t i = 0, j = k; i <= k && j >= 0; i++, j--)
                 diagonal_sum_k += p.coeff(i)*q.coeff(j);
         else
-            for (int i = n, j = k-n; i >= k-n && j <= n; i--, j++)
+            for (size_t i = n, j = k-n; i >= k-n && j <= n; i--, j++)
                 diagonal_sum_k += p.coeff(i)*q.coeff(j);
         
         new_polynomial(k) = diagonal_sum_k;
@@ -94,7 +94,7 @@ Polynomial operator*(const Polynomial &p, const Polynomial &q) {
 Polynomial operator*(double k, const Polynomial &polynomial) {
     Polynomial new_polynomial(polynomial.degree());
 
-    for (int n = 0; n <= polynomial.degree(); n++)
+    for (size_t n = 0; n <= polynomial.degree(); n++)
         new_polynomial(n) = k * polynomial.coeff(n); 
 
     return new_polynomial;
@@ -102,9 +102,9 @@ Polynomial operator*(double k, const Polynomial &polynomial) {
 
 
 bool operator==(const Polynomial &p, const Polynomial &q) {
-    int degree = max(p.degree(), q.degree());
+    size_t degree = max(p.degree(), q.degree());
 
-    for (int n = 0; n <= degree; n++)
+    for (size_t n = 0; n <= degree; n++)
         if (p.coeff(n) != q.coeff(n))
             return false;
 
@@ -116,9 +116,9 @@ bool operator==(const Polynomial &p, const Polynomial &q) {
 // }
 
 bool operator!=(const Polynomial &p, const Polynomial &q) {
-    int degree = max(p.degree(), q.degree());
+    size_t degree = max(p.degree(), q.degree());
     
-    for (int n = 0; n <= degree; n++)
+    for (size_t n = 0; n <= degree; n++)
         if (p.coeff(n) == q.coeff(n))
             return false;
 
@@ -128,7 +128,7 @@ bool operator!=(const Polynomial &p, const Polynomial &q) {
 Polynomial derivative(const Polynomial &polynomial) {
     Polynomial new_polynomial(polynomial.degree()-1);
 
-    for (int n = polynomial.degree(); n >= 1; n--)
+    for (size_t n = polynomial.degree(); n >= 1; n--)
         new_polynomial(n - 1) = n * polynomial.coeff(n);
 
     return new_polynomial;
@@ -137,7 +137,7 @@ Polynomial derivative(const Polynomial &polynomial) {
 Polynomial anti_derivative(const Polynomial &polynomial) {
     Polynomial new_polynomial(polynomial.degree() + 1);
 
-    for (int n = polynomial.degree(); n >= 0; n--)
+    for (size_t n = polynomial.degree(); n >= 0; n--)
         new_polynomial(n + 1) = polynomial.coeff(n)/(n + 1);
 
     return new_polynomial;

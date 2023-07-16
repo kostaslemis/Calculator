@@ -10,12 +10,14 @@ class Fraction {
     public:
             Fraction(int x, int y);
             Fraction(int x);
-            Fraction(const char *string);
+            Fraction(double z);
             Fraction(const Fraction &fraction);
+            Fraction(const char *string);
             Fraction();
         Fraction &operator=(int x);
-        Fraction &operator=(const char *string);
+        Fraction &operator=(double z);
         Fraction &operator=(const Fraction &fraction);
+        Fraction &operator=(const char *string);
         void scan_fraction(const char *string);
 
         int numerator() const;

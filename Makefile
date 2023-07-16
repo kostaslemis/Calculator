@@ -1,8 +1,13 @@
-PROGRAM = example
+# compiler
+CC = g++
 
-IncludePath = includes
+# paths
+IncludePath = include
 ModulePath = modules
 TestPath = tests
+
+# compile options
+CFLAGS = -Wall -Werror -I $(IncludePath)
 
 Fraction = $(ModulePath)/Fraction.cpp $(ModulePath)/Fraction_Operations.cpp
 Matrix = $(ModulePath)/Matrix.cpp $(ModulePath)/Matrix_Operations.cpp
@@ -11,23 +16,22 @@ Vector = $(ModulePath)/Vector.cpp $(ModulePath)/Vector_Operations.cpp
 
 Calculator = $(Fraction) $(Matrix) $(Polynomial) $(Vector)
 
-COMPILER = g++
-
+PROGRAM = example
 
 run:
-	$(COMPILER) $(PROGRAM).cpp $(Calculator) -o $(PROGRAM) -I $(IncludePath)
+	$(CC) $(PROGRAM).cpp $(Calculator) -o $(PROGRAM) $(CFLAGS)
 	./$(PROGRAM)
 
 test:
-	$(COMPILER) $(TestPath)/$(PROGRAM)_test.cpp -o $(PROGRAM)_test -I $(IncludePath)
+	$(CC) $(TestPath)/$(PROGRAM)_test.cpp -o $(PROGRAM)_test $(CFLAGS)
 	./$(PROGRAM)_test
 
 valgrind:
-	$(COMPILER) $(PROGRAM).cpp $(Calculator) -o $(PROGRAM) -I $(IncludePath)
+	$(CC) $(PROGRAM).cpp $(Calculator) -o $(PROGRAM) $(CFLAGS)
 	valgrind ./$(PROGRAM)
 
-clean:
-	rm $(PROGRAM)
+# clean:
+	# rm $(PROGRAM)
 
-clean_test:
-	rm $(PROGRAM)_test
+# clean_test:
+	# rm $(PROGRAM)_test

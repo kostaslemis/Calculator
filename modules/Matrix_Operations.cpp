@@ -12,8 +12,8 @@ bool square_matrix(const Matrix &matrix) {
 }
 
 bool diagonal_matrix(const Matrix &matrix) {
-    for (int r = 1; r <= matrix.rows(); r++)
-        for (int c = 1; c <= matrix.cols(); c++)
+    for (size_t r = 1; r <= matrix.rows(); r++)
+        for (size_t c = 1; c <= matrix.cols(); c++)
             if (r != c && matrix.elem(r, c) != 0)
                 return false;
                 
@@ -25,8 +25,8 @@ Matrix operator+(const Matrix &A, const Matrix &B) {
     if (!equal_dimensions(A, B))
         return new_matrix;
         
-    for (int r = 1; r <= A.rows(); r++)
-        for (int c = 1; c <= B.cols(); c++)
+    for (size_t r = 1; r <= A.rows(); r++)
+        for (size_t c = 1; c <= B.cols(); c++)
             new_matrix(r, c) = A.elem(r, c) + B.elem(r, c);
 
     return new_matrix;
@@ -38,11 +38,34 @@ Matrix operator-(const Matrix &A, const Matrix &B) {
     if (!equal_dimensions(A, B))
         return new_matrix;
 
-    for (int r = 1; r <= A.rows(); r++)
-        for (int c = 1; c <= B.cols(); c++)
+    for (size_t r = 1; r <= A.rows(); r++)
+        for (size_t c = 1; c <= B.cols(); c++)
             new_matrix(r, c) = A.elem(r, c) - B.elem(r, c);
 
     return new_matrix;
+}
+
+Matrix operator*(double k, const Matrix &matrix) {
+    Matrix new_matrix(matrix.rows(), matrix.cols());
+
+    for (size_t r = 1; r <= matrix.rows(); r++)
+        for (size_t c = 1; c <= matrix.cols(); c++)
+            new_matrix(r, c) = k * matrix.elem(r, c);
+  
+    return new_matrix;
+}
+
+Vector operator*(const Matrix &matrix, const Vector &vector) {
+    Vector new_vector(matrix.cols());
+
+    if (matrix.cols() != vector.size())
+        return new_vector;
+
+    for (size_t r = 1; r <= matrix.rows(); r++)
+        for (size_t c = 1; c <= matrix.cols(); c++)
+            new_vector(c) += matrix.elem(r, c) * new_vector(c);
+
+    return new_vector;
 }
 
 Matrix operator*(const Matrix &A, const Matrix &B) {
@@ -51,21 +74,11 @@ Matrix operator*(const Matrix &A, const Matrix &B) {
     if (A.cols() != B.rows()) 
         return new_matrix;
 
-    for (int r = 1; r <= A.rows(); r++)
-        for (int c = 1; c <= B.cols(); c++)
-            for (int k = 1; k <= A.cols(); k++)
+    for (size_t r = 1; r <= A.rows(); r++)
+        for (size_t c = 1; c <= B.cols(); c++)
+            for (size_t k = 1; k <= A.cols(); k++)
                 new_matrix(r, c) += A.elem(r, k) * B.elem(k, c);
 
-    return new_matrix;
-}
-
-Matrix operator*(double k, const Matrix &matrix) {
-    Matrix new_matrix(matrix.rows(), matrix.cols());
-
-    for (int r = 1; r <= matrix.rows(); r++)
-        for (int c = 1; c <= matrix.cols(); c++)
-            new_matrix(r, c) = k * matrix.elem(r, c);
-  
     return new_matrix;
 }
 
@@ -73,8 +86,8 @@ bool operator==(const Matrix &A, const Matrix &B) {
     if (!equal_dimensions(A, B))
         return false;
 
-    for (int r = 1; r <= A.rows(); r++)
-        for (int c = 1; c <= B.cols(); c++)
+    for (size_t r = 1; r <= A.rows(); r++)
+        for (size_t c = 1; c <= B.cols(); c++)
             if (A.elem(r, c) != B.elem(r, c))
                 return false;
 
@@ -91,8 +104,8 @@ bool operator!=(const Matrix &A, const Matrix &B) {
     if (!equal_dimensions(A, B))
         return true;
 
-    for (int r = 1; r <= A.rows(); r++)
-        for (int c = 1; c <= B.cols(); c++)
+    for (size_t r = 1; r <= A.rows(); r++)
+        for (size_t c = 1; c <= B.cols(); c++)
             if (A.elem(r, c) == B.elem(r, c))
                 return false;
 
@@ -107,17 +120,17 @@ bool operator!=(const Matrix &matrix, const char *string) {
 
 double trace(const Matrix &matrix) {
     double trace = 0.0;
-    for (int i = 1; i <= matrix.rows(); i++)
+    for (size_t i = 1; i <= matrix.rows(); i++)
         trace += matrix.elem(i, i);
 
     return trace;
 }
 
-Matrix sub_matrix(const Matrix &matrix, unsigned int col) {
+Matrix sub_matrix(const Matrix &matrix, size_t col) {
     Matrix new_matrix(matrix.rows() - 1, matrix.cols() - 1);
 
-    for (int r = 2; r <= matrix.rows(); r++) {
-        for (int c = 1; c <= matrix.cols(); c++) {
+    for (size_t r = 2; r <= matrix.rows(); r++) {
+        for (size_t c = 1; c <= matrix.cols(); c++) {
             if (c < col) 
                 new_matrix(r - 1, c) = matrix.elem(r, c);
             else if (c > col)
@@ -139,23 +152,23 @@ double det(const Matrix &matrix) {
         return matrix.elem(1, 1)*matrix.elem(2, 2) - matrix.elem(1, 2)*matrix.elem(2, 1);
 
     double sum = 0.0;
-    for (int c = 1, sign = 1; c <= matrix.cols(); c++, sign *= -1)
+    for (size_t c = 1, sign = 1; c <= matrix.cols(); c++, sign *= -1)
         sum += matrix.elem(1, c)*det(sub_matrix(matrix, c))*sign;
         
     return sum;
 }
 
-Matrix identity_matrix(unsigned int n) {
+Matrix identity_matrix(size_t n) {
     Matrix new_matrix(n, n);
 
-    for (int r = 1; r <= n; r++)
-        for (int c = 1; c <= n; c++)
+    for (size_t r = 1; r <= n; r++)
+        for (size_t c = 1; c <= n; c++)
             new_matrix(r,c) = r == c ? 1 : 0;
 
     return new_matrix;
 }
 
-Matrix pow(const Matrix &matrix, unsigned int exponent) {
+Matrix pow(const Matrix &matrix, size_t exponent) {
     Matrix new_matrix = identity_matrix(matrix.rows());
     if (!square_matrix(matrix))
         return new_matrix;
@@ -163,7 +176,7 @@ Matrix pow(const Matrix &matrix, unsigned int exponent) {
     if (exponent == 0)
         return new_matrix;
 
-    for (int i = 0; i < exponent; i++) {
+    for (size_t i = 0; i < exponent; i++) {
         Matrix result = new_matrix * matrix;
         new_matrix = result;
     }
@@ -174,18 +187,18 @@ Matrix pow(const Matrix &matrix, unsigned int exponent) {
 Matrix transpose(const Matrix &matrix) {
     Matrix new_matrix(matrix.cols(), matrix.rows());
 
-    for (int r = 1; r <= matrix.rows(); r++)
-        for (int c = 1; c <= matrix.cols(); c++)
+    for (size_t r = 1; r <= matrix.rows(); r++)
+        for (size_t c = 1; c <= matrix.cols(); c++)
             new_matrix(c, r) = matrix.elem(r, c);
 
     return new_matrix;
 }
 
-Matrix minor(const Matrix &matrix, const int row, const int col) {
+Matrix minor(const Matrix &matrix, size_t row, size_t col) {
     Matrix new_matrix(matrix.rows() - 1, matrix.cols() - 1);
 
-    for (int r = 1; r <= matrix.rows(); r++) {
-        for (int c = 1; c <= matrix.cols(); c++) {
+    for (size_t r = 1; r <= matrix.rows(); r++) {
+        for (size_t c = 1; c <= matrix.cols(); c++) {
             if (r < row && c < col)
                 new_matrix(r, c) = matrix.elem(r, c);
             else if (r < row && c > col)
@@ -203,8 +216,8 @@ Matrix minor(const Matrix &matrix, const int row, const int col) {
 Matrix cofactor(const Matrix &matrix) {
     Matrix new_matrix(matrix.rows(), matrix.cols());
 
-    for (int r = 1; r <= matrix.rows(); r++)
-        for (int c = 1; c <= matrix.cols(); c++)
+    for (size_t r = 1; r <= matrix.rows(); r++)
+        for (size_t c = 1; c <= matrix.cols(); c++)
             new_matrix(r, c) = pow(-1, r + c)*det(minor(matrix, r, c));
 
     return new_matrix;
@@ -219,7 +232,7 @@ Matrix inverse(const Matrix &matrix) {
 }
 
 Polynomial characteristic_polynomial(const Matrix &matrix) {
-    int n = matrix.rows();
+    size_t n = matrix.rows();
     Polynomial char_poly(n);
 
     if (!square_matrix(matrix))
@@ -238,9 +251,9 @@ Polynomial characteristic_polynomial(const Matrix &matrix) {
     char_poly(0) = pow(-1, n)*det(matrix);
     Vector coeffs(0);
     coeffs.insert_last(1);
-    for (int m = 1; m < n; m++) {
+    for (size_t m = 1; m < n; m++) {
         double Sum = 0;
-        for (int k = 1; k <= m; k++)
+        for (size_t k = 1; k <= m; k++)
             Sum += coeffs(k)*(trace(pow(matrix, m - k + 1)));
 
         double c_k = -Sum/m;
@@ -251,25 +264,25 @@ Polynomial characteristic_polynomial(const Matrix &matrix) {
     return char_poly;
 }
 
-Vector get_row(const Matrix &matrix, unsigned int row) {
+Vector get_row(const Matrix &matrix, size_t row) {
     Vector vector_row(0);
 
-    for (int c = 1; c <= matrix.cols(); c++)
+    for (size_t c = 1; c <= matrix.cols(); c++)
         vector_row.insert_last(matrix.elem(row, c));
 
     return vector_row;
 }
 
-Vector get_col(const Matrix &matrix, unsigned int col) {
+Vector get_col(const Matrix &matrix, size_t col) {
     Vector vector_col(0);
 
-    for (int r = 1; r <= matrix.rows(); r++)
+    for (size_t r = 1; r <= matrix.rows(); r++)
         vector_col.insert_last(matrix.elem(r, col));
 
     return vector_col;
 }
 
-static unsigned int factorial(unsigned int n) {
+static size_t factorial(size_t n) {
     if (n == 0 || n == 1)
         return 1;
     return n * factorial(n - 1);
@@ -279,7 +292,7 @@ static unsigned int factorial(unsigned int n) {
 Matrix exp(const Matrix &matrix, double t) {
     Matrix exp_matrix(matrix.rows(), matrix.cols());
     
-    for (int n = 0; n < 10; n++)
+    for (size_t n = 0; n < 10; n++)
         exp_matrix = exp_matrix + pow(t, n)/factorial(n)*pow(matrix, n);
 
     return exp_matrix;
@@ -288,16 +301,16 @@ Matrix exp(const Matrix &matrix, double t) {
 Matrix format_matrix(const Matrix &matrix) {
     Matrix format_matrix = matrix;
 
-    int format_rows = 1; 
-    for (int c = 1; c <= format_matrix.cols(); c++) {
-        int pivots = 0;
-        for (int r = format_rows; r <= format_matrix.rows(); r++) {
+    size_t format_rows = 1; 
+    for (size_t c = 1; c <= format_matrix.cols(); c++) {
+        size_t pivots = 0;
+        for (size_t r = format_rows; r <= format_matrix.rows(); r++) {
             if (format_matrix.elem(r, c) != 0)
                 pivots++;
         }
 
-        int format_pivots = 0;
-        for (int r = format_rows; r <= format_matrix.rows(); r++) {
+        size_t format_pivots = 0;
+        for (size_t r = format_rows; r <= format_matrix.rows(); r++) {
             if (format_matrix.elem(r, c) == 0)
                 break;
             format_pivots++;
@@ -306,8 +319,8 @@ Matrix format_matrix(const Matrix &matrix) {
         if (pivots == format_pivots)
             continue;
 
-        int swaps = 0;
-        for (int r = format_rows + format_pivots; r <= format_matrix.rows(); r++) {
+        size_t swaps = 0;
+        for (size_t r = format_rows + format_pivots; r <= format_matrix.rows(); r++) {
             if (format_matrix.elem(r, c) != 0) {
                 format_matrix.swap(r, format_rows + format_pivots + swaps);
                 swaps++;
@@ -324,9 +337,9 @@ Matrix format_matrix(const Matrix &matrix) {
 Matrix echelon_form(const Matrix &matrix) {
     Matrix echelon_matrix = format_matrix(matrix);
 
-    for (int c = 1; c <= echelon_matrix.cols(); c++) {
-        int pivots = 0;
-        for (int r = c; r <= echelon_matrix.rows(); r++) {
+    for (size_t c = 1; c <= echelon_matrix.cols(); c++) {
+        size_t pivots = 0;
+        for (size_t r = c; r <= echelon_matrix.rows(); r++) {
             if (echelon_matrix.elem(r, c) == 0)
                 break;
             pivots++;
@@ -335,14 +348,14 @@ Matrix echelon_form(const Matrix &matrix) {
         if (pivots > 1)
             continue;
 
-        for (int r = c + 1; r <= c + pivots; r++) {
+        for (size_t r = c + 1; r <= c + pivots; r++) {
             double k = -1*echelon_matrix(r, c)/echelon_matrix(c + 1, c);
             echelon_matrix.pivot(k, c + 1, r);
         }
 
         // format next col
-        int format_pivots = 0;
-        for (int r = c + 1; r <= echelon_matrix.rows(); r++) {
+        size_t format_pivots = 0;
+        for (size_t r = c + 1; r <= echelon_matrix.rows(); r++) {
             if (echelon_matrix.elem(r, c) == 0)
                 break;
             format_pivots++;
@@ -351,8 +364,8 @@ Matrix echelon_form(const Matrix &matrix) {
         if (pivots == format_pivots)
             continue;
 
-        int swaps = 0;
-        for (int r = c + format_pivots + 1; r <= echelon_matrix.rows(); r++) {
+        size_t swaps = 0;
+        for (size_t r = c + format_pivots + 1; r <= echelon_matrix.rows(); r++) {
             if (echelon_matrix.elem(r, c) != 0) {
                 echelon_matrix.swap(r, c + format_pivots + swaps + 1);
                 swaps++;
@@ -373,8 +386,8 @@ int matrix_rank(const Matrix &matrix) {
     Matrix echelon_matrix = echelon_form(matrix);
 
     int rank = 0;
-    for (int r = 1; r <= echelon_matrix.rows(); r++) {
-        for (int c = 1; c <= echelon_matrix.cols(); c++) {
+    for (size_t r = 1; r <= echelon_matrix.rows(); r++) {
+        for (size_t c = 1; c <= echelon_matrix.cols(); c++) {
             if (echelon_matrix.elem(r, c) != 0)
                 continue;
         }

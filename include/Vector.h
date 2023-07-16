@@ -3,26 +3,25 @@
 #include <iostream>
 #include <cmath>
 
-// Το αρχικό μέγεθος που δεσμεύουμε
 #define VECTOR_MIN_CAPACITY 10
 
 
 class Vector {
     private:
-        unsigned int _size;
-        unsigned int _capacity;
-        double* _elements;
+        size_t _size;
+        size_t _capacity;
+        double *_elements;
     public:
-            Vector(unsigned int size);
+            Vector(size_t size);
             Vector(const Vector &vector);
            ~Vector();
         Vector &operator= (const Vector &vector);
         void scan_vector(const char *string);
 
-        unsigned int size() const;
+        size_t size() const;
 
-        double &operator()(unsigned int i);
-        double elem(unsigned int i) const;
+        double &operator()(size_t i);
+        double elem(size_t i) const;
 
         friend std::ostream &operator<<(std::ostream &os, const Vector &vector);
 

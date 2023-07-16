@@ -2,9 +2,9 @@
 
 #include "Vector.h"     // TO DO : Throw Exceptions
 
-static Vector vector_regex(const char *string, unsigned int size) {
+static Vector vector_regex(const char *string, size_t size) {
     std::smatch matches;
-    int i = 0, j = 0, k = 0;
+    size_t i = 0, j = 0, k = 0;
     
     std::string str_check = string;
     std::regex reg_check ("[^-,\\s\\d())]");
@@ -41,18 +41,18 @@ static Vector vector_regex(const char *string, unsigned int size) {
 }
 
 
-Vector::Vector(unsigned int size) : _size(size) {
+Vector::Vector(size_t size) : _size(size) {
     _capacity = _size < VECTOR_MIN_CAPACITY ? VECTOR_MIN_CAPACITY : _size;
     _elements = new double[_capacity];
 
-    for (int i = 0; i < _size; i++)
+    for (size_t i = 0; i < _size; i++)
         _elements[i] = 0;
 }
 
 Vector::Vector(const Vector &vector) : _size(vector._size) {
     _elements = new double[vector._capacity];
 
-    for (int i = 0; i < _size; i++)
+    for (size_t i = 0; i < _size; i++)
         _elements[i] = vector._elements[i];
 }
 
@@ -64,7 +64,7 @@ Vector &Vector::operator=(const Vector &vector) {
     if (_elements == NULL)
         _elements = new double[vector._capacity];
 
-    for (int i = 0; i < vector._size; i++)
+    for (size_t i = 0; i < vector._size; i++)
         _elements[i] = vector._elements[i];
 
     return *this;
@@ -72,15 +72,15 @@ Vector &Vector::operator=(const Vector &vector) {
 
 void Vector::scan_vector(const char *string) {
     Vector vector = vector_regex(string, _size);
-    for (int i = 0; i < _size; i++)
+    for (size_t i = 0; i < _size; i++)
         this->_elements[i] = vector._elements[i];
 }
 
-unsigned Vector::size() const {
+size_t Vector::size() const {
     return _size;
 }
 
-double &Vector::operator()(unsigned int i) {
+double &Vector::operator()(size_t i) {
     static double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -90,7 +90,7 @@ double &Vector::operator()(unsigned int i) {
         : dummy;
 }
 
-double Vector::elem(unsigned int i) const {
+double Vector::elem(size_t i) const {
     static double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -102,7 +102,7 @@ double Vector::elem(unsigned int i) const {
 
 std::ostream &operator<<(std::ostream &os, const Vector &vector) {
     os << "(";
-    for (int i = 0; i < vector._size - 1; i++)
+    for (size_t i = 0; i < vector._size - 1; i++)
         os << vector._elements[i] << ", ";
     os << vector._elements[vector._size - 1] << ")";
     os << std::endl;
@@ -111,7 +111,6 @@ std::ostream &operator<<(std::ostream &os, const Vector &vector) {
 }
 
 void Vector::insert_last(double new_value) {
-	// Μεγαλώνουμε τον πίνακα, ώστε να χωράει τουλάχιστον size στοιχεία
 	if (_capacity == _size) {
 		_capacity *= 2;
 		_elements = (double*)realloc(_elements, _capacity * sizeof(double));
@@ -124,7 +123,6 @@ void Vector::insert_last(double new_value) {
 void Vector::remove_last() {
 	_size--;
 
-	// Μικραίνουμε τον πίνακα αν χρειαστεί, ώστε να μην υπάρχει υπερβολική σπατάλη χώρου.
 	if (_capacity > _size * 4 && _capacity > 2 * VECTOR_MIN_CAPACITY) {
 		_capacity /= 2;
 		_elements = (double*)realloc(_elements, _capacity * sizeof(double));
