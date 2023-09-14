@@ -59,7 +59,7 @@ bool operator!=(const Vector &v, const Vector &u) {
     if (!equal_size(v, u))
         return true;
 
-    for (size_t i = 0; i <= v.size(); i++)
+    for (size_t i = 1; i <= v.size(); i++)
         if (v.elem(i) == u.elem(i))
             return false;
 
@@ -77,7 +77,7 @@ double dot_product(const Vector &v, const Vector &u) {
     if (!equal_size(v, u))
         return sum;
 
-    for (size_t i = 0; i <= v.size(); i++)
+    for (size_t i = 1; i <= v.size(); i++)
         sum += v.elem(i) * u.elem(i);
 
     return sum;
