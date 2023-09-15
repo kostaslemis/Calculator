@@ -3,9 +3,9 @@
 #include "Matrix.h"     // TO DO : Throw Exceptions
 
 static Matrix matrix_regex(const char *string, size_t rows, size_t cols) {
+    std::smatch matches;
     size_t i = 0, j = 0, r = 0;
     
-    std::smatch matches;
     std::string str_check = string;
     std::regex reg_check ("[^-,\\s\\d{}]");
     while (std::regex_search(str_check, matches, reg_check)) {
@@ -49,7 +49,7 @@ static Matrix matrix_regex(const char *string, size_t rows, size_t cols) {
     if (i > 0 || j != 1 || r != rows) {
         std::cout << "Invalid input" << std::endl;
         std::cout << "Follow specific format :" << std::endl; 
-        std::cout << "\"{{x_11, x_12, ..., x_1n}, {x_21, x_22, ..., x_2n}, ..., {x_n1, x_n2, ..., x_nn}}\"" << std::endl;
+        std::cout << "\"{{x_11, x_12, ..., x_1n},{x_21, x_22, ..., x_2n}, ..., {x_n1, x_n2, ..., x_nn}}\"" << std::endl;
         Matrix error_matrix(0, 0);
         return error_matrix;
     }
@@ -106,7 +106,7 @@ void Matrix::scan_matrix(const char *string) {
     Matrix matrix = matrix_regex(string, _rows, _cols);
     for (size_t r = 0; r < _rows; r++)
         for (size_t c = 0; c < _cols; c++)
-            _elements[r][c] = matrix._elements[r][c];
+            this->_elements[r][c] = matrix._elements[r][c];
 }
 
 size_t Matrix::rows() const {
