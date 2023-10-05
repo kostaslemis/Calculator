@@ -15,7 +15,7 @@ class Vector {
             Vector(size_t size);
             Vector(const Vector &vector);
            ~Vector();
-        Vector &operator= (const Vector &vector);
+        Vector &operator=(const Vector &vector);
         void scan_vector(const char *string);
 
         size_t size() const;

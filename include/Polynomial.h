@@ -22,5 +22,5 @@ class Polynomial {
 
         friend std::ostream &operator<<(std::ostream &os, const Polynomial &polynomial);
 
-        double P_x(double x);
+        double p_x(double x);
 };

@@ -146,5 +146,5 @@ Polynomial anti_derivative(const Polynomial &polynomial) {
 double integral(const Polynomial &polynomial, double a, double b) {
     Polynomial new_polynomial = anti_derivative(polynomial);
 
-    return new_polynomial.P_x(b) - new_polynomial.P_x(a);
+    return new_polynomial.p_x(b) - new_polynomial.p_x(a);
 }

@@ -111,7 +111,7 @@ std::ostream &operator<<(std::ostream &os, const Polynomial &polynomial) {
     return os;
 }
 
-double Polynomial::P_x(double x) {
+double Polynomial::p_x(double x) {
     _x = x;
     double _P_x = 0.0;
 
