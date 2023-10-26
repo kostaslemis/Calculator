@@ -1,3 +1,4 @@
+#include <cmath>
 #include <regex>
 
 #include "Vector.h"     // TO DO : Throw Exceptions
@@ -49,7 +50,8 @@ Vector::Vector(size_t size) : _size(size) {
         _elements[i] = 0;
 }
 
-Vector::Vector(const Vector &vector) : _size(vector._size) {
+Vector::Vector(const Vector &vector)
+    : _size(vector._size), _capacity(vector._capacity) {
     _elements = new double[vector._capacity];
 
     for (size_t i = 0; i < _size; i++)
@@ -91,7 +93,7 @@ double &Vector::operator()(size_t i) {
 }
 
 double Vector::elem(size_t i) const {
-    static double dummy = 0.0;
+    const double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
 
@@ -101,6 +103,9 @@ double Vector::elem(size_t i) const {
 }
 
 std::ostream &operator<<(std::ostream &os, const Vector &vector) {
+    if (vector._size == 0)
+        return os;
+
     os << "(";
     for (size_t i = 0; i < vector._size - 1; i++)
         os << vector._elements[i] << ", ";
@@ -123,7 +128,7 @@ void Vector::insert_last(double new_value) {
 void Vector::remove_last() {
 	_size--;
 
-	if (_capacity > _size * 4 && _capacity > 2 * VECTOR_MIN_CAPACITY) {
+	if (_capacity > 4 * _size && _capacity > 2 * VECTOR_MIN_CAPACITY) {
 		_capacity /= 2;
 		_elements = (double*)realloc(_elements, _capacity * sizeof(double));
 	}

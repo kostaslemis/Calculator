@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "matrix.h": "c"
+        "matrix.h": "c",
+        "vector_operations.h": "c",
+        "matrix_operations.h": "c"
     }
 }

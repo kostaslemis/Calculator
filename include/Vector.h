@@ -1,7 +1,6 @@
 #pragma once    // TO DO : Throw Exceptions
 
 #include <iostream>
-#include <cmath>
 
 #define VECTOR_MIN_CAPACITY 10
 

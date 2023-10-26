@@ -128,7 +128,7 @@ double &Matrix::operator()(size_t row, size_t col) {
 }
 
 double Matrix::elem(size_t row, size_t col) const {
-    static double dummy = 0.0;
+    const double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
 

@@ -1,4 +1,4 @@
-#pragma once
+#pragma once    // TO DO : Throw Exceptions
 
 #include <iostream>
 
@@ -12,7 +12,7 @@ class Matrix {
             Matrix(size_t rows, size_t cols);
             Matrix(const Matrix &matrix);
            ~Matrix();
-        Matrix &operator=(const Matrix& matrix);
+        Matrix &operator=(const Matrix &matrix);
         void scan_matrix(const char *string);
 
         size_t rows() const;

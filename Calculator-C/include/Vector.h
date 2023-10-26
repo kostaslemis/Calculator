@@ -21,6 +21,6 @@ void vector_set_value(Vector vector, size_t i, double value);
 
 void vector_print(Vector vector);
 
-void vector_insert_last(Vector vector, double value);
+void vector_insert_last(Vector vector, double new_value);
 
 void vector_remove_last(Vector vector);

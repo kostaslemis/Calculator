@@ -119,10 +119,10 @@ bool operator!=(const Polynomial &p, const Polynomial &q) {
     size_t degree = max(p.degree(), q.degree());
     
     for (size_t n = 0; n <= degree; n++)
-        if (p.coeff(n) == q.coeff(n))
-            return false;
+        if (p.coeff(n) != q.coeff(n))
+            return true;
 
-    return true;
+    return false;
 }
 
 Polynomial derivative(const Polynomial &polynomial) {

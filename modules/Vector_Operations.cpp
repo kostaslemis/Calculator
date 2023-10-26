@@ -1,5 +1,6 @@
 #include <cmath>    // TO DO : Throw Exceptions
 
+#include "Vector_Operations.h"
 #include "Matrix_Operations.h"
 
 
@@ -60,10 +61,10 @@ bool operator!=(const Vector &v, const Vector &u) {
         return true;
 
     for (size_t i = 1; i <= v.size(); i++)
-        if (v.elem(i) == u.elem(i))
-            return false;
+        if (v.elem(i) != u.elem(i))
+            return true;
 
-    return true;
+    return false;
 }
 
 bool operator!=(const Vector &vector, const char *string) {

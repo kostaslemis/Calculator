@@ -56,14 +56,14 @@ Matrix operator*(double k, const Matrix &matrix) {
 }
 
 Vector operator*(const Matrix &matrix, const Vector &vector) {
-    Vector new_vector(matrix.cols());
+    Vector new_vector(matrix.rows());
 
     if (matrix.cols() != vector.size())
         return new_vector;
 
     for (size_t r = 1; r <= matrix.rows(); r++)
         for (size_t c = 1; c <= matrix.cols(); c++)
-            new_vector(c) += matrix.elem(r, c) * new_vector(c);
+            new_vector(r) += matrix.elem(r, c) * vector.elem(c);
 
     return new_vector;
 }
@@ -106,10 +106,10 @@ bool operator!=(const Matrix &A, const Matrix &B) {
 
     for (size_t r = 1; r <= A.rows(); r++)
         for (size_t c = 1; c <= B.cols(); c++)
-            if (A.elem(r, c) == B.elem(r, c))
-                return false;
+            if (A.elem(r, c) != B.elem(r, c))
+                return true;
 
-    return true;
+    return false;
 }
 
 bool operator!=(const Matrix &matrix, const char *string) {
@@ -380,6 +380,39 @@ Matrix reduced_echelon_form(const Matrix &matrix) {
     Matrix reduced_echelon_matrix = echelon_form(matrix);
 
     return reduced_echelon_matrix;
+}
+
+Matrix gaussian_elimination(const Matrix &matrix) {
+    Matrix new_matrix = matrix;
+
+    for (size_t c = 1; c <= new_matrix.cols(); c++) {
+        size_t p = c;
+        for (size_t r = c; r <= new_matrix.rows(); r++) {
+            if ((new_matrix.elem(p, c) == 0 && new_matrix.elem(r, c) != 0) ||
+                (abs(new_matrix.elem(r, c)) < abs(new_matrix.elem(p, c)) && new_matrix.elem(r, c) != 0))
+                p = r;
+        }
+
+        if (new_matrix.elem(p, c) == 0) {
+            std::cout << "No signle solution exists" << std::endl;
+            return new_matrix;
+        }
+
+        if (p != c)
+            new_matrix.swap(c, p);
+
+        for (size_t r = c + 1; r <= matrix.rows(); r++) {
+            const double m = -new_matrix.elem(c, r)/new_matrix.elem(c, c);
+            new_matrix.pivot(m, c, r);
+        }
+
+        if (new_matrix.elem(new_matrix.rows(), new_matrix.cols()) == 0) {
+            std::cout << "No signle solution exists" << std::endl;
+            return new_matrix;
+        }
+    }
+
+    return new_matrix;
 }
 
 int matrix_rank(const Matrix &matrix) {

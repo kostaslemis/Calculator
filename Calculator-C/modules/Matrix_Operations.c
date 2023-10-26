@@ -1,7 +1,6 @@
-#include <stdbool.h>
 #include <math.h>
 
-#include "Matrix.h"
+#include "Matrix_Operations.h"
 
 
 bool equal_dimensions(Matrix A, Matrix B) {

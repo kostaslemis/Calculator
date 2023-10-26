@@ -57,7 +57,7 @@ double &Polynomial::operator()(size_t n) {
 }
 
 double Polynomial::coeff(size_t n) const {
-    static double dummy = 0.0;
+    const double dummy = 0.0;
     if (_coefficients == NULL)
         return dummy;
 
