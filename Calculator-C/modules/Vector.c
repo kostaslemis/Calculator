@@ -44,7 +44,7 @@ double vector_elem(Vector vector, size_t i) {
     const double dummy = 0.0;
     if (vector->elements == NULL)
         return dummy;
-    
+
     return (i >= 1 && i <= vector->size)
         ? vector->elements[i - 1]
         : dummy;

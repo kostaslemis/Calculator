@@ -10,7 +10,7 @@ struct matrix {
 
 
 Matrix matrix_create(size_t rows, size_t cols) {
-    Matrix matrix = malloc(sizeof(matrix)); 
+    Matrix matrix = malloc(sizeof(matrix));
     matrix->rows = rows;
     matrix->cols = cols;
     matrix->elements = malloc(matrix->rows * sizeof(double*));
@@ -34,7 +34,7 @@ Matrix matrix_copy(Matrix matrix) {
     new_matrix->rows = matrix->rows;
     new_matrix->cols = matrix->cols;
     new_matrix->elements = malloc(new_matrix->rows * sizeof(double*));
-    for (size_t r = 0; r < new_matrix->rows; r++) 
+    for (size_t r = 0; r < new_matrix->rows; r++)
         new_matrix->elements[r] = malloc(new_matrix->cols * sizeof(double));
 
     for (size_t r = 0; r < new_matrix->rows; r++)
@@ -65,7 +65,7 @@ double matrix_elem(Matrix matrix, size_t row, size_t col) {
 void matrix_set_value(Matrix matrix, size_t row, size_t col, double value) {
     if (matrix->elements == NULL)
         return;
-    
+
     if (row >= 1 && row <= matrix->rows && col >= 1 && col <= matrix->cols)
         matrix->elements[row - 1][col - 1] = value;
 }

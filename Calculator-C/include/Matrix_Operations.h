@@ -17,7 +17,7 @@ Matrix matrices_sub(Matrix A, Matrix B);
 
 Matrix matrix_scalar_mult(Matrix matrix, double k);
 
-// Matrix matrix_vector_mult(Matrix mattrix, Vector vector); 
+// Matrix matrix_vector_mult(Matrix mattrix, Vector vector);
 
 Matrix matrices_mult(Matrix A, Matrix B);
 

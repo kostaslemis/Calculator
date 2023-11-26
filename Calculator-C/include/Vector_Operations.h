@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include "Matrix_Operations.h"
 
+
 bool vectors_equal_size(Vector u, Vector v);
 
 Vector vectors_add(Vector u, Vector v);

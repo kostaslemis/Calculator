@@ -24,7 +24,7 @@ Matrix matrices_add(Matrix A, Matrix B) {
     Matrix new_matrix = matrix_create(matrix_rows(A), matrix_cols(B));
     if (!equal_dimensions(A, B))
         return new_matrix;
-    
+
     for (size_t r = 1; r <= matrix_rows(A); r++)
         for (size_t c = 1; c <= matrix_cols(B); c++)
             matrix_set_value(new_matrix, r, c, matrix_elem(A, r, c) + matrix_elem(B, r, c));
@@ -36,7 +36,7 @@ Matrix matrices_sub(Matrix A, Matrix B) {
     Matrix new_matrix = matrix_create(matrix_rows(A), matrix_cols(B));
     if (!equal_dimensions(A, B))
         return new_matrix;
-    
+
     for (size_t r = 1; r <= matrix_rows(A); r++)
         for (size_t c = 1; c <= matrix_cols(B); c++)
             matrix_set_value(new_matrix, r, c, matrix_elem(A, r, c) - matrix_elem(B, r, c));
@@ -54,7 +54,7 @@ Matrix matrix_scalar_mult(Matrix matrix, double k) {
     return new_matrix;
 }
 
-// Matrix matrix_vector_mult(Matrix mattrix, Vector vector); 
+// Matrix matrix_vector_mult(Matrix mattrix, Vector vector);
 
 Matrix matrices_mult(Matrix A, Matrix B) {
     Matrix new_matrix = matrix_create(matrix_rows(A), matrix_cols(B));
@@ -120,14 +120,14 @@ Matrix sub_matrix(Matrix matrix, size_t col) {
 double det(Matrix matrix) {
     if (!square_matrix(matrix))
         return 0.0;
-    
+
     if (matrix_rows(matrix) == 1)
         return matrix_elem(matrix, 1, 1);
 
     if (matrix_rows(matrix) == 2)
         return matrix_elem(matrix, 1, 1) * matrix_elem(matrix, 2, 2)
             - matrix_elem(matrix, 1, 2) * matrix_elem(matrix, 2, 1);
-    
+
     double sum = 0.0;
     for (size_t c = 1, sign = 1; c <= matrix_cols(matrix); c++, sign *= -1)
         sum += matrix_elem(matrix, 1, c) * det(sub_matrix(matrix, c))*sign;

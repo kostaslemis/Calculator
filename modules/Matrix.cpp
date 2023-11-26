@@ -4,7 +4,7 @@
 
 static Matrix matrix_regex(const char *string, size_t rows, size_t cols) {
     size_t i = 0, j = 0, r = 0;
-    
+
     std::smatch matches;
     std::string str_check = string;
     std::regex reg_check ("[^-,\\s\\d{}]");
@@ -41,14 +41,14 @@ static Matrix matrix_regex(const char *string, size_t rows, size_t cols) {
             r = -1;
             break;
         }
-        
+
         str_rows= matches.suffix().str();
         r++;
     }
 
     if (i > 0 || j != 1 || r != rows) {
         std::cout << "Invalid input" << std::endl;
-        std::cout << "Follow specific format :" << std::endl; 
+        std::cout << "Follow specific format :" << std::endl;
         std::cout << "\"{{x_11, x_12, ..., x_1n}, {x_21, x_22, ..., x_2n}, ..., {x_n1, x_n2, ..., x_nn}}\"" << std::endl;
         Matrix error_matrix(0, 0);
         return error_matrix;
@@ -98,7 +98,7 @@ Matrix &Matrix::operator=(const Matrix &matrix) {
     for (size_t r = 0; r < matrix._rows; r++)
         for (size_t c = 0; c < matrix._cols; c++)
             _elements[r][c] = matrix._elements[r][c];
-    
+
     return *this;
 }
 

@@ -16,7 +16,7 @@ bool diagonal_matrix(const Matrix &matrix) {
         for (size_t c = 1; c <= matrix.cols(); c++)
             if (r != c && matrix.elem(r, c) != 0)
                 return false;
-                
+
     return true;
 }
 
@@ -24,7 +24,7 @@ Matrix operator+(const Matrix &A, const Matrix &B) {
     Matrix new_matrix(A.rows(), B.cols());
     if (!equal_dimensions(A, B))
         return new_matrix;
-        
+
     for (size_t r = 1; r <= A.rows(); r++)
         for (size_t c = 1; c <= B.cols(); c++)
             new_matrix(r, c) = A.elem(r, c) + B.elem(r, c);
@@ -51,7 +51,7 @@ Matrix operator*(double k, const Matrix &matrix) {
     for (size_t r = 1; r <= matrix.rows(); r++)
         for (size_t c = 1; c <= matrix.cols(); c++)
             new_matrix(r, c) = k * matrix.elem(r, c);
-  
+
     return new_matrix;
 }
 
@@ -71,7 +71,7 @@ Vector operator*(const Matrix &matrix, const Vector &vector) {
 Matrix operator*(const Matrix &A, const Matrix &B) {
     Matrix new_matrix(A.rows(), B.cols());
 
-    if (A.cols() != B.rows()) 
+    if (A.cols() != B.rows())
         return new_matrix;
 
     for (size_t r = 1; r <= A.rows(); r++)
@@ -131,7 +131,7 @@ Matrix sub_matrix(const Matrix &matrix, size_t col) {
 
     for (size_t r = 2; r <= matrix.rows(); r++) {
         for (size_t c = 1; c <= matrix.cols(); c++) {
-            if (c < col) 
+            if (c < col)
                 new_matrix(r - 1, c) = matrix.elem(r, c);
             else if (c > col)
                 new_matrix(r - 1, c - 1) = matrix.elem(r, c);
@@ -154,7 +154,7 @@ double det(const Matrix &matrix) {
     double sum = 0.0;
     for (size_t c = 1, sign = 1; c <= matrix.cols(); c++, sign *= -1)
         sum += matrix.elem(1, c)*det(sub_matrix(matrix, c))*sign;
-        
+
     return sum;
 }
 
@@ -210,7 +210,7 @@ Matrix minor(const Matrix &matrix, size_t row, size_t col) {
         }
     }
 
-    return new_matrix; 
+    return new_matrix;
 }
 
 Matrix cofactor(const Matrix &matrix) {
@@ -238,8 +238,8 @@ Polynomial characteristic_polynomial(const Matrix &matrix) {
     if (!square_matrix(matrix))
         return char_poly;
 
-    // 2 x 2 Matrix        
-    if (matrix.rows() == 2) {        
+    // 2 x 2 Matrix
+    if (matrix.rows() == 2) {
         char_poly(2) = 1;
         char_poly(1) = -trace(matrix);
         char_poly(0) = det(matrix);
@@ -291,7 +291,7 @@ static size_t factorial(size_t n) {
 // e^(At) = Sum_of (t^n/n!)A^n , n from 0 to inf
 Matrix exp(const Matrix &matrix, double t) {
     Matrix exp_matrix(matrix.rows(), matrix.cols());
-    
+
     for (size_t n = 0; n < 10; n++)
         exp_matrix = exp_matrix + pow(t, n)/factorial(n)*pow(matrix, n);
 
@@ -331,7 +331,6 @@ Matrix format_matrix(const Matrix &matrix) {
     }
 
     return format_matrix;
-
 }
 
 Matrix echelon_form(const Matrix &matrix) {

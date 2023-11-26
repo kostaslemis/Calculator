@@ -25,7 +25,7 @@ static int lcm(int x, int y) {
 
 Fraction operator+(const Fraction &a, const Fraction &b) {
     int _numerator, _denominator;
-    
+
     if (a.denominator() == b.denominator()) {
         _numerator = a.numerator() + b.numerator();
         _denominator = a.denominator();
@@ -49,7 +49,7 @@ Fraction operator+(const Fraction &fraction, int k) {
 
 Fraction operator-(const Fraction &a, const Fraction &b) {
     int _numerator, _denominator;
-    
+
     if (a.denominator() == b.denominator()) {
         _numerator = a.numerator() - b.numerator();
         _denominator = a.denominator();

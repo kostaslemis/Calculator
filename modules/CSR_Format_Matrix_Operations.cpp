@@ -49,14 +49,14 @@ Vector operator*(const CSR_Format_Matrix &csr_format_matrix, const Vector &vecto
 //         return error_csr_format_matrix;
 //     }
 
-    
+
 
 // }
 
 bool operator==(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B) {
     if (!equal_dimensions(A, B))
         return false;
-    
+
     return A.non_zero_values() == B.non_zero_values() &&
     A.col_indices() == B.col_indices() &&
     A.row_indices() == B.row_indices();
@@ -65,7 +65,7 @@ bool operator==(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B) {
 bool operator!=(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B) {
     if (!equal_dimensions(A, B))
         return true;
-    
+
     return A.non_zero_values() != B.non_zero_values() ||
     A.col_indices() != B.col_indices() ||
     A.row_indices() != B.row_indices();

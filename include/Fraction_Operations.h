@@ -2,6 +2,7 @@
 
 #include "Fraction.h"
 
+
 Fraction operator+(const Fraction &a, const Fraction &b);
 
 Fraction operator+(const Fraction &fraction, int k);

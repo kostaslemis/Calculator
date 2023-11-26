@@ -2,9 +2,9 @@
 
 #include <stdlib.h>
 
-#define VECTOR_MIN_CAPACITY 10
-
 typedef struct vector *Vector;
+
+#define VECTOR_MIN_CAPACITY 10
 
 
 Vector vector_create(size_t size);

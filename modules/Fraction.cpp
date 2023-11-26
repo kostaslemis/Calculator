@@ -5,7 +5,7 @@
 static Fraction fraction_regex(const char *string) {
     std::smatch matches;
     int i = 0, j = 0, k = 0;
-    
+
     std::string str_check = string;
     std::regex reg_check ("[^-\\d\\/]");
     while (std::regex_search(str_check, matches, reg_check)) {
@@ -79,7 +79,6 @@ Fraction::Fraction(const char *string) {
     _y = fraction.denominator();
     _value = (double)_x/(double)_y;
 }
-
 
 Fraction::Fraction() {
     _x = 0;

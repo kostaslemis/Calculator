@@ -6,7 +6,7 @@
 static Vector vector_regex(const char *string, size_t size) {
     std::smatch matches;
     size_t i = 0, j = 0, k = 0;
-    
+
     std::string str_check = string;
     std::regex reg_check ("[^-,\\s\\d())]");
     while (std::regex_search(str_check, matches, reg_check)) {

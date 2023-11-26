@@ -16,7 +16,7 @@ Vector operator+(const Vector &v, const Vector &u) {
     for (size_t i = 1; i <= v.size(); i++)
         new_vector(i) = v.elem(i) + u.elem(i);
 
-    return new_vector; 
+    return new_vector;
 }
 
 Vector operator-(const Vector &v, const Vector &u) {
@@ -27,7 +27,7 @@ Vector operator-(const Vector &v, const Vector &u) {
     for (size_t i = 1; i <= v.size(); i++)
         new_vector(i) = v.elem(i) - u.elem(i);
 
-    return new_vector; 
+    return new_vector;
 }
 
 Vector operator*(double k, const Vector &v) {
@@ -35,14 +35,14 @@ Vector operator*(double k, const Vector &v) {
 
     for (size_t i = 1; i <= v.size(); i++)
         new_vector(i) = k * v.elem(i);
-  
+
     return new_vector;
 }
 
 bool operator==(const Vector &v, const Vector &u) {
     if (!equal_size(v, u))
         return false;
-    
+
     for (size_t i = 1; i <= v.size(); i++)
         if (v.elem(i) != u.elem(i))
             return false;
@@ -98,7 +98,7 @@ Vector cross_product(const Vector &u, const Vector &v) {
 
     for (size_t i = 1; i <= u.size(); i ++)
         new_vector(i) = det(sub_matrix(matrix, i));
-    
+
     return new_vector;
 }
 

@@ -2,7 +2,7 @@
 
 
 CSR_Format_Matrix::CSR_Format_Matrix(const Matrix &matrix)
-    : _rows(matrix.rows()), _cols(matrix.cols()), 
+    : _rows(matrix.rows()), _cols(matrix.cols()),
     _non_zero_values(0), _col_indices(0), _row_indices(matrix.rows() + 1) {
     size_t nnz = 0;
     _row_indices(1) = 0;
@@ -44,10 +44,10 @@ size_t CSR_Format_Matrix::rows() const {
 size_t CSR_Format_Matrix::cols() const {
     return _cols;
 }
-    
+
 Vector CSR_Format_Matrix::non_zero_values() const {
     return _non_zero_values;
-} 
+}
 
 Vector CSR_Format_Matrix::col_indices() const {
     return _col_indices;

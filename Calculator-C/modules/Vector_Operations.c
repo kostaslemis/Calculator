@@ -11,7 +11,7 @@ Vector vectors_add(Vector u, Vector v) {
 
     for (size_t i = 0; i <= vector_size(u); i++)
         vector_set_value(new_vector, i, vector_elem(u, i) + vector_elem(v, i));
-    
+
     return new_vector;
 }
 
@@ -22,7 +22,7 @@ Vector vectors_sub(Vector u, Vector v) {
 
     for (size_t i = 0; i <= vector_size(u); i++)
         vector_set_value(new_vector, i, vector_elem(u, i) - vector_elem(v, i));
-    
+
     return new_vector;
 }
 
@@ -94,7 +94,7 @@ Vector vectors_tensor_product(Vector u, Vector v) {
             k = 1;
             j++;
         }
-        
+
         vector_set_value(new_vector, i, vector_elem(u, j) * vector_elem(v, k));
     }
 
@@ -103,10 +103,9 @@ Vector vectors_tensor_product(Vector u, Vector v) {
 
 double vector_length(Vector vector) {
     double sum = 0.0;
-    
+
     for (size_t i = 1; i <= vector_size(vector); i++)
         sum += vector_elem(vector, i) * vector_elem(vector, i);
 
     return sqrt(sum);
 }
-
