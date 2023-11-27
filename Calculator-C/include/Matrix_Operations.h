@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "Matrix.h"
+#include "Vector.h"
 
 
 bool equal_dimensions(Matrix A, Matrix B);
@@ -44,3 +45,9 @@ Matrix cofactor(Matrix matrix);
 Matrix adj(Matrix matrix);
 
 Matrix inverse(Matrix matrix);
+
+Vector matrix_get_row(Matrix matrix, size_t row);
+
+Vector matrix_get_col(Matrix matrix, size_t col);
+
+Matrix gauss_elimination(Matrix matrix);

@@ -10,7 +10,7 @@ struct matrix {
 
 
 Matrix matrix_create(size_t rows, size_t cols) {
-    Matrix matrix = malloc(sizeof(matrix));
+    Matrix matrix = malloc(sizeof(*matrix));
     matrix->rows = rows;
     matrix->cols = cols;
     matrix->elements = malloc(matrix->rows * sizeof(double*));
@@ -20,6 +20,8 @@ Matrix matrix_create(size_t rows, size_t cols) {
     for (size_t r = 0; r < matrix->rows; r++)
         for (size_t c = 0; c < matrix->cols; c++)
             matrix->elements[r][c] = 0;
+    
+    return matrix;
 }
 
 void matrix_destroy(Matrix matrix) {
@@ -57,7 +59,7 @@ double matrix_elem(Matrix matrix, size_t row, size_t col) {
     if (matrix->elements == NULL)
         return dummy;
 
-    return (row >= 1 && row <= matrix->rows && col >= 1 && col >= matrix->cols)
+    return (row >= 1 && row <= matrix->rows && col >= 1 && col <= matrix->cols)
         ? matrix->elements[row - 1][col - 1]
         : dummy;
 }
@@ -73,8 +75,8 @@ void matrix_set_value(Matrix matrix, size_t row, size_t col, double value) {
 void matrix_print(Matrix matrix) {
     for (size_t r = 0; r <= matrix->rows; r++) {
         for (size_t c = 0; c <= matrix->cols; c++)
-            printf("%f ", matrix->elements[r][c]);
-        printf("\n");
+            fprintf(stdout, "%f ", matrix->elements[r][c]);
+        fprintf(stdout, "\n");
     }
 }
 

@@ -1,6 +1,8 @@
+#include <stdio.h>
 #include <math.h>
 
 #include "Matrix_Operations.h"
+#include "Vector.h"
 
 
 bool equal_dimensions(Matrix A, Matrix B) {
@@ -45,7 +47,7 @@ Matrix matrices_sub(Matrix A, Matrix B) {
 }
 
 Matrix matrix_scalar_mult(Matrix matrix, double k) {
-    Matrix new_matrix = map_create(matrix_rows(matrix), matrix_cols(matrix));
+    Matrix new_matrix = matrix_create(matrix_rows(matrix), matrix_cols(matrix));
 
     for (size_t r = 1; r <= matrix_rows(matrix); r++)
         for (size_t c = 1; c <= matrix_cols(matrix); c++)
@@ -192,4 +194,56 @@ Matrix adj(Matrix matrix) {
 
 Matrix inverse(Matrix matrix) {
     return matrix_scalar_mult(adj(matrix), 1.0/det(matrix));
+}
+
+Vector matrix_get_row(Matrix matrix, size_t row) {
+    Vector vector_row = vector_create(matrix_cols(matrix));
+
+    for (size_t c = 1; c <= matrix_cols(matrix); c++)
+        vector_set_value(vector_row, c, matrix_elem(matrix, row, c));
+
+    return vector_row;
+}
+
+Vector matrix_get_col(Matrix matrix, size_t col) {
+    Vector vector_col = vector_create(matrix_rows(matrix));
+
+    for (size_t r = 1; r <= matrix_rows(matrix); r++)
+        vector_set_value(vector_col, r, matrix_elem(matrix, r, col));
+
+    return vector_col;
+}
+
+Matrix gauss_elimination(Matrix matrix) {
+    Matrix new_matrix = matrix_copy(matrix);
+
+    for (size_t c = 1; c <= matrix_cols(new_matrix); c++) {
+        size_t p = c;
+        for (size_t r = c; r <= matrix_rows(new_matrix); r++) {
+            if ((matrix_elem(new_matrix, p, c) == 0 && matrix_elem(new_matrix, r, c) != 0) ||
+                (abs(matrix_elem(new_matrix, r, c)) < abs(matrix_elem(new_matrix, p, c)) &&
+                matrix_elem(new_matrix, r, c) != 0))
+                p = r;
+        }
+
+        if (matrix_elem(new_matrix, p, c) == 0) {
+            fprintf(stdout, "No single solution exists\n");
+            return new_matrix;
+        }
+
+        if (p != c)
+            matrix_swap(new_matrix, c, p);
+
+        for (size_t r = c + 1; r <= matrix_rows(new_matrix); r++) {
+            const double m = - matrix_elem(new_matrix, c, r) / matrix_elem(new_matrix, c, c);
+            matrix_pivot(new_matrix, m, c, r);
+        }
+
+        if (matrix_elem(new_matrix, matrix_rows(new_matrix), matrix_cols(new_matrix)) == 0) {
+            fprintf(stdout, "No single solution exists\n");
+            return new_matrix;
+        }
+    }
+    
+    return new_matrix;
 }

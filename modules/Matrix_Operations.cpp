@@ -265,19 +265,19 @@ Polynomial characteristic_polynomial(const Matrix &matrix) {
 }
 
 Vector get_row(const Matrix &matrix, size_t row) {
-    Vector vector_row(0);
+    Vector vector_row(matrix.cols());
 
     for (size_t c = 1; c <= matrix.cols(); c++)
-        vector_row.insert_last(matrix.elem(row, c));
+        vector_row(c) = matrix.elem(row, c);
 
     return vector_row;
 }
 
 Vector get_col(const Matrix &matrix, size_t col) {
-    Vector vector_col(0);
+    Vector vector_col(matrix.rows());
 
     for (size_t r = 1; r <= matrix.rows(); r++)
-        vector_col.insert_last(matrix.elem(r, col));
+        vector_col(r) = matrix.elem(r, col);
 
     return vector_col;
 }
@@ -401,7 +401,7 @@ Matrix gaussian_elimination(const Matrix &matrix) {
             new_matrix.swap(c, p);
 
         for (size_t r = c + 1; r <= matrix.rows(); r++) {
-            const double m = -new_matrix.elem(c, r)/new_matrix.elem(c, c);
+            const double m = - new_matrix.elem(c, r) / new_matrix.elem(c, c);
             new_matrix.pivot(m, c, r);
         }
 

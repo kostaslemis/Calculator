@@ -10,13 +10,15 @@ struct vector {
 
 
 Vector vector_create(size_t size) {
-    Vector vector = malloc(sizeof(vector));
+    Vector vector = malloc(sizeof(*vector));
     vector->size = size;
     vector->capacity = vector->size < VECTOR_MIN_CAPACITY ? VECTOR_MIN_CAPACITY : vector->size;
     vector->elements = malloc(vector->capacity * sizeof(double));
 
     for (size_t i = 0; i < vector->size; i++)
         vector->elements[i] = 0;
+
+    return vector;
 }
 
 void vector_destroy(Vector vector) {
@@ -56,11 +58,11 @@ void vector_set_value(Vector vector, size_t i, double value) {
 }
 
 void vector_print(Vector vector) {
-    printf("(");
+    fprintf(stdout, "(");
     for (size_t i = 0; i < vector->size - 1; i++)
-        printf("%f, ", vector->elements[i]);
-    printf("%f)", vector->elements[vector->size - 1]);
-    printf("\n");
+        fprintf(stdout, "%f, ", vector->elements[i]);
+    fprintf(stdout, "%f)", vector->elements[vector->size - 1]);
+    fprintf(stdout, "\n");
 }
 
 void vector_insert_last(Vector vector, double new_value) {
