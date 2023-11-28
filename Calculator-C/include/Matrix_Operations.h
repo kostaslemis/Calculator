@@ -6,11 +6,11 @@
 #include "Vector.h"
 
 
-bool equal_dimensions(Matrix A, Matrix B);
+bool matrices_equal_dimensions(Matrix A, Matrix B);
 
-bool square_matrix(Matrix matrix);
+bool matrix_is_square(Matrix matrix);
 
-bool diagonal_matrix(Matrix matrix);
+bool matrix_is_diagonal(Matrix matrix);
 
 Matrix matrices_add(Matrix A, Matrix B);
 
@@ -26,28 +26,28 @@ bool matrices_equal(Matrix A, Matrix B);
 
 bool matrices_not_equal(Matrix A, Matrix B);
 
-double trace(Matrix matrix);
+double matrix_trace(Matrix matrix);
 
-Matrix sub_matrix(Matrix matrix, size_t col);
+Matrix matrix_sub_matrix(Matrix matrix, size_t col);
 
-double det(Matrix matrix);
+double matrix_det(Matrix matrix);
 
-Matrix identity_matrix(size_t n);
+Matrix matrix_identity(size_t n);
 
 Matrix matrix_pow(Matrix matrix, size_t exponent);
 
-Matrix transpose(Matrix matrix);
+Matrix matrix_transpose(Matrix matrix);
 
-Matrix minor(Matrix matrix, size_t row, size_t col);
+Matrix matrix_minor(Matrix matrix, size_t row, size_t col);
 
-Matrix cofactor(Matrix matrix);
+Matrix matrix_cofactor(Matrix matrix);
 
-Matrix adj(Matrix matrix);
+Matrix matrix_adjacent(Matrix matrix);
 
-Matrix inverse(Matrix matrix);
+Matrix matrix_inverse(Matrix matrix);
 
 Vector matrix_get_row(Matrix matrix, size_t row);
 
 Vector matrix_get_col(Matrix matrix, size_t col);
 
-Matrix gauss_elimination(Matrix matrix);
+Matrix matrix_gauss_elimination(Matrix matrix);

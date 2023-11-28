@@ -40,7 +40,7 @@ $(MATRIX_EXEC): $(MATRIX_OBJS)
 ###################################################################################################
 
 MATRIX_OPERATIONS_OBJS = $(TESTS)/Matrix_Operations_test.o $(MODULES)/Matrix_Operations.o \
-	$(MODULES)/Matrix.o
+	$(MODULES)/Matrix.o $(MODULES)/Vector.o
 MATRIX_OPERATIONS_EXEC = Matrix_Operations_test
 
 $(MATRIX_OPERATIONS_EXEC): $(MATRIX_OPERATIONS_OBJS)

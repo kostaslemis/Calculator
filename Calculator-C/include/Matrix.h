@@ -7,6 +7,8 @@ typedef struct matrix *Matrix;
 
 Matrix matrix_create(size_t rows, size_t cols);
 
+Matrix matrix_create_random(size_t rows, size_t cols, int MAX_VALUE);
+
 void matrix_destroy(Matrix matrix);
 
 Matrix matrix_copy(Matrix matrix);

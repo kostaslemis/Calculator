@@ -5,15 +5,15 @@
 #include "Vector.h"
 
 
-bool equal_dimensions(Matrix A, Matrix B) {
+bool matrices_equal_dimensions(Matrix A, Matrix B) {
     return matrix_rows(A) == matrix_rows(B) && matrix_cols(A) == matrix_cols(B);
 }
 
-bool square_matrix(Matrix matrix) {
+bool matrix_is_square(Matrix matrix) {
     return matrix_rows(matrix) == matrix_cols(matrix);
 }
 
-bool diagonal_matrix(Matrix matrix) {
+bool matrix_is_diagonal(Matrix matrix) {
     for (size_t r = 1; r <= matrix_rows(matrix); r++)
         for (size_t c = 1; c <= matrix_cols(matrix); c++)
             if (r != c && matrix_elem(matrix, r, c) != 0)
@@ -24,7 +24,7 @@ bool diagonal_matrix(Matrix matrix) {
 
 Matrix matrices_add(Matrix A, Matrix B) {
     Matrix new_matrix = matrix_create(matrix_rows(A), matrix_cols(B));
-    if (!equal_dimensions(A, B))
+    if (!matrices_equal_dimensions(A, B))
         return new_matrix;
 
     for (size_t r = 1; r <= matrix_rows(A); r++)
@@ -36,7 +36,7 @@ Matrix matrices_add(Matrix A, Matrix B) {
 
 Matrix matrices_sub(Matrix A, Matrix B) {
     Matrix new_matrix = matrix_create(matrix_rows(A), matrix_cols(B));
-    if (!equal_dimensions(A, B))
+    if (!matrices_equal_dimensions(A, B))
         return new_matrix;
 
     for (size_t r = 1; r <= matrix_rows(A); r++)
@@ -74,7 +74,7 @@ Matrix matrices_mult(Matrix A, Matrix B) {
 }
 
 bool matrices_equal(Matrix A, Matrix B) {
-    if (!equal_dimensions(A, B))
+    if (!matrices_equal_dimensions(A, B))
         return false;
 
     for (size_t r = 1; r <= matrix_rows(A); r++)
@@ -86,7 +86,7 @@ bool matrices_equal(Matrix A, Matrix B) {
 }
 
 bool matrices_not_equal(Matrix A, Matrix B) {
-    if (!equal_dimensions(A, B))
+    if (!matrices_equal_dimensions(A, B))
         return false;
 
     for (size_t r = 1; r <= matrix_rows(A); r++)
@@ -97,7 +97,7 @@ bool matrices_not_equal(Matrix A, Matrix B) {
     return false;
 }
 
-double trace(Matrix matrix) {
+double matrix_trace(Matrix matrix) {
     double trace = 0.0;
 
     for (size_t i; i <= matrix_rows(matrix); i++)
@@ -106,7 +106,7 @@ double trace(Matrix matrix) {
     return trace;
 }
 
-Matrix sub_matrix(Matrix matrix, size_t col) {
+Matrix matrix_sub_matrix(Matrix matrix, size_t col) {
     Matrix new_matrix = matrix_create(matrix_rows(matrix) - 1, matrix_cols(matrix) - 1);
 
     for (size_t r = 2; r <= matrix_rows(matrix); r++)
@@ -119,8 +119,8 @@ Matrix sub_matrix(Matrix matrix, size_t col) {
     return new_matrix;
 }
 
-double det(Matrix matrix) {
-    if (!square_matrix(matrix))
+double matrix_det(Matrix matrix) {
+    if (!matrix_is_square(matrix))
         return 0.0;
 
     if (matrix_rows(matrix) == 1)
@@ -132,12 +132,12 @@ double det(Matrix matrix) {
 
     double sum = 0.0;
     for (size_t c = 1, sign = 1; c <= matrix_cols(matrix); c++, sign *= -1)
-        sum += matrix_elem(matrix, 1, c) * det(sub_matrix(matrix, c))*sign;
+        sum += matrix_elem(matrix, 1, c) * matrix_det(matrix_sub_matrix(matrix, c)) * sign;
 
     return sum;
 }
 
-Matrix identity_matrix(size_t n) {
+Matrix matrix_identity(size_t n) {
     Matrix new_matrix = matrix_create(n, n);
 
     for (size_t r = 1; r <= n; r++)
@@ -151,7 +151,7 @@ Matrix identity_matrix(size_t n) {
 
 // }
 
-Matrix transpose(Matrix matrix) {
+Matrix matrix_transpose(Matrix matrix) {
     Matrix new_matrix = matrix_create(matrix_cols(matrix), matrix_rows(matrix));
 
     for (size_t r = 1; r <= matrix_rows(matrix); r++)
@@ -161,7 +161,7 @@ Matrix transpose(Matrix matrix) {
     return new_matrix;
 }
 
-Matrix minor(Matrix matrix, size_t row, size_t col) {
+Matrix matrix_minor(Matrix matrix, size_t row, size_t col) {
     Matrix new_matrix = matrix_create(matrix_rows(matrix) - 1, matrix_cols(matrix) - 1);
 
     for (size_t r = 1; r <= matrix_rows(matrix); r++)
@@ -178,22 +178,22 @@ Matrix minor(Matrix matrix, size_t row, size_t col) {
     return new_matrix;
 }
 
-Matrix cofactor(Matrix matrix) {
+Matrix matrix_cofactor(Matrix matrix) {
     Matrix new_matrix = matrix_create(matrix_rows(matrix), matrix_cols(matrix));
 
     for (size_t r = 1; r <= matrix_rows(matrix); r++)
         for (size_t c = 1; c <= matrix_cols(matrix); c++)
-            matrix_set_value(new_matrix, r, c, pow(-1, r + c) * det(minor(matrix, r, c)));
+            matrix_set_value(new_matrix, r, c, pow(-1, r + c) * matrix_det(matrix_minor(matrix, r, c)));
 
     return new_matrix;
 }
 
-Matrix adj(Matrix matrix) {
-    return transpose(cofactor(matrix));
+Matrix matrix_adjacent(Matrix matrix) {
+    return matrix_transpose(matrix_cofactor(matrix));
 }
 
-Matrix inverse(Matrix matrix) {
-    return matrix_scalar_mult(adj(matrix), 1.0/det(matrix));
+Matrix matrix_inverse(Matrix matrix) {
+    return matrix_scalar_mult(matrix_adjacent(matrix), 1.0 / matrix_det(matrix));
 }
 
 Vector matrix_get_row(Matrix matrix, size_t row) {
@@ -214,7 +214,7 @@ Vector matrix_get_col(Matrix matrix, size_t col) {
     return vector_col;
 }
 
-Matrix gauss_elimination(Matrix matrix) {
+Matrix matrix_gauss_elimination(Matrix matrix) {
     Matrix new_matrix = matrix_copy(matrix);
 
     for (size_t c = 1; c <= matrix_cols(new_matrix); c++) {

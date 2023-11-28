@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "Matrix.h"
 
@@ -21,6 +23,22 @@ Matrix matrix_create(size_t rows, size_t cols) {
         for (size_t c = 0; c < matrix->cols; c++)
             matrix->elements[r][c] = 0;
     
+    return matrix;
+}
+
+Matrix matrix_create_random(size_t rows, size_t cols, int MAX_VALUE) {
+    Matrix matrix = malloc(sizeof(*matrix));
+    matrix->rows = rows;
+    matrix->cols = cols;
+    matrix->elements = malloc(matrix->rows * sizeof(double*));
+    for (size_t r = 0; r < matrix->rows; r++)
+        matrix->elements[r] = malloc(matrix->cols * sizeof(double));
+
+    srand(time(NULL));
+    for (size_t r = 0; r < matrix->rows; r++)
+        for (size_t c = 0; c < matrix->cols; c++)
+            matrix->elements[r][c] = (double)(rand() % MAX_VALUE);
+
     return matrix;
 }
 
@@ -73,8 +91,8 @@ void matrix_set_value(Matrix matrix, size_t row, size_t col, double value) {
 }
 
 void matrix_print(Matrix matrix) {
-    for (size_t r = 0; r <= matrix->rows; r++) {
-        for (size_t c = 0; c <= matrix->cols; c++)
+    for (size_t r = 0; r < matrix->rows; r++) {
+        for (size_t c = 0; c < matrix->cols; c++)
             fprintf(stdout, "%f ", matrix->elements[r][c]);
         fprintf(stdout, "\n");
     }

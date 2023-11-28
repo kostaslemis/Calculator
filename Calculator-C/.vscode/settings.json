@@ -2,6 +2,12 @@
     "files.associations": {
         "matrix.h": "c",
         "vector_operations.h": "c",
-        "matrix_operations.h": "c"
+        "matrix_operations.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "utility": "c",
+        "time.h": "c",
+        "vector": "c"
     }
 }

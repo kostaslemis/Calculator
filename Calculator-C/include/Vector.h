@@ -9,6 +9,8 @@ typedef struct vector *Vector;
 
 Vector vector_create(size_t size);
 
+Vector vector_create_random(size_t size, int MAX_VALUE);
+
 void vector_destroy(Vector vector);
 
 Vector vector_copy(Vector vector);

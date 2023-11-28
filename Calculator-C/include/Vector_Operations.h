@@ -20,8 +20,12 @@ bool vectors_not_equal(Vector u, Vector v);
 
 double vectors_dot_product(Vector u, Vector v);
 
+double vectors_dot_product_omp(Vector v, Vector u);
+
 Vector vectors_cross_product(Vector u, Vector v);
 
 Vector vectors_tensor_product(Vector u, Vector v);
 
 double vector_length(Vector vector);
+
+double vector_length_omp(Vector vector, int threads);

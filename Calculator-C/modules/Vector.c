@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 
 #include "Vector.h"
 
@@ -21,6 +22,19 @@ Vector vector_create(size_t size) {
     return vector;
 }
 
+Vector vector_create_random(size_t size, int MAX_VALUE) {
+    Vector vector = malloc(sizeof(*vector));
+    vector->size = size;
+    vector->capacity = vector->size < VECTOR_MIN_CAPACITY ? VECTOR_MIN_CAPACITY : vector->size;
+    vector->elements = malloc(vector->capacity * sizeof(double));
+
+    srand(time(NULL));
+    for (size_t i = 0; i < vector->size; i++)
+        vector->elements[i] = (double)(rand() % MAX_VALUE);
+
+    return vector;
+}
+
 void vector_destroy(Vector vector) {
     free(vector->elements);
     free(vector);
@@ -29,7 +43,7 @@ void vector_destroy(Vector vector) {
 Vector vector_copy(Vector vector) {
     Vector new_vector = malloc(sizeof(new_vector));
     new_vector->size = vector->size;
-    new_vector->capacity = vector->size < VECTOR_MIN_CAPACITY ? VECTOR_MIN_CAPACITY : vector->size;
+    new_vector->capacity = vector->capacity;
     new_vector->elements = malloc(vector->size * sizeof(double));
 
     for (size_t i = 0; i < new_vector->size; i++)
