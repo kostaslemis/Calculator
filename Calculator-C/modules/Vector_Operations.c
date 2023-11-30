@@ -66,20 +66,23 @@ double vectors_dot_product(Vector v, Vector u) {
         return sum;
 
     size_t size = vector_size(v);
-    for (size_t i = 1; i <= size; i++)
+    for (register size_t i = 1; i <= size; i++)
         sum += vector_elem(v, i) * vector_elem(u, i);
 
     return sum;
 }
 
-double vectors_dot_product_omp(Vector v, Vector u) {
+double vectors_dot_product_omp(Vector v, Vector u, int threads) {
     double sum = 0.0;
     if (!vectors_equal_size(v, u))
         return sum;
 
-    #pragma omp parallel for num_threads(1) \
-        reduction(+: sum)
-    for (size_t i = 1; i <= vector_size(v); i++)
+    size_t i;
+    size_t size = vector_size(v);
+    #pragma omp parallel for num_threads(threads) \
+        default(none) shared(v, u, size) private(i) \
+        reduction(+: sum) schedule(auto)
+    for (i = 1; i <= size; i++)
         sum += vector_elem(v, i) * vector_elem(u, i);
 
     return sum;
@@ -122,7 +125,7 @@ double vector_length(Vector vector) {
     double sum = 0.0;
 
     size_t size = vector_size(vector);
-    for (size_t i = 1; i <= size; i++) {
+    for (register size_t i = 1; i <= size; i++) {
         double elem = vector_elem(vector, i);
         sum += elem * elem;
     }
@@ -145,4 +148,68 @@ double vector_length_omp(Vector vector, int threads) {
     }
 
     return sqrt(sum);
+}
+
+double vectors_euclidean_distance(Vector v, Vector u) {
+    double sum = 0.0;
+    if (!vectors_equal_size(v, u))
+        return sum;
+
+    size_t size = vector_size(v);
+    for (register size_t i = 1; i <= size; i++) {
+        double value = vector_elem(v, i) - vector_elem(u, i);
+        sum += value * value;
+    }
+
+    return sqrt(sum);
+}
+
+double vectors_euclidean_disatnce_omp(Vector v, Vector u, int threads) {
+    double sum = 0.0;
+    if (!vectors_equal_size(v, u))
+        return sum;
+
+    double value;
+
+    size_t i;
+    size_t size = vector_size(v);
+    # pragma omp parallel for num_threads(16) \
+        default(none) shared(v, u, size) private(i, value) \
+        reduction(+: sum) schedule(auto)
+    for (i = 1; i <= size; i++) {
+        value = vector_elem(v, i) - vector_elem(u, i);
+        sum += value * value;
+    }
+
+    return sqrt(sum);
+}
+
+double vectors_manhattan_distance(Vector v, Vector u) {
+    double sum = 0.0;
+    if (!vectors_equal_size(v, u))
+        return sum;
+
+    size_t size = vector_size(v);
+    for (register size_t i = 1; i <= size; i++) {
+        sum += abs(vector_elem(v, i) - vector_elem(u, i)); 
+    }
+
+    return sum;
+}
+
+double vectors_manhattan_distance_omp(Vector v, Vector u, int threads) {
+    double sum = 0.0;
+    if (!vectors_equal_size(v, u))
+        return sum;
+
+    size_t i;
+    size_t size = vector_size(v);
+    #pragma omp parallel for num_threads(threads) \
+        default(none) shared(v, u, size) private(i) \
+        reduction(+: sum) schedule(auto)
+    for (i = 1; i <= size; i++) {
+        sum += abs(vector_elem(v, i) - vector_elem(u, i)); 
+    }
+
+    return sum;
 }

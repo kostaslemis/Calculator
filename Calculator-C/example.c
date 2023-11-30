@@ -50,6 +50,23 @@ int main(void) {
 
     fprintf(stdout, "Vector dot product took %f seconds to execute\n", end - start);
 
+    for (size_t i = 1; i <= vector_size(vector); i++) {
+        vector_set_value(v, i, 1.0);
+        vector_set_value(u, i, 0.0);
+    }
+
+    GET_TIME(start);
+    double euclidean_distance = vectors_euclidean_distance(v, u);
+    GET_TIME(end);
+
+    fprintf(stdout, "Vector euclidean distance took %f seconds to execute with result %f\n", end - start, euclidean_distance);
+
+    GET_TIME(start);
+    double manhattan_distance = vectors_manhattan_distance(v, u);
+    GET_TIME(end);
+
+    fprintf(stdout, "Vector manhattan distance took %f seconds to execute with result %f\n", end - start, manhattan_distance);
+
     vector_destroy(v);
     vector_destroy(u);
 

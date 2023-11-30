@@ -20,7 +20,7 @@ bool vectors_not_equal(Vector u, Vector v);
 
 double vectors_dot_product(Vector u, Vector v);
 
-double vectors_dot_product_omp(Vector v, Vector u);
+double vectors_dot_product_omp(Vector v, Vector u, int threads);
 
 Vector vectors_cross_product(Vector u, Vector v);
 
@@ -29,3 +29,11 @@ Vector vectors_tensor_product(Vector u, Vector v);
 double vector_length(Vector vector);
 
 double vector_length_omp(Vector vector, int threads);
+
+double vectors_euclidean_distance(Vector v, Vector u);
+
+double vectors_euclidean_disatnce_omp(Vector v, Vector u, int threads);
+
+double vectors_manhattan_distance(Vector v, Vector u);
+
+double vectors_manhattan_distance_omp(Vector v, Vector u, int threads);
