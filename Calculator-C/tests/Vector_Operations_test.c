@@ -1,7 +1,5 @@
 #include "acutest.h"
 
-#include <stdio.h>
-
 #include "Vector_Operations.h"
 
 
@@ -18,7 +16,7 @@ void test_dot_product(void) {
 
     TEST_ASSERT(vectors_dot_product(v, u) == 17.0);
 
-    TEST_ASSERT(vectors_dot_product_omp(v, u) == 17.0);
+    TEST_ASSERT(vectors_dot_product_omp(v, u, 8) == 17.0);
 
     vector_destroy(v);
     vector_destroy(u);

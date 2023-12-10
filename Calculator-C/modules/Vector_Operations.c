@@ -66,9 +66,9 @@ double vectors_dot_product(Vector v, Vector u) {
         return sum;
 
     size_t size = vector_size(v);
-    for (register size_t i = 1; i <= size; i++)
+    for (register size_t i = 1; i <= size; i++) {
         sum += vector_elem(v, i) * vector_elem(u, i);
-
+    }
     return sum;
 }
 
@@ -82,9 +82,9 @@ double vectors_dot_product_omp(Vector v, Vector u, int threads) {
     #pragma omp parallel for num_threads(threads) \
         default(none) shared(v, u, size) private(i) \
         reduction(+: sum) schedule(auto)
-    for (i = 1; i <= size; i++)
+    for (i = 1; i <= size; i++) {
         sum += vector_elem(v, i) * vector_elem(u, i);
-
+    }
     return sum;
 }
 
@@ -121,19 +121,20 @@ Vector vectors_tensor_product(Vector v, Vector u) {
     return new_vector;
 }
 
-double vector_length(Vector vector) {
+double vector_norm(Vector vector) {
+    double elem;
     double sum = 0.0;
 
     size_t size = vector_size(vector);
     for (register size_t i = 1; i <= size; i++) {
-        double elem = vector_elem(vector, i);
+        elem = vector_elem(vector, i);
         sum += elem * elem;
     }
 
     return sqrt(sum);
 }
 
-double vector_length_omp(Vector vector, int threads) {
+double vector_norm_omp(Vector vector, int threads) {
     double elem;
     double sum = 0.0;
 
@@ -151,13 +152,14 @@ double vector_length_omp(Vector vector, int threads) {
 }
 
 double vectors_euclidean_distance(Vector v, Vector u) {
+    double value;
     double sum = 0.0;
     if (!vectors_equal_size(v, u))
         return sum;
 
     size_t size = vector_size(v);
     for (register size_t i = 1; i <= size; i++) {
-        double value = vector_elem(v, i) - vector_elem(u, i);
+        value = vector_elem(v, i) - vector_elem(u, i);
         sum += value * value;
     }
 
@@ -165,15 +167,14 @@ double vectors_euclidean_distance(Vector v, Vector u) {
 }
 
 double vectors_euclidean_disatnce_omp(Vector v, Vector u, int threads) {
+    double value;
     double sum = 0.0;
     if (!vectors_equal_size(v, u))
         return sum;
 
-    double value;
-
     size_t i;
     size_t size = vector_size(v);
-    # pragma omp parallel for num_threads(16) \
+    # pragma omp parallel for num_threads(threads) \
         default(none) shared(v, u, size) private(i, value) \
         reduction(+: sum) schedule(auto)
     for (i = 1; i <= size; i++) {

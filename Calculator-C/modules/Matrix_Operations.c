@@ -235,7 +235,7 @@ Matrix matrix_gauss_elimination(Matrix matrix) {
             matrix_swap(new_matrix, c, p);
 
         for (size_t r = c + 1; r <= matrix_rows(new_matrix); r++) {
-            const double m = - matrix_elem(new_matrix, c, r) / matrix_elem(new_matrix, c, c);
+            const double m = - matrix_elem(new_matrix, r, c) / matrix_elem(new_matrix, c, c);
             matrix_pivot(new_matrix, m, c, r);
         }
 

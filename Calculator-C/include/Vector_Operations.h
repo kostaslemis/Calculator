@@ -26,9 +26,9 @@ Vector vectors_cross_product(Vector u, Vector v);
 
 Vector vectors_tensor_product(Vector u, Vector v);
 
-double vector_length(Vector vector);
+double vector_norm(Vector vector);
 
-double vector_length_omp(Vector vector, int threads);
+double vector_norm_omp(Vector vector, int threads);
 
 double vectors_euclidean_distance(Vector v, Vector u);
 

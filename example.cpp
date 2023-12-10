@@ -46,6 +46,16 @@ int main() {
 
     std::cout << matrix * vector << std::endl;
 
+
+    // Generalization of cross product to n dimensions ?
+    Vector v(4);
+    v.scan_vector("(1, 2, 3, 4)");
+
+    Vector u(4);
+    u.scan_vector("(1, 3, 5, 6)");
+
+    std::cout << cross_product(v, u) << std::endl;
+
     CSR_Format_Matrix csr_fromat_matrix(matrix);
     std::cout << csr_fromat_matrix << std::endl;
 
