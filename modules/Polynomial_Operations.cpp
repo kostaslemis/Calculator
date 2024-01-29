@@ -82,7 +82,7 @@ Polynomial operator*(const Polynomial &p, const Polynomial &q) {
             for (size_t i = 0, j = k; i <= k && j >= 0; i++, j--)
                 diagonal_sum_k += p.coeff(i)*q.coeff(j);
         else
-            for (size_t i = n, j = k-n; i >= k-n && j <= n; i--, j++)
+            for (size_t i = n, j = k - n; i >= k - n && j <= n; i--, j++)
                 diagonal_sum_k += p.coeff(i)*q.coeff(j);
 
         new_polynomial(k) = diagonal_sum_k;

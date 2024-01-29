@@ -67,5 +67,22 @@ int main() {
 
     std::cout << 2 * csr_fromat_matrix << std::endl;
 
+    // Polynomial p(2);
+    // p(2) = 5; p(1) = 2; p(0) = 1;
+
+    // std::cout << p << std::endl;
+
+    // Polynomial q(1);
+    // q(1) = 1; q(0) = 5;
+
+    // std::cout << q << std::endl;
+
+    // std::cout << p * q << std::endl;
+
+    // Polynomial test(0);
+    // test(0) = 5;
+
+    // std::cout << test;
+
     return EXIT_SUCCESS;
 }

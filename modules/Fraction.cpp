@@ -137,7 +137,7 @@ void Fraction::set_fraction(int x, int y) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Fraction &fraction) {
-    if (fraction._y == 1)
+    if (fraction._y == 1.0)
         os << fraction._x << std::endl;
     else
         os << fraction._x << "/" << fraction._y << std::endl;

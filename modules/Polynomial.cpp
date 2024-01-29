@@ -64,48 +64,51 @@ double Polynomial::coeff(size_t n) const {
         : dummy;
 }
 
-void sign(double number) {
-    if (number > 0)
-        std::cout << " + ";
+void sign(std::ostream &os, double coeff) {
+    if (coeff > 0)
+        os << " + ";
     else
-        std::cout << " - ";
+        os << " - ";
+}
+
+void print_coeff(std::ostream &os, double coeff, const char *string, size_t degree) {
+    sign(os, coeff);
+    os << abs(coeff) << string;
+    if (degree > 1)
+        os << degree;
 }
 
 std::ostream &operator<<(std::ostream &os, const Polynomial &polynomial) {
     size_t degree = polynomial.degree();
+    double coeff;
 
-    if (abs(polynomial.coeff(degree)) > 1)
-        os << polynomial.coeff(degree) << "x^" << degree;
-    else if (polynomial.coeff(degree) == -1)
-        os << "-x^" << degree;
-    else if (polynomial.coeff(degree) == 1)
-        os << "x^" << degree;
-
-    for (size_t n = degree-1; n > 1; n--) {
-        if (abs(polynomial.coeff(n)) > 1) {
-            sign(polynomial.coeff(n));
-            os << abs(polynomial.coeff(n)) << "x^" << n;
-        } else if (abs(polynomial.coeff(n)) == 1) {
-            sign(polynomial.coeff(n));
-            os << "x^" << n;
-        }
+    if (degree == 0) {
+        os << polynomial.coeff(0) << std::endl;
+        return os;
     }
 
-    if (abs(polynomial.coeff(1)) > 1) {
-        sign(polynomial.coeff(1));
-        os << abs(polynomial.coeff(1)) << "x";
-    } else if (polynomial.coeff(1) == 1) {
-        sign(polynomial.coeff(1));
-        os << "x";
+    if (degree == 1) {
+        os << polynomial.coeff(1) << "x";
+        coeff = polynomial.coeff(0);
+        sign(os, coeff);
+        os << abs(coeff) << std::endl;
+        return os;
     }
 
-    if (polynomial.coeff(0) != 0) {
-        sign(polynomial.coeff(0));
-        os << abs(polynomial.coeff(0));
+    os << polynomial.coeff(degree) << "x^" << degree;
+
+    for (size_t n = degree - 1; n > 1; n--) {
+        coeff = polynomial.coeff(n);
+        print_coeff(os, coeff, "x^", n);
     }
+
+    coeff = polynomial.coeff(1);
+    print_coeff(os, coeff, "x", 1);
+
+    coeff = polynomial.coeff(0);
+    print_coeff(os, coeff, "", 0);
 
     os << std::endl;
-
     return os;
 }
 
