@@ -1,6 +1,8 @@
+#include <stdlib.h>
+#include <math.h>
 #include <omp.h>
 
-#include "Vector_Operations.h"
+#include "../include/Vector_Operations.h"
 
 
 bool vectors_equal_size(Vector v, Vector u) {

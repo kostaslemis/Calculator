@@ -25,7 +25,7 @@ void test_dot_product(void) {
 void test_length(void) {
     Vector vector = vector_create_random(1000, 10);
 
-    TEST_ASSERT(vector_length(vector) == vector_length_omp(vector, 8));
+    TEST_ASSERT(vector_norm(vector) == vector_norm_omp(vector, 8));
 
     vector_destroy(vector);
 }

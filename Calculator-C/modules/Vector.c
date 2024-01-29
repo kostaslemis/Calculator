@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
-#include "Vector.h"
+#include "../include/Vector.h"
 
 struct vector {
     size_t size;

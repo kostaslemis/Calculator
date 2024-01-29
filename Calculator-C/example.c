@@ -7,16 +7,16 @@
 
 
 int main(void) {
-    // Vector vector = vector_create(4);
+    Vector vector = vector_create(4);
 
-    // vector_set_value(vector, 1, 25);
-    // vector_set_value(vector, 2, 10);
+    vector_set_value(vector, 1, 25);
+    vector_set_value(vector, 2, 10);
 
-    // vector_print(vector);
+    vector_print(vector);
 
-    // fprintf(stdout, "%f\n", vectors_dot_product(vector, vector));
+    fprintf(stdout, "%f\n", vectors_dot_product(vector, vector));
 
-    // vector_destroy(vector);
+    vector_destroy(vector);
 
     // Matrix matrix = matrix_create(3, 4);
 
@@ -70,28 +70,28 @@ int main(void) {
     // vector_destroy(v);
     // vector_destroy(u);
 
-    int N = 100;
-    Vector v = vector_create_random(N, 10);
-    Vector u = vector_create_random(N, 10);
+    // int N = 100;
+    // Vector v = vector_create_random(N, 10);
+    // Vector u = vector_create_random(N, 10);
    
-    double start, end;
-    GET_TIME(start);
-    int M = 10000000;
-    for (int i = 0; i < M; i++) {
-        vectors_dot_product(v, u);
-    }
-    GET_TIME(end);
-    fprintf(stdout, "Vector dot product took %f seconds to execute\n", end - start);
+    // double start, end;
+    // GET_TIME(start);
+    // int M = 10000000;
+    // for (int i = 0; i < M; i++) {
+    //     vectors_dot_product(v, u);
+    // }
+    // GET_TIME(end);
+    // fprintf(stdout, "Vector dot product took %f seconds to execute\n", end - start);
 
-    GET_TIME(start);
-    for (int i = 0; i < M; i++) {
-        vectors_euclidean_distance(v, u);
-    }
-    GET_TIME(end);
-    fprintf(stdout, "Vector euclidean distance took %f seconds to execute\n", end - start);
+    // GET_TIME(start);
+    // for (int i = 0; i < M; i++) {
+    //     vectors_euclidean_distance(v, u);
+    // }
+    // GET_TIME(end);
+    // fprintf(stdout, "Vector euclidean distance took %f seconds to execute\n", end - start);
 
-    vector_destroy(v);
-    vector_destroy(u);
+    // vector_destroy(v);
+    // vector_destroy(u);
 
     return EXIT_SUCCESS;
 }

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "Matrix.h"
+#include "../include/Matrix.h"
 
 struct matrix {
     size_t rows;

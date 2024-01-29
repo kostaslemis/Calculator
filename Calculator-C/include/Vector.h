@@ -1,7 +1,5 @@
 #pragma once
 
-#include <stdlib.h>
-
 typedef struct vector *Vector;
 
 #define VECTOR_MIN_CAPACITY 10

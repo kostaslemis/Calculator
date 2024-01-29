@@ -8,6 +8,7 @@
         "initializer_list": "c",
         "utility": "c",
         "time.h": "c",
-        "vector": "c"
+        "vector": "c",
+        "stdlib.h": "c"
     }
 }

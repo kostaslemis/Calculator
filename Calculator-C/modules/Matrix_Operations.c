@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
-#include "Matrix_Operations.h"
-#include "Vector.h"
+#include "../include/Matrix_Operations.h"
+#include "../include/Vector.h"
 
 
 bool matrices_equal_dimensions(Matrix A, Matrix B) {
