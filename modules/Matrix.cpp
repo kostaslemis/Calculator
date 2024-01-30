@@ -69,7 +69,7 @@ Matrix::Matrix(size_t rows, size_t cols) : _rows(rows), _cols(cols) {
 
     for (size_t r = 0; r < _rows; r++)
         for (size_t c = 0; c < _cols; c++)
-            _elements[r][c] = 0;
+            _elements[r][c] = 0.0;
 }
 
 Matrix::Matrix(const Matrix &matrix) : _rows(matrix._rows), _cols(matrix._cols) {

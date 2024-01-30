@@ -47,7 +47,7 @@ Vector::Vector(size_t size) : _size(size) {
     _elements = new double[_capacity];
 
     for (size_t i = 0; i < _size; i++)
-        _elements[i] = 0;
+        _elements[i] = 0.0;
 }
 
 Vector::Vector(const Vector &vector)

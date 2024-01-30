@@ -12,7 +12,7 @@ Polynomial::Polynomial(size_t degree) : _degree(degree) {
     _coefficients = new double[_degree + 1];
 
     for (size_t n = 0; n <= _degree; n++)
-        _coefficients[n] = 0;
+        _coefficients[n] = 0.0;
 }
 
 Polynomial::Polynomial(const Polynomial &polynomial) : _degree(polynomial._degree) {

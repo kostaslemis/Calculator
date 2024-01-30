@@ -21,7 +21,7 @@ Matrix matrix_create(size_t rows, size_t cols) {
 
     for (size_t r = 0; r < matrix->rows; r++)
         for (size_t c = 0; c < matrix->cols; c++)
-            matrix->elements[r][c] = 0;
+            matrix->elements[r][c] = 0.0;
     
     return matrix;
 }
