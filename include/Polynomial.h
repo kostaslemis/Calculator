@@ -5,7 +5,6 @@
 
 class Polynomial {
     private:
-        double _x;
         const size_t _degree;
         double *_coefficients;
     public:

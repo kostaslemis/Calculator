@@ -18,7 +18,7 @@ Vector vector_create(size_t size) {
     vector->elements = malloc(vector->capacity * sizeof(double));
 
     for (size_t i = 0; i < vector->size; i++)
-        vector->elements[i] = 0;
+        vector->elements[i] = 0.0;
 
     return vector;
 }
@@ -42,10 +42,10 @@ void vector_destroy(Vector vector) {
 }
 
 Vector vector_copy(Vector vector) {
-    Vector new_vector = malloc(sizeof(new_vector));
+    Vector new_vector = malloc(sizeof(*new_vector));
     new_vector->size = vector->size;
     new_vector->capacity = vector->capacity;
-    new_vector->elements = malloc(vector->size * sizeof(double));
+    new_vector->elements = malloc(new_vector->capacity * sizeof(double));
 
     for (size_t i = 0; i < new_vector->size; i++)
         new_vector->elements[i] = vector->elements[i];

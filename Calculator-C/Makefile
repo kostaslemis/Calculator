@@ -13,6 +13,7 @@ CFLAGS = -Wall -Werror -pthread -fopenmp -I $(INCLUDE) -lm
 OBJS = example.o \
 	$(MODULES)/Matrix.o $(MODULES)/Matrix_Operations.o \
 	$(MODULES)/Vector.o $(MODULES)/Vector_Operations.o \
+	$(MODULES)/Polynomial.o \
 	# $(TESTS)/Matrix_test.o $(TESTS)/Matrix_Operations_test.o \
 	# $(TESTS)/Vector_test.o $(TESTS)/Vector_Operations_test.o
 

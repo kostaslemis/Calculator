@@ -50,7 +50,7 @@ void matrix_destroy(Matrix matrix) {
 }
 
 Matrix matrix_copy(Matrix matrix) {
-    Matrix new_matrix = malloc(sizeof(new_matrix));
+    Matrix new_matrix = malloc(sizeof(*new_matrix));
     new_matrix->rows = matrix->rows;
     new_matrix->cols = matrix->cols;
     new_matrix->elements = malloc(new_matrix->rows * sizeof(double*));
