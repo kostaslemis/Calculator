@@ -1,7 +1,8 @@
 #pragma once
 
+#include <stdbool.h>
+
 #include "Vector.h"
-#include "Matrix_Operations.h"
 
 
 bool vectors_equal_size(Vector u, Vector v);

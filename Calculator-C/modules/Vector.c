@@ -68,6 +68,9 @@ double vector_elem(Vector vector, size_t i) {
 }
 
 void vector_set_value(Vector vector, size_t i, double value) {
+    if (vector->elements == NULL)
+        return;
+
     if (i >= 1 && i <= vector->size)
         vector->elements[i - 1] = value;
 }

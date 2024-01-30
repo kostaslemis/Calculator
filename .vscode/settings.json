@@ -57,6 +57,7 @@
         "compare": "cpp",
         "concepts": "cpp",
         "numbers": "cpp",
-        "polynomial.h": "c"
+        "polynomial.h": "c",
+        "stdbool.h": "c"
     }
 }

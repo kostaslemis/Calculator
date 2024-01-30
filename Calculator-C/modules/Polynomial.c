@@ -64,6 +64,9 @@ double polynomial_coeff(Polynomial polynomial, size_t n) {
 }
 
 void polynomial_set_value(Polynomial polynomial, size_t n, double value) {
+    if (polynomial->coefficients == NULL)
+        return;
+
     if (n >= 0 && n <= polynomial->degree)
         polynomial->coefficients[n] = value;
 }
@@ -77,7 +80,7 @@ void sign(double coeff) {
 
 void print_coeff(double coeff, const char *string, size_t degree) {
     sign(coeff);
-    fprintf(stdout, "%lf%s", fabs(coeff), string);
+    fprintf(stdout, "%.2lf%s", fabs(coeff), string);
     if (degree > 1)
         fprintf(stdout, "%ld", degree);
 }
@@ -87,19 +90,19 @@ void polynomial_print(Polynomial polynomial) {
     double coeff;
 
     if (degree == 0) {
-        fprintf(stdout, "%lf\n", polynomial->coefficients[0]);
+        fprintf(stdout, "%.2lf\n", polynomial->coefficients[0]);
         return;
     }
 
     if (degree == 1) {
-        fprintf(stdout, "%lfx", polynomial->coefficients[1]);
+        fprintf(stdout, "%.2lfx", polynomial->coefficients[1]);
         coeff = polynomial->coefficients[0];
         sign(coeff);
-        fprintf(stdout, "%lf\n", fabs(coeff));
+        fprintf(stdout, "%.2lf\n", fabs(coeff));
         return;
     }
 
-    fprintf(stdout, "%lfx^%ld", polynomial->coefficients[degree], degree);
+    fprintf(stdout, "%.2lfx^%ld", polynomial->coefficients[degree], degree);
 
     for (size_t n = degree - 1; n > 1; n--) {
         coeff = polynomial->coefficients[n];

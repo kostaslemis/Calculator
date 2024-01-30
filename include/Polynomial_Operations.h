@@ -16,9 +16,9 @@ Polynomial operator+(const Polynomial &p, const Polynomial &q);
 
 Polynomial operator-(const Polynomial &p, const Polynomial &q);
 
-Polynomial operator*(const Polynomial &p, const Polynomial &q);
-
 Polynomial operator*(double k, const Polynomial &polynomial);
+
+Polynomial operator*(const Polynomial &p, const Polynomial &q);
 
 bool operator==(const Polynomial &p, const Polynomial &q);
 

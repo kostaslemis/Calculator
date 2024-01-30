@@ -71,13 +71,22 @@ Polynomial operator-(const Polynomial &p, const Polynomial &q) {
     return new_polynomial;
 }
 
+Polynomial operator*(double k, const Polynomial &polynomial) {
+    Polynomial new_polynomial(polynomial.degree());
+
+    for (size_t n = 0; n <= polynomial.degree(); n++)
+        new_polynomial(n) = k * polynomial.coeff(n);
+
+    return new_polynomial;
+}
+
 Polynomial operator*(const Polynomial &p, const Polynomial &q) {
     size_t degree = p.degree() + q.degree();
     Polynomial new_polynomial(degree);
 
     size_t n = max(p.degree(), q.degree());
     for (size_t k = 0; k <= 2*n; k++) {
-        double diagonal_sum_k = 0;
+        double diagonal_sum_k = 0.0;
         if (k <= n)
             for (size_t i = 0, j = k; i <= k && j >= 0; i++, j--)
                 diagonal_sum_k += p.coeff(i)*q.coeff(j);
@@ -87,15 +96,6 @@ Polynomial operator*(const Polynomial &p, const Polynomial &q) {
 
         new_polynomial(k) = diagonal_sum_k;
     }
-
-    return new_polynomial;
-}
-
-Polynomial operator*(double k, const Polynomial &polynomial) {
-    Polynomial new_polynomial(polynomial.degree());
-
-    for (size_t n = 0; n <= polynomial.degree(); n++)
-        new_polynomial(n) = k * polynomial.coeff(n);
 
     return new_polynomial;
 }

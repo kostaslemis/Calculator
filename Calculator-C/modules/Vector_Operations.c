@@ -3,6 +3,7 @@
 #include <omp.h>
 
 #include "../include/Vector_Operations.h"
+#include "../include/Matrix_Operations.h"
 
 
 bool vectors_equal_size(Vector v, Vector u) {
@@ -10,31 +11,34 @@ bool vectors_equal_size(Vector v, Vector u) {
 }
 
 Vector vectors_add(Vector v, Vector u) {
-    Vector new_vector = vector_create(vector_size(v));
+    size_t size = vector_size(v);
+    Vector new_vector = vector_create(size);
     if (!vectors_equal_size(v, u))
         return new_vector;
 
-    for (size_t i = 0; i <= vector_size(v); i++)
+    for (size_t i = 0; i <= size; i++)
         vector_set_value(new_vector, i, vector_elem(v, i) + vector_elem(u, i));
 
     return new_vector;
 }
 
 Vector vectors_sub(Vector v, Vector u) {
-    Vector new_vector = vector_create(vector_size(v));
+    size_t size = vector_size(v);
+    Vector new_vector = vector_create(size);
     if (!vectors_equal_size(v, u))
         return new_vector;
 
-    for (size_t i = 0; i <= vector_size(v); i++)
+    for (size_t i = 0; i <= size; i++)
         vector_set_value(new_vector, i, vector_elem(v, i) - vector_elem(u, i));
 
     return new_vector;
 }
 
 Vector vector_scalar_mult(Vector vector,  double k) {
-    Vector new_vector = vector_create(vector_size(vector));
+    size_t size = vector_size(vector);
+    Vector new_vector = vector_create(size);
 
-    for (size_t i = 0; i <= vector_size(vector); i++)
+    for (size_t i = 0; i <= size; i++)
         vector_set_value(vector, i, k * vector_elem(vector, i));
 
     return new_vector;
@@ -44,7 +48,8 @@ bool vectors_equal(Vector v, Vector u) {
     if (!vectors_equal_size(v, u))
         return true;
 
-    for (size_t i = 1; i <= vector_size(v); i++)
+    size_t size = vector_size(v);
+    for (size_t i = 1; i <= size; i++)
         if (vector_elem(v, i) != vector_elem(u, i))
             return false;
 
@@ -55,7 +60,8 @@ bool vectors_not_equal(Vector v, Vector u) {
     if (!vectors_equal_size(v, u))
         return true;
 
-    for (size_t i = 1; i <= vector_size(v); i++)
+    size_t size = vector_size(v);
+    for (size_t i = 1; i <= size; i++)
         if (vector_elem(v, i) != vector_elem(u, i))
             return true;
 
@@ -91,18 +97,19 @@ double vectors_dot_product_omp(Vector v, Vector u, int threads) {
 }
 
 Vector vectors_cross_product(Vector v, Vector u) {
-    Vector new_vector = vector_create(vector_size(v));
+    size_t size = vector_size(v);
+    Vector new_vector = vector_create(size);
     if (!vectors_equal_size(v, u))
         return new_vector;
 
-    Matrix matrix = matrix_create(3, vector_size(v));
+    Matrix matrix = matrix_create(3, size);
     for (size_t i = 1; i <= vector_size(v); i++) {
         matrix_set_value(matrix, 1, i, 1);
         matrix_set_value(matrix, 1, i, vector_elem(v, 1));
         matrix_set_value(matrix, 1, i, vector_elem(u, i));
     }
 
-    for (size_t i = 1; i <= vector_size(v); i++)
+    for (size_t i = 1; i <= size; i++)
         vector_set_value(new_vector, i, matrix_det(matrix_sub_matrix(matrix, i)));
 
     return new_vector;

@@ -36,48 +36,48 @@ int main() {
     // Fraction b = "2/3";
     // std::cout << a + b << std::endl;
 
-    Matrix matrix(2, 3);
-    matrix.scan_matrix("{{1, -1, 2}, {0, -3, 1}}");
-    std::cout << matrix << std::endl;
+    // Matrix matrix(2, 3);
+    // matrix.scan_matrix("{{1, -1, 2}, {0, -3, 1}}");
+    // std::cout << matrix << std::endl;
 
-    Vector vector(3);
-    vector.scan_vector("(2, 1, 0)");
-    std::cout << vector << std::endl;
+    // Vector vector(3);
+    // vector.scan_vector("(2, 1, 0)");
+    // std::cout << vector << std::endl;
 
-    std::cout << matrix * vector << std::endl;
+    // std::cout << matrix * vector << std::endl;
 
 
-    // Generalization of cross product to n dimensions ?
-    Vector v(4);
-    v.scan_vector("(1, 2, 3, 4)");
+    // // Generalization of cross product to n dimensions ?
+    // Vector v(4);
+    // v.scan_vector("(1, 2, 3, 4)");
 
-    Vector u(4);
-    u.scan_vector("(1, 3, 5, 6)");
+    // Vector u(4);
+    // u.scan_vector("(1, 3, 5, 6)");
 
-    std::cout << cross_product(v, u) << std::endl;
+    // std::cout << cross_product(v, u) << std::endl;
 
-    CSR_Format_Matrix csr_fromat_matrix(matrix);
-    std::cout << csr_fromat_matrix << std::endl;
+    // CSR_Format_Matrix csr_fromat_matrix(matrix);
+    // std::cout << csr_fromat_matrix << std::endl;
 
-    for (size_t r = 1; r <= matrix.rows(); r++) {
-        for (size_t c = 1; c <= matrix.cols(); c++)
-            std::cout << csr_fromat_matrix.elem(r, c) << "  ";
-        std::cout << std::endl;
-    }
+    // for (size_t r = 1; r <= matrix.rows(); r++) {
+    //     for (size_t c = 1; c <= matrix.cols(); c++)
+    //         std::cout << csr_fromat_matrix.elem(r, c) << "  ";
+    //     std::cout << std::endl;
+    // }
 
-    std::cout << 2 * csr_fromat_matrix << std::endl;
+    // std::cout << 2 * csr_fromat_matrix << std::endl;
 
-    // Polynomial p(2);
-    // p(2) = 5; p(1) = 2; p(0) = 1;
+    Polynomial p(2);
+    p(2) = 5; p(1) = 2; p(0) = 1;
 
-    // std::cout << p << std::endl;
+    std::cout << p << std::endl;
 
-    // Polynomial q(1);
-    // q(1) = 1; q(0) = 5;
+    Polynomial q(1);
+    q(1) = 1; q(0) = 5;
 
-    // std::cout << q << std::endl;
+    std::cout << q << std::endl;
 
-    // std::cout << p * q << std::endl;
+    std::cout << p * q << std::endl;
 
     // Polynomial test(0);
     // test(0) = 5;
