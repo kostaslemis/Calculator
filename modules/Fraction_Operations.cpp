@@ -41,7 +41,7 @@ Fraction operator+(const Fraction &a, const Fraction &b) {
 }
 
 Fraction operator+(const Fraction &fraction, int k) {
-    int _numerator = fraction.numerator() + k * fraction.denominator();
+    int _numerator = fraction.numerator() + k*fraction.denominator();
 
     Fraction new_fraction(_numerator, fraction.denominator());
     return new_fraction.simplify();
@@ -65,7 +65,7 @@ Fraction operator-(const Fraction &a, const Fraction &b) {
 }
 
 Fraction operator-(const Fraction &fraction, int k) {
-    int _numerator = fraction.numerator() - k * fraction.denominator();
+    int _numerator = fraction.numerator() - k*fraction.denominator();
 
     Fraction new_fraction(_numerator, fraction.denominator());
     return new_fraction.simplify();

@@ -9,13 +9,14 @@ TestPath = tests
 # compile options
 CFLAGS = -Wall -Werror -I $(IncludePath)
 
+Complex_Numbers = $(ModulePath)/Complex_Numbers.cpp $(ModulePath)/Complex_Numbers_Operations.cpp
 Fraction = $(ModulePath)/Fraction.cpp $(ModulePath)/Fraction_Operations.cpp
 Matrix = $(ModulePath)/Matrix.cpp $(ModulePath)/Matrix_Operations.cpp
 Polynomial = $(ModulePath)/Polynomial.cpp $(ModulePath)/Polynomial_Operations.cpp
 Vector = $(ModulePath)/Vector.cpp $(ModulePath)/Vector_Operations.cpp
 CSR_Format_Matrix = $(ModulePath)/CSR_Format_Matrix.cpp $(ModulePath)/CSR_Format_Matrix_Operations.cpp
 
-Calculator = $(Fraction) $(Matrix) $(Polynomial) $(Vector) $(CSR_Format_Matrix)
+Calculator = $(Complex_Numbers) $(Fraction) $(Matrix) $(Polynomial) $(Vector) $(CSR_Format_Matrix)
 
 PROGRAM = example
 

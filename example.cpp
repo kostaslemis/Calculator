@@ -3,6 +3,7 @@
 #include "Polynomial_Operations.h"
 #include "Vector_Operations.h"
 #include "CSR_Format_Matrix_Operations.h"
+#include "Complex_Number.h"
 
 
 int main() {
@@ -67,22 +68,25 @@ int main() {
 
     // std::cout << 2 * csr_fromat_matrix << std::endl;
 
-    Polynomial p(2);
-    p(2) = 5; p(1) = 2; p(0) = 1;
+    // Polynomial p(2);
+    // p(2) = 5; p(1) = 2; p(0) = 1;
 
-    std::cout << p << std::endl;
+    // std::cout << p << std::endl;
 
-    Polynomial q(1);
-    q(1) = 1; q(0) = 5;
+    // Polynomial q(1);
+    // q(1) = 1; q(0) = 5;
 
-    std::cout << q << std::endl;
+    // std::cout << q << std::endl;
 
-    std::cout << p * q << std::endl;
+    // std::cout << p * q << std::endl;
 
     // Polynomial test(0);
     // test(0) = 5;
 
     // std::cout << test;
+
+    Complex_Number a(2.0, 5.0);
+    std::cout << a << std::endl;
 
     return EXIT_SUCCESS;
 }
