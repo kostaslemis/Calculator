@@ -11,5 +11,6 @@ It will help you understand the way each module is intended to be used.
 Anynone intrested is welcome to join me in developing this project further.
 
 __New features !!!__
-- Fractions
-- Regex
+- Complex Numbers
+- CSR Format Matrices
+- C Implementaion
