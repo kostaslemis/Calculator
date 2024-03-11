@@ -37,15 +37,15 @@ int main() {
     // Fraction b = "2/3";
     // std::cout << a + b << std::endl;
 
-    // Matrix matrix(2, 3);
-    // matrix.scan_matrix("{{1, -1, 2}, {0, -3, 1}}");
-    // std::cout << matrix << std::endl;
+    Matrix matrix(2, 3);
+    matrix.scan_matrix("{{1, -1, 2}, {0, -3, 1}}");
+    std::cout << matrix << std::endl;
 
-    // Vector vector(3);
-    // vector.scan_vector("(2, 1, 0)");
-    // std::cout << vector << std::endl;
+    Vector vector(3);
+    vector.scan_vector("(2, 1, 0)");
+    std::cout << vector << std::endl;
 
-    // std::cout << matrix * vector << std::endl;
+    std::cout << matrix * vector << std::endl;
 
 
     // // Generalization of cross product to n dimensions ?
@@ -57,16 +57,26 @@ int main() {
 
     // std::cout << cross_product(v, u) << std::endl;
 
-    // CSR_Format_Matrix csr_fromat_matrix(matrix);
-    // std::cout << csr_fromat_matrix << std::endl;
+    CSR_Format_Matrix csr_fromat_matrix(matrix);
+    std::cout << csr_fromat_matrix << std::endl;
 
-    // for (size_t r = 1; r <= matrix.rows(); r++) {
-    //     for (size_t c = 1; c <= matrix.cols(); c++)
-    //         std::cout << csr_fromat_matrix.elem(r, c) << "  ";
-    //     std::cout << std::endl;
-    // }
+    for (size_t r = 1; r <= matrix.rows(); r++) {
+        for (size_t c = 1; c <= matrix.cols(); c++)
+            std::cout << csr_fromat_matrix.elem(r, c) << "  ";
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
 
-    // std::cout << 2 * csr_fromat_matrix << std::endl;
+    std::cout << 2 * csr_fromat_matrix << std::endl;
+
+    std::cout << csr_fromat_matrix * vector << std::endl;
+
+    Matrix I(3, 3);
+    I.scan_matrix("{{1, 0, 0}, {0, 1, 0}, {0, 0, 0}}");
+    std::cout << I << std::endl;
+
+    CSR_Format_Matrix A(I);
+    std::cout << A << std::endl;
 
     // Polynomial p(2);
     // p(2) = 5; p(1) = 2; p(0) = 1;
@@ -85,8 +95,8 @@ int main() {
 
     // std::cout << test;
 
-    Complex_Number a(2.0, 5.0);
-    std::cout << a << std::endl;
+    // Complex_Number a(2.0, 5.0);
+    // std::cout << a << std::endl;
 
     return EXIT_SUCCESS;
 }

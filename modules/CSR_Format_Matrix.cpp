@@ -70,6 +70,8 @@ double CSR_Format_Matrix::elem(size_t row, size_t col) const {
     return 0.0;
 }
 
+// Matrix CSR_Format_Matrix::matrix() {}
+
 std::ostream &operator<<(std::ostream &os, const CSR_Format_Matrix &csr_format_matrix) {
     os << csr_format_matrix._non_zero_values
        << csr_format_matrix._col_indices
