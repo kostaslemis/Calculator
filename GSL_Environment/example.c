@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <gsl/gsl_blas.h>
 
+
 int
 main (void)
 {
@@ -26,6 +27,20 @@ main (void)
 
 	printf ("[ %g, %g\n", c[0], c[1]);
 	printf ("  %g, %g ]\n", c[2], c[3]);
+
+
+	double v[] = {1.0, 2.0, 3.0};
+	double u[] = {1.0, 1.0, 1.0};
+
+	gsl_vector_view v_view = gsl_vector_view_array(v, 3);
+	gsl_vector_view u_view = gsl_vector_view_array(u, 3);
+
+	double *result = malloc(sizeof(double));
+	gsl_blas_ddot(&v_view.vector, &u_view.vector, result);
+
+	printf("%lf\n", *result);
+
+	free(result);
 
 	return 0;
 }
