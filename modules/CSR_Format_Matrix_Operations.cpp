@@ -46,33 +46,33 @@ Vector operator*(const CSR_Format_Matrix &csr_format_matrix, const Vector &vecto
 }
 
 // B transpose
-CSR_Format_Matrix operator*(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B) {
-    if (A.cols() != B.cols()) {
-        Matrix error_matrix(0, 0);
-        CSR_Format_Matrix error_csr_format_matrix(error_matrix);
-        return error_csr_format_matrix;
-    }
+// CSR_Format_Matrix operator*(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B) {
+//     if (A.cols() != B.cols()) {
+//         Matrix error_matrix(0, 0);
+//         CSR_Format_Matrix error_csr_format_matrix(error_matrix);
+//         return error_csr_format_matrix;
+//     }
 
-    Vector A_non_zero_values = A.non_zero_values();
-    Vector A_col_indices = A.col_indices();
-    Vector A_row_indices = A.row_indices();
+//     Vector A_non_zero_values = A.non_zero_values();
+//     Vector A_col_indices = A.col_indices();
+//     Vector A_row_indices = A.row_indices();
 
-    Vector B_non_zero_values = B.non_zero_values();
-    Vector B_col_indices = B.col_indices();
-    Vector B_row_indices = B.row_indices();
+//     Vector B_non_zero_values = B.non_zero_values();
+//     Vector B_col_indices = B.col_indices();
+//     Vector B_row_indices = B.row_indices();
 
-    for (size_t A_r = 1; A_r <= A.rows(); A_r++) {
-        size_t A_row_start = A_row_indices(A_r);
-        size_t A_row_end = A_row_indices(A_r + 1);
-        for (size_t B_r = 1; B_r <= B.rows(); B_r++) {
-            double sum = 0.0;
-            for (size_t c = A_row_start + 1; c <= A_row_end; c++) {
-                if (A_col_indices(c) == B_col_indices(c))
-                    sum += A_non_zero_values(c) * B_non_zero_values(c);
-            }
-        }
-    }
-}
+//     for (size_t A_r = 1; A_r <= A.rows(); A_r++) {
+//         size_t A_row_start = A_row_indices(A_r);
+//         size_t A_row_end = A_row_indices(A_r + 1);
+//         for (size_t B_r = 1; B_r <= B.rows(); B_r++) {
+//             double sum = 0.0;
+//             for (size_t c = A_row_start + 1; c <= A_row_end; c++) {
+//                 if (A_col_indices(c) == B_col_indices(c))
+//                     sum += A_non_zero_values(c) * B_non_zero_values(c);
+//             }
+//         }
+//     }
+// }
 
 bool operator==(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B) {
     if (!equal_dimensions(A, B))

@@ -42,5 +42,22 @@ main (void)
 
 	free(result);
 
+
+	double i[] = { 1.0, 2.0, 
+				   3.0, 4.0 };
+
+	double r[] = { 0.0, 0.0,
+				   0.0, 0.0 };
+
+	gsl_matrix_view I = gsl_matrix_view_array(i, 2, 2);
+	gsl_matrix_view R = gsl_matrix_view_array(r, 2, 2);
+
+	gsl_blas_dgemm (CblasNoTrans, CblasNoTrans,
+					1.0, &I.matrix, &I.matrix,
+					0.0, &R.matrix);
+
+	printf ("[ %g, %g\n", r[0], r[1]);
+	printf ("  %g, %g ]\n", r[2], r[3]);
+
 	return 0;
 }
