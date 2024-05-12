@@ -2,6 +2,20 @@
 #include <gsl/gsl_blas.h>
 
 
+void gsl_matrix_print(const gsl_matrix *m, const size_t n1, const size_t n2) {
+	printf("[ ");
+	for (size_t i = 0; i < n1; i++) {
+		for (size_t j = 0; j < n2; j++) {
+			printf("%g, ", m->data[j + n2*i]);
+		}
+		printf("\b\b ");
+		if (i < n1 - 1)
+			printf("\n  ");
+	}
+	printf("]\n");
+}
+
+
 int
 main (void)
 {
@@ -35,12 +49,10 @@ main (void)
 	gsl_vector_view v_view = gsl_vector_view_array(v, 3);
 	gsl_vector_view u_view = gsl_vector_view_array(u, 3);
 
-	double *result = malloc(sizeof(double));
-	gsl_blas_ddot(&v_view.vector, &u_view.vector, result);
+	double result;
+	gsl_blas_ddot(&v_view.vector, &u_view.vector, &result);
 
-	printf("%lf\n", *result);
-
-	free(result);
+	printf("%g\n", result);
 
 
 	double i[] = { 1.0, 2.0, 
@@ -58,6 +70,8 @@ main (void)
 
 	printf ("[ %g, %g\n", r[0], r[1]);
 	printf ("  %g, %g ]\n", r[2], r[3]);
+
+	gsl_matrix_print(&R.matrix, 2, 2);
 
 	return 0;
 }
