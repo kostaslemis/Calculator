@@ -9,8 +9,9 @@ void gsl_matrix_print(const gsl_matrix *m, const size_t n1, const size_t n2) {
 			printf("%g, ", m->data[j + n2*i]);
 		}
 		printf("\b\b ");
-		if (i < n1 - 1)
+		if (i < n1 - 1) {
 			printf("\n  ");
+		}
 	}
 	printf("]\n");
 }
