@@ -11,6 +11,7 @@ class Matrix {
     public:
             Matrix(size_t rows, size_t cols);
             Matrix(const Matrix &matrix);
+            Matrix(double *elements, size_t rows, size_t cols);
            ~Matrix();
         Matrix &operator=(const Matrix &matrix);
         void scan_matrix(const char *string);

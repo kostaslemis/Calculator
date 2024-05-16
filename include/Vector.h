@@ -13,6 +13,7 @@ class Vector {
     public:
             Vector(size_t size);
             Vector(const Vector &vector);
+            Vector(double *elements, size_t size);
            ~Vector();
         Vector &operator=(const Vector &vector);
         void scan_vector(const char *string);

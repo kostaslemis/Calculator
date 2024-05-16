@@ -22,6 +22,13 @@ Polynomial::Polynomial(const Polynomial &polynomial) : _degree(polynomial._degre
         _coefficients[n] = polynomial._coefficients[n];
 }
 
+Polynomial::Polynomial(double *coefficients, size_t degree) : _degree(degree) {
+    _coefficients = new double[_degree + 1];
+
+    for (size_t n = 0; n <= degree; n++)
+        _coefficients[n] = coefficients[n];
+}
+
 Polynomial::~Polynomial() {
     delete[] _coefficients;
 }

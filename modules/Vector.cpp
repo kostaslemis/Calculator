@@ -58,6 +58,14 @@ Vector::Vector(const Vector &vector)
         _elements[i] = vector._elements[i];
 }
 
+Vector::Vector(double *elements, size_t size) : _size(size) {
+    _capacity = _size < VECTOR_MIN_CAPACITY ? VECTOR_MIN_CAPACITY : _size;
+    _elements = new double[_capacity];
+
+    for (size_t i = 0; i < _size; i++)
+        _elements[i] = elements[i];
+}
+
 Vector::~Vector() {
     delete[] _elements;
 }

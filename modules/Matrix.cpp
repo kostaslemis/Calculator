@@ -82,6 +82,16 @@ Matrix::Matrix(const Matrix &matrix) : _rows(matrix._rows), _cols(matrix._cols) 
             _elements[r][c] = matrix._elements[r][c];
 }
 
+Matrix::Matrix(double *elements, size_t rows, size_t cols) : _rows(rows), _cols(cols) {
+    _elements = new double*[_rows];
+    for (size_t r = 0; r < _rows; r++)
+        _elements[r] = new double[_cols];
+
+    for (size_t r = 0; r < _rows; r++)
+        for (size_t c = 0; c < _cols; c++)
+            _elements[r][c] = elements[c + _rows*r];
+}
+
 Matrix::~Matrix() {
     for (size_t r = 0; r < _rows; r++)
         delete[] _elements[r];

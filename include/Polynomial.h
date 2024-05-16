@@ -10,6 +10,7 @@ class Polynomial {
     public:
             Polynomial(size_t degree);
             Polynomial(const Polynomial &polynomial);
+            Polynomial(double *coefficients, size_t degree);
            ~Polynomial();
         Polynomial &operator=(const Polynomial &polynomial);
         void scan_polynomial(const char *string);
