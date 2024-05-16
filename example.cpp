@@ -76,7 +76,7 @@ int main() {
     std::cout << I << std::endl;
 
     CSR_Format_Matrix A(I);
-    std::cout << A << std::endl;
+    std::cout << A;
 
     // Polynomial p(2);
     // p(2) = 5; p(1) = 2; p(0) = 1;
