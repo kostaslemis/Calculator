@@ -30,7 +30,7 @@ Vector operator-(const Vector &v, const Vector &u) {
     return new_vector;
 }
 
-Vector operator*(double k, const Vector &v) {
+Vector operator*(const double k, const Vector &v) {
     Vector new_vector(v.size());
 
     for (size_t i = 1; i <= v.size(); i++)

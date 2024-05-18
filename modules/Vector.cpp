@@ -3,7 +3,7 @@
 
 #include "Vector.h"     // TO DO : Throw Exceptions
 
-static Vector vector_regex(const char *string, size_t size) {
+static Vector vector_regex(const char *string, const size_t size) {
     std::smatch matches;
     size_t i = 0, j = 0, k = 0;
 
@@ -42,7 +42,7 @@ static Vector vector_regex(const char *string, size_t size) {
 }
 
 
-Vector::Vector(size_t size) : _size(size) {
+Vector::Vector(const size_t size) : _size(size) {
     _capacity = _size < VECTOR_MIN_CAPACITY ? VECTOR_MIN_CAPACITY : _size;
     _elements = new double[_capacity];
 
@@ -58,7 +58,7 @@ Vector::Vector(const Vector &vector)
         _elements[i] = vector._elements[i];
 }
 
-Vector::Vector(double *elements, size_t size) : _size(size) {
+Vector::Vector(double *elements, const size_t size) : _size(size) {
     _capacity = _size < VECTOR_MIN_CAPACITY ? VECTOR_MIN_CAPACITY : _size;
     _elements = new double[_capacity];
 
@@ -90,7 +90,7 @@ size_t Vector::size() const {
     return _size;
 }
 
-double &Vector::operator()(size_t i) {
+double &Vector::operator()(const size_t i) {
     static double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -100,7 +100,7 @@ double &Vector::operator()(size_t i) {
         : dummy;
 }
 
-double Vector::elem(size_t i) const {
+double Vector::elem(const size_t i) const {
     const double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -123,7 +123,7 @@ std::ostream &operator<<(std::ostream &os, const Vector &vector) {
     return os;
 }
 
-void Vector::insert_last(double new_value) {
+void Vector::insert_last(const double new_value) {
 	if (_capacity == _size) {
 		_capacity *= 2;
 		_elements = (double*)realloc(_elements, _capacity * sizeof(double));

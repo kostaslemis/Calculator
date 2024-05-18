@@ -8,7 +8,7 @@
 // }
 
 
-Polynomial::Polynomial(size_t degree) : _degree(degree) {
+Polynomial::Polynomial(const size_t degree) : _degree(degree) {
     _coefficients = new double[_degree + 1];
 
     for (size_t n = 0; n <= _degree; n++)
@@ -22,7 +22,7 @@ Polynomial::Polynomial(const Polynomial &polynomial) : _degree(polynomial._degre
         _coefficients[n] = polynomial._coefficients[n];
 }
 
-Polynomial::Polynomial(double *coefficients, size_t degree) : _degree(degree) {
+Polynomial::Polynomial(double *coefficients, const size_t degree) : _degree(degree) {
     _coefficients = new double[_degree + 1];
 
     for (size_t n = 0; n <= degree; n++)
@@ -33,7 +33,7 @@ Polynomial::~Polynomial() {
     delete[] _coefficients;
 }
 
-Polynomial &Polynomial::operator=(const Polynomial& polynomial) {
+Polynomial &Polynomial::operator=(const Polynomial &polynomial) {
     if (_coefficients == NULL)
         _coefficients = new double[polynomial._degree + 1];
 
@@ -51,7 +51,7 @@ size_t Polynomial::degree() const {
     return _degree;
 };
 
-double &Polynomial::operator()(size_t n) {
+double &Polynomial::operator()(const size_t n) {
     static double dummy = 0.0;
     if (_coefficients == NULL)
         return dummy;
@@ -61,7 +61,7 @@ double &Polynomial::operator()(size_t n) {
         : dummy;
 }
 
-double Polynomial::coeff(size_t n) const {
+double Polynomial::coeff(const size_t n) const {
     const double dummy = 0.0;
     if (_coefficients == NULL)
         return dummy;
@@ -71,14 +71,14 @@ double Polynomial::coeff(size_t n) const {
         : dummy;
 }
 
-void sign(std::ostream &os, double coeff) {
+static void sign(std::ostream &os, const double coeff) {
     if (coeff > 0)
         os << " + ";
     else
         os << " - ";
 }
 
-void print_coeff(std::ostream &os, double coeff, const char *string, size_t degree) {
+static void print_coeff(std::ostream &os, const double coeff, const char *string, const size_t degree) {
     sign(os, coeff);
     os << fabs(coeff) << string;
     if (degree > 1)
@@ -119,7 +119,7 @@ std::ostream &operator<<(std::ostream &os, const Polynomial &polynomial) {
     return os;
 }
 
-double Polynomial::p_x(double x) {
+double Polynomial::p_x(const double x) {
     double _p_x = 0.0;
 
     for (size_t n = 0; n <= _degree; n++)

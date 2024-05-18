@@ -2,7 +2,9 @@
 #include <gsl/gsl_blas.h>
 
 
-void gsl_matrix_print(const gsl_matrix *m, const size_t n1, const size_t n2) {
+void
+gsl_matrix_print(const gsl_matrix *m, const size_t n1, const size_t n2)
+{
 	printf("[ ");
 	for (size_t i = 0; i < n1; i++) {
 		for (size_t j = 0; j < n2; j++) {

@@ -45,7 +45,7 @@ Matrix operator-(const Matrix &A, const Matrix &B) {
     return new_matrix;
 }
 
-Matrix operator*(double k, const Matrix &matrix) {
+Matrix operator*(const double k, const Matrix &matrix) {
     Matrix new_matrix(matrix.rows(), matrix.cols());
 
     for (size_t r = 1; r <= matrix.rows(); r++)
@@ -126,7 +126,7 @@ double trace(const Matrix &matrix) {
     return trace;
 }
 
-Matrix sub_matrix(const Matrix &matrix, size_t col) {
+Matrix sub_matrix(const Matrix &matrix, const size_t col) {
     Matrix new_matrix(matrix.rows() - 1, matrix.cols() - 1);
 
     for (size_t r = 2; r <= matrix.rows(); r++) {
@@ -158,7 +158,7 @@ double det(const Matrix &matrix) {
     return sum;
 }
 
-Matrix identity_matrix(size_t n) {
+Matrix identity_matrix(const size_t n) {
     Matrix new_matrix(n, n);
 
     for (size_t r = 1; r <= n; r++)
@@ -168,7 +168,7 @@ Matrix identity_matrix(size_t n) {
     return new_matrix;
 }
 
-Matrix pow(const Matrix &matrix, size_t exponent) {
+Matrix pow(const Matrix &matrix, const size_t exponent) {
     Matrix new_matrix = identity_matrix(matrix.rows());
     if (!square_matrix(matrix))
         return new_matrix;
@@ -194,7 +194,7 @@ Matrix transpose(const Matrix &matrix) {
     return new_matrix;
 }
 
-Matrix minor(const Matrix &matrix, size_t row, size_t col) {
+Matrix minor(const Matrix &matrix, const size_t row, const size_t col) {
     Matrix new_matrix(matrix.rows() - 1, matrix.cols() - 1);
 
     for (size_t r = 1; r <= matrix.rows(); r++) {
@@ -264,7 +264,7 @@ Polynomial characteristic_polynomial(const Matrix &matrix) {
     return char_poly;
 }
 
-Vector get_row(const Matrix &matrix, size_t row) {
+Vector get_row(const Matrix &matrix, const size_t row) {
     Vector vector_row(matrix.cols());
 
     for (size_t c = 1; c <= matrix.cols(); c++)
@@ -273,7 +273,7 @@ Vector get_row(const Matrix &matrix, size_t row) {
     return vector_row;
 }
 
-Vector get_col(const Matrix &matrix, size_t col) {
+Vector get_col(const Matrix &matrix, const size_t col) {
     Vector vector_col(matrix.rows());
 
     for (size_t r = 1; r <= matrix.rows(); r++)
@@ -289,7 +289,7 @@ static size_t factorial(size_t n) {
 }
 
 // e^(At) = Sum_of (t^n/n!)A^n , n from 0 to inf
-Matrix exp(const Matrix &matrix, double t) {
+Matrix exp(const Matrix &matrix, const double t) {
     Matrix exp_matrix(matrix.rows(), matrix.cols());
 
     for (size_t n = 0; n < 10; n++)

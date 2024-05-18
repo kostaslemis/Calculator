@@ -9,7 +9,7 @@ Vector operator+(const Vector &v, const Vector &u);
 
 Vector operator-(const Vector &v, const Vector &u);
 
-Vector operator*(double k, const Vector &v);
+Vector operator*(const double k, const Vector &v);
 
 bool operator==(const Vector &v, const Vector &u);
 

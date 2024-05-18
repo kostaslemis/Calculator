@@ -2,7 +2,7 @@
 
 #include "Matrix.h"     // TO DO : Throw Exceptions
 
-static Matrix matrix_regex(const char *string, size_t rows, size_t cols) {
+static Matrix matrix_regex(const char *string, const size_t rows, const size_t cols) {
     size_t i = 0, j = 0, r = 0;
 
     std::smatch matches;
@@ -62,7 +62,7 @@ static Matrix matrix_regex(const char *string, size_t rows, size_t cols) {
 // }
 
 
-Matrix::Matrix(size_t rows, size_t cols) : _rows(rows), _cols(cols) {
+Matrix::Matrix(const size_t rows, const size_t cols) : _rows(rows), _cols(cols) {
     _elements = new double*[_rows];
     for (size_t r = 0; r < _rows; r++)
         _elements[r] = new double[_cols];
@@ -82,7 +82,7 @@ Matrix::Matrix(const Matrix &matrix) : _rows(matrix._rows), _cols(matrix._cols) 
             _elements[r][c] = matrix._elements[r][c];
 }
 
-Matrix::Matrix(double *elements, size_t rows, size_t cols) : _rows(rows), _cols(cols) {
+Matrix::Matrix(double *elements, const size_t rows, const size_t cols) : _rows(rows), _cols(cols) {
     _elements = new double*[_rows];
     for (size_t r = 0; r < _rows; r++)
         _elements[r] = new double[_cols];
@@ -127,7 +127,7 @@ size_t Matrix::cols() const {
     return _cols;
 }
 
-double &Matrix::operator()(size_t row, size_t col) {
+double &Matrix::operator()(const size_t row, const size_t col) {
     static double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -137,7 +137,7 @@ double &Matrix::operator()(size_t row, size_t col) {
         : dummy;
 }
 
-double Matrix::elem(size_t row, size_t col) const {
+double Matrix::elem(const size_t row, const size_t col) const {
     const double dummy = 0.0;
     if (_elements == NULL)
         return dummy;
@@ -175,7 +175,7 @@ void Matrix::operator-=(const Matrix &matrix) {
             _elements[r][c] = _elements[r][c] - matrix._elements[r][c];
 }
 
-void Matrix::operator*=(double z) {
+void Matrix::operator*=(const double z) {
     if (z == 0)
         return;
 
@@ -185,7 +185,7 @@ void Matrix::operator*=(double z) {
 }
 
 // row_a <-> row_b : swap row_a with row_b
-void Matrix::swap(size_t row_a, size_t row_b) {
+void Matrix::swap(const size_t row_a, const size_t row_b) {
     // Check row_a and row_b
 
     // temp_row <= row_a
@@ -205,7 +205,7 @@ void Matrix::swap(size_t row_a, size_t row_b) {
 }
 
 // k * row : multiply row with k
-void Matrix::scalar(double k, size_t row) {
+void Matrix::scalar(const double k, const size_t row) {
     // Check row and k != 0
 
     for (size_t c = 0; c < _cols; c++)
@@ -213,7 +213,7 @@ void Matrix::scalar(double k, size_t row) {
 }
 
 // row_b <= k*row_a + row_b : replace row_b by the sum of itself and a multiple of row_a
-void Matrix::pivot(double k, size_t row_a, size_t row_b) {
+void Matrix::pivot(const double k, const size_t row_a, const size_t row_b) {
     // Check row_a, row_b and k != 0
 
     for (size_t c = 0; c < _cols; c++)

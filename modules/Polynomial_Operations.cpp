@@ -3,11 +3,11 @@
 #include "Polynomial_Operations.h"
 
 
-int max(int a, int b) {
+static int max(const int a, const int b) {
     return  a > b ? a : b;
 }
 
-double find_random_root(const Polynomial &p, unsigned int accuracy) {
+double find_random_root(const Polynomial &p, const unsigned int accuracy) {
     return 0.0;
 }
 
@@ -71,7 +71,7 @@ Polynomial operator-(const Polynomial &p, const Polynomial &q) {
     return new_polynomial;
 }
 
-Polynomial operator*(double k, const Polynomial &polynomial) {
+Polynomial operator*(const double k, const Polynomial &polynomial) {
     Polynomial new_polynomial(polynomial.degree());
 
     for (size_t n = 0; n <= polynomial.degree(); n++)
@@ -142,7 +142,7 @@ Polynomial anti_derivative(const Polynomial &polynomial) {
     return new_polynomial;
 }
 
-double integral(const Polynomial &polynomial, double a, double b) {
+double integral(const Polynomial &polynomial, const double a, const double b) {
     Polynomial new_polynomial = anti_derivative(polynomial);
 
     return new_polynomial.p_x(b) - new_polynomial.p_x(a);
