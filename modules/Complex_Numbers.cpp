@@ -7,11 +7,11 @@
 // }
 
 
-Complex_Number::Complex_Number(double re, double im)
+Complex_Number::Complex_Number(const double re, const double im)
     : _re(re), _im(im) {
 }
 
-Complex_Number::Complex_Number(double re)
+Complex_Number::Complex_Number(const double re)
     : _re(re), _im(0.0) {
 }
 
@@ -29,7 +29,7 @@ Complex_Number::Complex_Number()
     : _re(0.0), _im(0.0) {
 }
 
-Complex_Number &Complex_Number::operator=(double re) {
+Complex_Number &Complex_Number::operator=(const double re) {
     _re = re;
     _im = 0.0;
     return *this;
@@ -55,7 +55,7 @@ double Complex_Number::im() const {
     return _im;
 }
 
-void Complex_Number::set_complex_number(double re, double im) {
+void Complex_Number::set_complex_number(const double re, const double im) {
     _re = re;
     _im = im;
 }

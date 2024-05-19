@@ -46,7 +46,7 @@ static Fraction fraction_regex(const char *string) {
 }
 
 
-Fraction::Fraction(int x, int y) {
+Fraction::Fraction(const int x, const int y) {
     _x = x;
     _y = y;
     if (y < 0) {
@@ -57,13 +57,13 @@ Fraction::Fraction(int x, int y) {
     _value = (double)_x/(double)_y;
 }
 
-Fraction::Fraction(int x) {
+Fraction::Fraction(const int x) {
     _x = x;
     _y = 1;
     _value = (double)_x/(double)_y;
 }
 
-Fraction::Fraction(double z) {
+Fraction::Fraction(const double z) {
     // ?
 }
 
@@ -86,7 +86,7 @@ Fraction::Fraction() {
     _value = 0;
 }
 
-Fraction &Fraction::operator=(int x) {
+Fraction &Fraction::operator=(const int x) {
     _x = x;
     _y = 1;
     _value = (double)_x/(double)_y;
@@ -131,7 +131,7 @@ double Fraction::value() const {
     return _value;
 }
 
-void Fraction::set_fraction(int x, int y) {
+void Fraction::set_fraction(const int x, const int y) {
     Fraction fraction(x, y);
     *this = fraction;
 }

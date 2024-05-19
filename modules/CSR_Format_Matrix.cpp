@@ -17,7 +17,7 @@ CSR_Format_Matrix::CSR_Format_Matrix(const Matrix &matrix)
     }
 }
 
-CSR_Format_Matrix::CSR_Format_Matrix(const Vector &non_zero_values, const Vector &col_indices, const Vector &row_indices, size_t cols)
+CSR_Format_Matrix::CSR_Format_Matrix(const Vector &non_zero_values, const Vector &col_indices, const Vector &row_indices, const size_t cols)
     : _rows(row_indices.size() - 1), _cols(cols),
     _non_zero_values(non_zero_values), _col_indices(col_indices), _row_indices(row_indices) {
 }
@@ -57,11 +57,11 @@ Vector CSR_Format_Matrix::row_indices() const {
     return _row_indices;
 }
 
-// void CSR_Format_Matrix::set_value(size_t row, size_t col, double value) {
+// void CSR_Format_Matrix::set_value(const size_t row, const size_t col, const double value) {
 
 // }
 
-double CSR_Format_Matrix::elem(size_t row, size_t col) const {
+double CSR_Format_Matrix::elem(const size_t row, const size_t col) const {
     size_t row_start = _row_indices.elem(row);
     size_t row_end = _row_indices.elem(row + 1);
     for (size_t c = row_start + 1; c <= row_end; c++)

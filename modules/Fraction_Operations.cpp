@@ -1,6 +1,6 @@
 #include "Fraction_Operations.h"
 
-static int gcd(int x, int y) {
+static int gcd(const int x, const int y) {
     // Base Case
     if (x == y)
         return x;
@@ -11,7 +11,7 @@ static int gcd(int x, int y) {
         return gcd(x, x - y);
 }
 
-static int lcm(int x, int y) {
+static int lcm(const int x, const int y) {
     int result = (x > y) ? x : y;
     while (true) {
         if (result % x == 0 && result % y == 0)
@@ -40,7 +40,7 @@ Fraction operator+(const Fraction &a, const Fraction &b) {
     return new_fraction.simplify();
 }
 
-Fraction operator+(const Fraction &fraction, int k) {
+Fraction operator+(const Fraction &fraction, const int k) {
     int _numerator = fraction.numerator() + k*fraction.denominator();
 
     Fraction new_fraction(_numerator, fraction.denominator());
@@ -64,7 +64,7 @@ Fraction operator-(const Fraction &a, const Fraction &b) {
     return new_fraction.simplify();
 }
 
-Fraction operator-(const Fraction &fraction, int k) {
+Fraction operator-(const Fraction &fraction, const int k) {
     int _numerator = fraction.numerator() - k*fraction.denominator();
 
     Fraction new_fraction(_numerator, fraction.denominator());
@@ -79,7 +79,7 @@ Fraction operator*(const Fraction &a, const Fraction &b) {
     return new_fraction.simplify();
 }
 
-Fraction operator*(int k, const Fraction &fraction) {
+Fraction operator*(const int k, const Fraction &fraction) {
     int _numerator = k * fraction.numerator();
 
     Fraction new_fraction(_numerator, fraction.denominator());
@@ -94,7 +94,7 @@ Fraction operator/(const Fraction &a, const Fraction &b) {
     return new_fraction.simplify();
 }
 
-Fraction operator/(const Fraction &fraction, int k) {
+Fraction operator/(const Fraction &fraction, const int k) {
     int _denominator = k * fraction.denominator();
 
     Fraction new_fraction(fraction.numerator(), _denominator);
@@ -119,7 +119,7 @@ bool operator!=(const Fraction &a, const char *string) {
     return a != fraction;
 }
 
-Fraction irreducible_fraction(const Fraction fraction) {
+Fraction irreducible_fraction(const Fraction &fraction) {
     Fraction new_fraction = fraction;
     return new_fraction.simplify();
 }

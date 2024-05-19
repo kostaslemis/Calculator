@@ -9,7 +9,7 @@ CSR_Format_Matrix operator+(const CSR_Format_Matrix &A, const CSR_Format_Matrix 
 
 CSR_Format_Matrix operator-(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B);
 
-CSR_Format_Matrix operator*(double k, const CSR_Format_Matrix &matrix);
+CSR_Format_Matrix operator*(const double k, const CSR_Format_Matrix &matrix);
 
 Vector operator*(const CSR_Format_Matrix &matrix, const Vector &vector);
 
