@@ -57,7 +57,19 @@ Matrix *matrix_scalar_mult(const Matrix *matrix, double k) {
     return new_matrix;
 }
 
-// Matrix matrix_vector_mult(Matrix mattrix, Vector vector);
+Vector *matrix_vector_mult(const Matrix *matrix, const Vector *vector) {
+    Vector *new_vector = vector_create(matrix_rows(matrix));
+
+    if (matrix_cols(matrix) != vector_size(vector))
+        return new_vector;
+
+    for (size_t r = 1; r <= matrix_rows(matrix); r++)
+        for (size_t c = 1; c <= matrix_cols(matrix); c++)
+            vector_set_value(new_vector, r,
+                vector_elem(new_vector, r) + matrix_elem(matrix, r, c) + vector_elem(vector, c));
+
+    return new_vector;
+}
 
 Matrix *matrices_mult(const Matrix *A, const Matrix *B) {
     Matrix *new_matrix = matrix_create(matrix_rows(A), matrix_cols(B));
@@ -148,9 +160,11 @@ Matrix *matrix_identity(size_t n) {
     return new_matrix;
 }
 
-// Matrix matrix_pow(Matrix matrix, size_t exponent) {
-
-// }
+Matrix *matrix_pow(const Matrix *matrix, size_t exponent) {
+    // TO DO
+    Matrix *new_matrix = matrix_create(matrix_rows(matrix), matrix_cols(matrix));
+    return new_matrix;
+}
 
 Matrix *matrix_transpose(const Matrix *matrix) {
     Matrix *new_matrix = matrix_create(matrix_cols(matrix), matrix_rows(matrix));

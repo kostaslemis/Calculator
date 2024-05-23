@@ -18,7 +18,7 @@ Matrix *matrices_sub(const Matrix *A, const Matrix *B);
 
 Matrix *matrix_scalar_mult(const Matrix *matrix, double k);
 
-// Matrix matrix_vector_mult(Matrix mattrix, Vector vector);
+Vector *matrix_vector_mult(const Matrix *mattrix, const Vector *vector);
 
 Matrix *matrices_mult(const Matrix *A, const Matrix *B);
 

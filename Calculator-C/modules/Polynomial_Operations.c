@@ -14,15 +14,15 @@ double find_random_root(const Polynomial *polynomial, unsigned int accuracy) {
     return 0.0;
 }
 
-// Vector linear_formula(Polynomial polynomial) {
+// Vector *linear_formula(const Polynomial *polynomial) {
 
 // }
 
-// Vector quantratic_formula(Polynomial polynomial) {
+// Vector *quantratic_formula(const Polynomial *polynomial) {
 
 // }
 
-// Vector roots(Polynomial polynomial) {
+// Vector *roots(const Polynomial *polynomial) {
 
 // }
 
@@ -90,8 +90,6 @@ bool polynomials_equal(const Polynomial *p, const Polynomial *q) {
     return true;
 }
 
-// bool operator == (const Polynomial &p, const std::string& polynomial);
-
 bool polynomials_not_equal(const Polynomial *p, const Polynomial *q) {
     size_t degree = max(polynomial_degree(p), polynomial_degree(q));
 
@@ -102,14 +100,14 @@ bool polynomials_not_equal(const Polynomial *p, const Polynomial *q) {
     return false;
 }
 
-// Polynomial derivative(Polynomial polynomial) {
+// Polynomial *derivative(const Polynomial *polynomial) {
 
 // }
 
-// Polynomial anti_derivative(Polynomial polynomial) {
+// Polynomial *anti_derivative(const Polynomial *polynomial) {
 
 // }
 
-// double integral(Polynomial polynomial, double a, double b) {
+// double integral(const Polynomial *polynomial, double a, double b) {
 
 // }
