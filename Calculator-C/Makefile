@@ -7,7 +7,7 @@ TESTS = tests
 CC = gcc
 
 # Compile options
-CFLAGS = -Wall -Werror -pthread -fopenmp -I $(INCLUDE) -lm
+CFLAGS = -Wall -Werror -I $(INCLUDE) -lm
 
 # Αρχεία .o
 OBJS = example.o \

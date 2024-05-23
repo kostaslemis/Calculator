@@ -6,48 +6,48 @@
 #include "Vector.h"
 
 
-bool matrices_equal_dimensions(Matrix A, Matrix B);
+bool matrices_equal_dimensions(const Matrix *A, const Matrix *B);
 
-bool matrix_is_square(Matrix matrix);
+bool matrix_is_square(const Matrix *matrix);
 
-bool matrix_is_diagonal(Matrix matrix);
+bool matrix_is_diagonal(const Matrix *matrix);
 
-Matrix matrices_add(Matrix A, Matrix B);
+Matrix *matrices_add(const Matrix *A, const Matrix *B);
 
-Matrix matrices_sub(Matrix A, Matrix B);
+Matrix *matrices_sub(const Matrix *A, const Matrix *B);
 
-Matrix matrix_scalar_mult(Matrix matrix, double k);
+Matrix *matrix_scalar_mult(const Matrix *matrix, double k);
 
 // Matrix matrix_vector_mult(Matrix mattrix, Vector vector);
 
-Matrix matrices_mult(Matrix A, Matrix B);
+Matrix *matrices_mult(const Matrix *A, const Matrix *B);
 
-bool matrices_equal(Matrix A, Matrix B);
+bool matrices_equal(const Matrix *A, const Matrix *B);
 
-bool matrices_not_equal(Matrix A, Matrix B);
+bool matrices_not_equal(const Matrix *A, const Matrix *B);
 
-double matrix_trace(Matrix matrix);
+double matrix_trace(const Matrix *matrix);
 
-Matrix matrix_sub_matrix(Matrix matrix, size_t col);
+Matrix *matrix_sub_matrix(const Matrix *matrix, size_t col);
 
-double matrix_det(Matrix matrix);
+double matrix_det(const Matrix *matrix);
 
-Matrix matrix_identity(size_t n);
+Matrix *matrix_identity(size_t n);
 
-Matrix matrix_pow(Matrix matrix, size_t exponent);
+Matrix *matrix_pow(const Matrix *matrix, size_t exponent);
 
-Matrix matrix_transpose(Matrix matrix);
+Matrix *matrix_transpose(const Matrix *matrix);
 
-Matrix matrix_minor(Matrix matrix, size_t row, size_t col);
+Matrix *matrix_minor(const Matrix *matrix, size_t row, size_t col);
 
-Matrix matrix_cofactor(Matrix matrix);
+Matrix *matrix_cofactor(const Matrix *matrix);
 
-Matrix matrix_adjacent(Matrix matrix);
+Matrix *matrix_adjacent(const Matrix *matrix);
 
-Matrix matrix_inverse(Matrix matrix);
+Matrix *matrix_inverse(const Matrix *matrix);
 
-Vector matrix_get_row(Matrix matrix, size_t row);
+Vector *matrix_get_row(const Matrix *matrix, size_t row);
 
-Vector matrix_get_col(Matrix matrix, size_t col);
+Vector *matrix_get_col(const Matrix *matrix, size_t col);
 
-Matrix matrix_gauss_elimination(Matrix matrix);
+Matrix *matrix_gauss_elimination(const Matrix *matrix);

@@ -8,16 +8,16 @@
 
 
 int main(void) {
-    // Vector vector = vector_create(4);
+    Vector *vector = vector_create(4);
 
-    // vector_set_value(vector, 1, 25);
-    // vector_set_value(vector, 2, 10);
+    vector_set_value(vector, 1, 25);
+    vector_set_value(vector, 2, 10);
 
-    // vector_print(vector);
+    vector_print(vector);
 
-    // fprintf(stdout, "%f\n", vectors_dot_product(vector, vector));
+    fprintf(stdout, "%f\n", vectors_dot_product(vector, vector));
 
-    // vector_destroy(vector);
+    vector_destroy(vector);
 
     // Matrix matrix = matrix_create(3, 4);
 
@@ -94,26 +94,26 @@ int main(void) {
     // vector_destroy(v);
     // vector_destroy(u);
 
-    Polynomial p = polynomial_create(2);
-    polynomial_set_value(p, 2, 5);
-    polynomial_set_value(p, 1, 2);
-    polynomial_set_value(p, 0, 1);
+    // Polynomial p = polynomial_create(2);
+    // polynomial_set_value(p, 2, 5);
+    // polynomial_set_value(p, 1, 2);
+    // polynomial_set_value(p, 0, 1);
 
-    polynomial_print(p);
+    // polynomial_print(p);
 
-    Polynomial q = polynomial_create(1);
-    polynomial_set_value(q, 1, 1);
-    polynomial_set_value(q, 0, 5);
+    // Polynomial q = polynomial_create(1);
+    // polynomial_set_value(q, 1, 1);
+    // polynomial_set_value(q, 0, 5);
 
-    polynomial_print(q);
+    // polynomial_print(q);
 
-    Polynomial product = polynomials_mult(p, q);
+    // Polynomial product = polynomials_mult(p, q);
 
-    polynomial_print(product);
+    // polynomial_print(product);
 
-    polynomial_destroy(p);
-    polynomial_destroy(q);
-    polynomial_destroy(product);
+    // polynomial_destroy(p);
+    // polynomial_destroy(q);
+    // polynomial_destroy(product);
 
     return EXIT_SUCCESS;
 }

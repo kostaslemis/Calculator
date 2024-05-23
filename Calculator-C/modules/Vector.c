@@ -11,8 +11,8 @@ struct vector {
 };
 
 
-Vector vector_create(size_t size) {
-    Vector vector = malloc(sizeof(*vector));
+Vector *vector_create(size_t size) {
+    Vector *vector = malloc(sizeof(*vector));
     vector->size = size;
     vector->capacity = vector->size < VECTOR_MIN_CAPACITY ? VECTOR_MIN_CAPACITY : vector->size;
     vector->elements = malloc(vector->capacity * sizeof(double));
@@ -23,8 +23,8 @@ Vector vector_create(size_t size) {
     return vector;
 }
 
-Vector vector_create_random(size_t size, int MAX_VALUE) {
-    Vector vector = malloc(sizeof(*vector));
+Vector *vector_create_random(size_t size, int MAX_VALUE) {
+    Vector *vector = malloc(sizeof(*vector));
     vector->size = size;
     vector->capacity = vector->size < VECTOR_MIN_CAPACITY ? VECTOR_MIN_CAPACITY : vector->size;
     vector->elements = malloc(vector->capacity * sizeof(double));
@@ -36,13 +36,13 @@ Vector vector_create_random(size_t size, int MAX_VALUE) {
     return vector;
 }
 
-void vector_destroy(Vector vector) {
+void vector_destroy(Vector *vector) {
     free(vector->elements);
     free(vector);
 }
 
-Vector vector_copy(Vector vector) {
-    Vector new_vector = malloc(sizeof(*new_vector));
+Vector *vector_copy(const Vector *vector) {
+    Vector *new_vector = malloc(sizeof(*new_vector));
     new_vector->size = vector->size;
     new_vector->capacity = vector->capacity;
     new_vector->elements = malloc(new_vector->capacity * sizeof(double));
@@ -53,11 +53,11 @@ Vector vector_copy(Vector vector) {
     return new_vector;
 }
 
-size_t vector_size(Vector vector) {
+size_t vector_size(const Vector * vector) {
     return vector->size;
 }
 
-double vector_elem(Vector vector, size_t i) {
+double vector_elem(const Vector *vector, size_t i) {
     const double dummy = 0.0;
     if (vector->elements == NULL)
         return dummy;
@@ -67,7 +67,7 @@ double vector_elem(Vector vector, size_t i) {
         : dummy;
 }
 
-void vector_set_value(Vector vector, size_t i, double value) {
+void vector_set_value(Vector *vector, size_t i, double value) {
     if (vector->elements == NULL)
         return;
 
@@ -75,7 +75,7 @@ void vector_set_value(Vector vector, size_t i, double value) {
         vector->elements[i - 1] = value;
 }
 
-void vector_print(Vector vector) {
+void vector_print(const Vector *vector) {
     fprintf(stdout, "(");
     for (size_t i = 0; i < vector->size - 1; i++)
         fprintf(stdout, "%f, ", vector->elements[i]);
@@ -83,7 +83,7 @@ void vector_print(Vector vector) {
     fprintf(stdout, "\n");
 }
 
-void vector_insert_last(Vector vector, double new_value) {
+void vector_insert_last(Vector *vector, double new_value) {
     if (vector->capacity == vector->size) {
         vector->capacity *= 2;
         vector->elements = (double*)realloc(vector->elements, vector->capacity * sizeof(double));
@@ -93,7 +93,7 @@ void vector_insert_last(Vector vector, double new_value) {
     vector->size++;
 }
 
-void vector_remove_last(Vector vector) {
+void vector_remove_last(Vector *vector) {
     vector->size--;
 
     if (vector->capacity > vector->size * 4 && vector->capacity > 2 * VECTOR_MIN_CAPACITY) {

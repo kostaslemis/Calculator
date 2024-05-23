@@ -11,8 +11,8 @@ struct matrix {
 };
 
 
-Matrix matrix_create(size_t rows, size_t cols) {
-    Matrix matrix = malloc(sizeof(*matrix));
+Matrix *matrix_create(size_t rows, size_t cols) {
+    Matrix *matrix = malloc(sizeof(*matrix));
     matrix->rows = rows;
     matrix->cols = cols;
     matrix->elements = malloc(matrix->rows * sizeof(double*));
@@ -26,8 +26,8 @@ Matrix matrix_create(size_t rows, size_t cols) {
     return matrix;
 }
 
-Matrix matrix_create_random(size_t rows, size_t cols, int MAX_VALUE) {
-    Matrix matrix = malloc(sizeof(*matrix));
+Matrix *matrix_create_random(size_t rows, size_t cols, int MAX_VALUE) {
+    Matrix *matrix = malloc(sizeof(*matrix));
     matrix->rows = rows;
     matrix->cols = cols;
     matrix->elements = malloc(matrix->rows * sizeof(double*));
@@ -42,15 +42,15 @@ Matrix matrix_create_random(size_t rows, size_t cols, int MAX_VALUE) {
     return matrix;
 }
 
-void matrix_destroy(Matrix matrix) {
+void matrix_destroy(Matrix *matrix) {
     for (size_t r = 0; r < matrix->rows; r++)
         free(matrix->elements[r]);
     free(matrix->elements);
     free(matrix);
 }
 
-Matrix matrix_copy(Matrix matrix) {
-    Matrix new_matrix = malloc(sizeof(*new_matrix));
+Matrix *matrix_copy(const Matrix *matrix) {
+    Matrix *new_matrix = malloc(sizeof(*new_matrix));
     new_matrix->rows = matrix->rows;
     new_matrix->cols = matrix->cols;
     new_matrix->elements = malloc(new_matrix->rows * sizeof(double*));
@@ -64,15 +64,15 @@ Matrix matrix_copy(Matrix matrix) {
     return new_matrix;
 }
 
-size_t matrix_rows(Matrix matrix) {
+size_t matrix_rows(const Matrix *matrix) {
     return matrix->rows;
 }
 
-size_t matrix_cols(Matrix matrix) {
+size_t matrix_cols(const Matrix *matrix) {
     return matrix->cols;
 }
 
-double matrix_elem(Matrix matrix, size_t row, size_t col) {
+double matrix_elem(const Matrix *matrix, size_t row, size_t col) {
     const double dummy = 0.0;
     if (matrix->elements == NULL)
         return dummy;
@@ -82,7 +82,7 @@ double matrix_elem(Matrix matrix, size_t row, size_t col) {
         : dummy;
 }
 
-void matrix_set_value(Matrix matrix, size_t row, size_t col, double value) {
+void matrix_set_value(Matrix *matrix, size_t row, size_t col, double value) {
     if (matrix->elements == NULL)
         return;
 
@@ -90,7 +90,7 @@ void matrix_set_value(Matrix matrix, size_t row, size_t col, double value) {
         matrix->elements[row - 1][col - 1] = value;
 }
 
-void matrix_print(Matrix matrix) {
+void matrix_print(const Matrix *matrix) {
     for (size_t r = 0; r < matrix->rows; r++) {
         for (size_t c = 0; c < matrix->cols; c++)
             fprintf(stdout, "%f ", matrix->elements[r][c]);
@@ -99,7 +99,7 @@ void matrix_print(Matrix matrix) {
 }
 
 // row_a <-> row_b : swap row_a with row_b
-void matrix_swap(Matrix matrix, size_t row_a, size_t row_b) {
+void matrix_swap(Matrix *matrix, size_t row_a, size_t row_b) {
     // Check row_a and row_b
 
     // temp_row <= row_a
@@ -119,7 +119,7 @@ void matrix_swap(Matrix matrix, size_t row_a, size_t row_b) {
 }
 
 // k * row : multiiply with k
-void matrix_scalar(Matrix matrix, double k, size_t row) {
+void matrix_scalar(Matrix *matrix, double k, size_t row) {
     // Check row and k != 0
 
     for (size_t c = 0; c < matrix_cols(matrix); c++)
@@ -127,7 +127,7 @@ void matrix_scalar(Matrix matrix, double k, size_t row) {
 }
 
 // row_b <= k * row_a + row_b : replace row_b by the sum of itself and a multiple of row_a
-void matrix_pivot(Matrix matrix, double k, size_t row_a, size_t row_b) {
+void matrix_pivot(Matrix *matrix, double k, size_t row_a, size_t row_b) {
     // Check row_a, row_b and k != 0
 
     for (size_t c = 0; c < matrix_cols(matrix); c++)

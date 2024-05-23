@@ -10,8 +10,8 @@ struct polynomial {
     double *coefficients;
 };
 
-Polynomial polynomial_create(size_t degree) {
-    Polynomial polynomial = malloc(sizeof(*polynomial));
+Polynomial *polynomial_create(size_t degree) {
+    Polynomial *polynomial = malloc(sizeof(*polynomial));
     polynomial->degree = degree;
     polynomial->coefficients = malloc((polynomial->degree + 1) * sizeof(double));
 
@@ -21,8 +21,8 @@ Polynomial polynomial_create(size_t degree) {
     return polynomial;
 }
 
-Polynomial polynomial_random_create(size_t degree, int MAX_VALUE) {
-    Polynomial polynomial = malloc(sizeof(*polynomial));
+Polynomial *polynomial_random_create(size_t degree, int MAX_VALUE) {
+    Polynomial *polynomial = malloc(sizeof(*polynomial));
     polynomial->degree = degree;
     polynomial->coefficients = malloc((polynomial->degree + 1) * sizeof(double));
 
@@ -33,13 +33,13 @@ Polynomial polynomial_random_create(size_t degree, int MAX_VALUE) {
     return polynomial;
 }
 
-void polynomial_destroy(Polynomial polynomial) {
+void polynomial_destroy(Polynomial *polynomial) {
     free(polynomial->coefficients);
     free(polynomial);
 }
 
-Polynomial polynomial_copy(Polynomial polynomial) {
-    Polynomial new_polynomial = malloc(sizeof(*new_polynomial));
+Polynomial *polynomial_copy(const Polynomial *polynomial) {
+    Polynomial *new_polynomial = malloc(sizeof(*new_polynomial));
     new_polynomial->degree = polynomial->degree;
     new_polynomial->coefficients = polynomial->coefficients;
 
@@ -49,11 +49,11 @@ Polynomial polynomial_copy(Polynomial polynomial) {
     return new_polynomial;
 }
 
-size_t polynomial_degree(Polynomial polynomial) {
+size_t polynomial_degree(const Polynomial *polynomial) {
     return polynomial->degree;
 }
 
-double polynomial_coeff(Polynomial polynomial, size_t n) {
+double polynomial_coeff(const Polynomial *polynomial, size_t n) {
     const double dummy = 0.0;
     if (polynomial->coefficients == NULL)
         return dummy;
@@ -63,7 +63,7 @@ double polynomial_coeff(Polynomial polynomial, size_t n) {
         : dummy;
 }
 
-void polynomial_set_value(Polynomial polynomial, size_t n, double value) {
+void polynomial_set_value(Polynomial *polynomial, size_t n, double value) {
     if (polynomial->coefficients == NULL)
         return;
 
@@ -85,7 +85,7 @@ void print_coeff(double coeff, const char *string, size_t degree) {
         fprintf(stdout, "%ld", degree);
 }
 
-void polynomial_print(Polynomial polynomial) {
+void polynomial_print(const Polynomial *polynomial) {
     size_t degree = polynomial->degree;
     double coeff;
 
@@ -118,7 +118,7 @@ void polynomial_print(Polynomial polynomial) {
     fprintf(stdout, "\n");
 }
 
-double polynomial_p_x(Polynomial polynomial, double x) {
+double polynomial_p_x(const Polynomial *polynomial, double x) {
     double _p_x = 0.0;
 
     for (size_t n = 0; n <= polynomial->degree; n++)
