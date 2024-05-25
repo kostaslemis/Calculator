@@ -9,6 +9,8 @@ Vector *vector_create(size_t size);
 
 Vector *vector_create_random(size_t size, int MAX_VALUE);
 
+Vector *vectror_create_view(double *elements, size_t size);
+
 void vector_destroy(Vector *vector);
 
 Vector *vector_copy(const Vector *vector);

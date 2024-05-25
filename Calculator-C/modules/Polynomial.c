@@ -21,7 +21,7 @@ Polynomial *polynomial_create(size_t degree) {
     return polynomial;
 }
 
-Polynomial *polynomial_random_create(size_t degree, int MAX_VALUE) {
+Polynomial *polynomial_create_random(size_t degree, int MAX_VALUE) {
     Polynomial *polynomial = malloc(sizeof(*polynomial));
     polynomial->degree = degree;
     polynomial->coefficients = malloc((polynomial->degree + 1) * sizeof(double));
@@ -29,6 +29,17 @@ Polynomial *polynomial_random_create(size_t degree, int MAX_VALUE) {
     srand(time(NULL));
     for (size_t n = 0; n <= degree; n++)
         polynomial->coefficients[n] = (double)(rand() % MAX_VALUE);
+
+    return polynomial;
+}
+
+Polynomial *polynomial_create_view(double *coefficients, size_t degree) {
+    Polynomial *polynomial = malloc(sizeof(*polynomial));
+    polynomial->degree = degree;
+    polynomial->coefficients = malloc((polynomial->degree + 1) * sizeof(double));
+
+    for (size_t n = 0; n <= degree; n++)
+        polynomial->coefficients[n] = coefficients[n];
 
     return polynomial;
 }

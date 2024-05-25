@@ -42,6 +42,21 @@ Matrix *matrix_create_random(size_t rows, size_t cols, int MAX_VALUE) {
     return matrix;
 }
 
+Matrix *matrix_create_view(double *elements, size_t rows, size_t cols) {
+    Matrix *matrix = malloc(sizeof(*matrix));
+    matrix->rows = rows;
+    matrix->cols = cols;
+    matrix->elements = malloc(matrix->rows * sizeof(double*));
+    for (size_t r = 0; r < matrix->rows; r++)
+        matrix->elements[r] = malloc(matrix->cols * sizeof(double));
+
+    for (size_t r = 0; r < matrix->rows; r++)
+        for (size_t c = 0; c < matrix->cols; c++)
+            matrix->elements[r][c] = elements[c + rows*r];
+    
+    return matrix;
+}
+
 void matrix_destroy(Matrix *matrix) {
     for (size_t r = 0; r < matrix->rows; r++)
         free(matrix->elements[r]);

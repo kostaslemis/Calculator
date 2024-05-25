@@ -36,6 +36,18 @@ Vector *vector_create_random(size_t size, int MAX_VALUE) {
     return vector;
 }
 
+Vector *vectror_create_view(double *elements, size_t size) {
+    Vector *vector = malloc(sizeof(*vector));
+    vector->size = size;
+    vector->capacity = vector->size < VECTOR_MIN_CAPACITY ? VECTOR_MIN_CAPACITY : vector->size;
+    vector->elements = malloc(vector->capacity * sizeof(double));
+
+    for (size_t i = 0; i < vector->size; i++)
+        vector->elements[i] = elements[i];
+
+    return vector;
+}
+
 void vector_destroy(Vector *vector) {
     free(vector->elements);
     free(vector);

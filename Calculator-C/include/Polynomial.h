@@ -5,7 +5,9 @@ typedef struct polynomial Polynomial;
 
 Polynomial *polynomial_create(size_t degree);
 
-Polynomial *polynomial_random_create(size_t degree, int MAX_VALUE);
+Polynomial *polynomial_create_random(size_t degree, int MAX_VALUE);
+
+Polynomial *polynomial_create_view(double *coefficients, size_t degree);
 
 void polynomial_destroy(Polynomial *polynomial);
 

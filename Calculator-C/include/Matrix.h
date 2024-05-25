@@ -7,6 +7,8 @@ Matrix *matrix_create(size_t rows, size_t cols);
 
 Matrix *matrix_create_random(size_t rows, size_t cols, int MAX_VALUE);
 
+Matrix *matrix_create_view(double *elements, size_t rows, size_t cols);
+
 void matrix_destroy(Matrix *matrix);
 
 Matrix *matrix_copy(const Matrix *matrix);
