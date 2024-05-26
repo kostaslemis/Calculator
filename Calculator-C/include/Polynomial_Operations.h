@@ -20,6 +20,8 @@ Polynomial *polynomial_scalar_mult(const Polynomial *polynomial, double k);
 
 Polynomial *polynomials_mult(const Polynomial *p, const Polynomial *q);
 
+// Polynomial *polynomials_mult_omp(const Polynomial *p, const Polynomial *q);
+
 bool polynomials_equal(const Polynomial *p, const Polynomial *q);
 
 bool polynomials_not_equal(const Polynomial *p, const Polynomial *q);

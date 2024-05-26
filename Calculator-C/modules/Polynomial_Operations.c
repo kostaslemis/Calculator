@@ -56,11 +56,32 @@ Polynomial *polynomial_scalar_mult(const Polynomial *polynomial, double k) {
     return new_polynomial;
 }
 
-// Polynomial polynomials_mult(Polynomial p, Polynomial q) {
-//     size_t degree = polynomial_degree(p) + polynomial_degree(q);
-//     Polynomial new_polynomial = polynomial_create(degree);
+Polynomial *polynomials_mult(const Polynomial *p, const Polynomial *q) {
+    size_t degree = polynomial_degree(p) + polynomial_degree(q);
+    Polynomial *new_polynomial = polynomial_create(degree);
 
-//     double diagonal_sum_k;    
+    double diagonal_sum_k;
+    size_t k, i, j;
+    size_t n = max(polynomial_degree(p), polynomial_degree(q));
+    for (k = 0; k <= 2*n; k++) {
+        diagonal_sum_k = 0.0;
+        if (k <= n)
+            for (i = 0, j = k; i <= k && j >= 0; i++, j--)
+                diagonal_sum_k += polynomial_coeff(p, i) * polynomial_coeff(q, j);
+        else
+            for (i = n, j = k - n; i >= k - n && j <= n; i--, j++)
+                diagonal_sum_k += polynomial_coeff(p, i) * polynomial_coeff(q, j);
+       polynomial_set_value(new_polynomial, k, diagonal_sum_k); 
+    }
+
+    return new_polynomial;
+}
+
+// Polynomial *polynomials_mult_omp(const Polynomial *p, const Polynomial *q) {
+//     size_t degree = polynomial_degree(p) + polynomial_degree(q);
+//     Polynomial *new_polynomial = polynomial_create(degree);
+
+//     double diagonal_sum_k;
 //     size_t k, i, j;
 //     size_t n = max(polynomial_degree(p), polynomial_degree(q));
 //     #pragma omp parallel for num_threads(3)
