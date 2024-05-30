@@ -30,15 +30,12 @@ Vector operator*(const CSR_Format_Matrix &csr_format_matrix, const Vector &vecto
     if (csr_format_matrix.cols() != vector.size())
         return new_vector;
 
-    Vector row_indices = csr_format_matrix.row_indices();
-    Vector non_zero_values = csr_format_matrix.non_zero_values();
-    Vector col_indices = csr_format_matrix.col_indices();
     for (size_t r = 1; r <= csr_format_matrix.rows(); r++) {
-        size_t row_start = row_indices.elem(r);
-        size_t row_end = row_indices.elem(r + 1);
+        size_t row_start = csr_format_matrix.row_indices().elem(r);
+        size_t row_end = csr_format_matrix.row_indices().elem(r + 1);
         for (size_t c = row_start + 1; c <= row_end; c++) {
-            size_t v_r = col_indices(c);
-            new_vector(r) += non_zero_values.elem(c) * vector.elem(v_r);
+            size_t v_r = csr_format_matrix.col_indices().elem(c);
+            new_vector(r) += csr_format_matrix.non_zero_values().elem(c) * vector.elem(v_r);
         }
     }
 
@@ -92,6 +89,6 @@ bool operator!=(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B) {
     A.row_indices() != B.row_indices();
 }
 
-// CSR_Format_Matrix transpose(CSR_Format_Matrix &csr_format_matrix) {
+// CSR_Format_Matrix transpose(const CSR_Format_Matrix &csr_format_matrix) {
 
 // }

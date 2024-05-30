@@ -5,7 +5,7 @@ CSR_Format_Matrix::CSR_Format_Matrix(const Matrix &matrix)
     : _rows(matrix.rows()), _cols(matrix.cols()),
     _non_zero_values(0), _col_indices(0), _row_indices(matrix.rows() + 1) {
     size_t nnz = 0;
-    _row_indices(1) = 0;
+    _row_indices(1) = 0.0;
     for (size_t r = 1; r <= matrix.rows(); r++) {
         for (size_t c = 1; c <= matrix.cols(); c++)
             if (matrix.elem(r, c) != 0) {
@@ -28,10 +28,6 @@ CSR_Format_Matrix::CSR_Format_Matrix(const CSR_Format_Matrix &csr_format_matrix)
     _col_indices(csr_format_matrix.col_indices()),
     _row_indices(csr_format_matrix.row_indices()) {
 }
-
-// CSR_Format_Matrix &CSR_Format_Matrix::operator=(const Matrix & matrix) {
-
-// }
 
 // CSR_Format_Matrix &CSR_Format_Matrix::operator=(const CSR_Format_Matrix &csr_format_matrix) {
 
@@ -70,7 +66,20 @@ double CSR_Format_Matrix::elem(const size_t row, const size_t col) const {
     return 0.0;
 }
 
-// Matrix CSR_Format_Matrix::matrix() {}
+Matrix CSR_Format_Matrix::matrix() const {
+    Matrix matrix(_rows, _cols);
+
+    for (size_t r = 1; r <= _rows; r++) {
+        size_t row_start = _row_indices.elem(r);
+        size_t row_end = _row_indices.elem(r + 1);
+        for (size_t c = row_start + 1; c <= row_end; c++) {
+            size_t col = _col_indices.elem(c);
+            matrix(r, col) = _non_zero_values.elem(c);
+        }
+    }
+
+    return matrix;
+}
 
 std::ostream &operator<<(std::ostream &os, const CSR_Format_Matrix &csr_format_matrix) {
     os << csr_format_matrix._non_zero_values

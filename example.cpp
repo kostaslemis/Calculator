@@ -60,16 +60,9 @@ int main() {
     CSR_Format_Matrix csr_fromat_matrix(matrix);
     std::cout << csr_fromat_matrix << std::endl;
 
-    for (size_t r = 1; r <= matrix.rows(); r++) {
-        for (size_t c = 1; c <= matrix.cols(); c++)
-            std::cout << csr_fromat_matrix.elem(r, c) << "  ";
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
+    std::cout << csr_fromat_matrix.matrix() << std::endl;
 
     std::cout << 2 * csr_fromat_matrix << std::endl;
-
-    std::cout << csr_fromat_matrix * vector << std::endl;
 
     Matrix I(3, 3);
     I.scan_matrix("{{1, 0, 0}, {0, 1, 0}, {0, 0, 0}}");

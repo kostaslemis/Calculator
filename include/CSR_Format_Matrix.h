@@ -17,7 +17,6 @@ class CSR_Format_Matrix {
             CSR_Format_Matrix(const Matrix &matrix);
             CSR_Format_Matrix(const Vector &non_zero_values, const Vector &col_indices, const Vector &row_indices, const size_t cols);
             CSR_Format_Matrix(const CSR_Format_Matrix &csr_format_matrix);
-        CSR_Format_Matrix &operator=(const Matrix & matrix);
         CSR_Format_Matrix &operator=(const CSR_Format_Matrix &csr_format_matrix);
 
         size_t rows() const;
@@ -29,6 +28,8 @@ class CSR_Format_Matrix {
 
         void set_value(const size_t row, const size_t col, const double value);
         double elem(const size_t row, const size_t col) const;
+
+        Matrix matrix() const;
 
         friend std::ostream &operator<<(std::ostream &os, const CSR_Format_Matrix &csr_format_matrix);
 };

@@ -60,7 +60,7 @@ void Complex_Number::set_complex_number(const double re, const double im) {
     _im = im;
 }
 
-std::ostream &operator<<(std::ostream & os, const Complex_Number &complex_number) {
+std::ostream &operator<<(std::ostream &os, const Complex_Number &complex_number) {
     os << complex_number._re;
     if (complex_number._im >= 0.0)
         os << " + ";

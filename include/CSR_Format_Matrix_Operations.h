@@ -9,9 +9,9 @@ CSR_Format_Matrix operator+(const CSR_Format_Matrix &A, const CSR_Format_Matrix 
 
 CSR_Format_Matrix operator-(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B);
 
-CSR_Format_Matrix operator*(const double k, const CSR_Format_Matrix &matrix);
+CSR_Format_Matrix operator*(const double k, const CSR_Format_Matrix &csr_format_matrix);
 
-Vector operator*(const CSR_Format_Matrix &matrix, const Vector &vector);
+Vector operator*(const CSR_Format_Matrix &csr_format_matrix, const Vector &vector);
 
 CSR_Format_Matrix operator*(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B);
 
@@ -19,4 +19,4 @@ bool operator==(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B);
 
 bool operator!=(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B);
 
-CSR_Format_Matrix transpose(CSR_Format_Matrix &csr_format_matrix);
+CSR_Format_Matrix transpose(const CSR_Format_Matrix &csr_format_matrix);
