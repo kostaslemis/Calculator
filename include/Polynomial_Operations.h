@@ -22,8 +22,6 @@ Polynomial operator*(const Polynomial &p, const Polynomial &q);
 
 bool operator==(const Polynomial &p, const Polynomial &q);
 
-// bool operator == (const Polynomial &p, const std::string& polynomial);
-
 bool operator!=(const Polynomial &p, const Polynomial &q);
 
 Polynomial derivative(const Polynomial &polynomial);

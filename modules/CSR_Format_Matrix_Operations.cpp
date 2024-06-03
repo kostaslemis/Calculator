@@ -15,11 +15,7 @@ bool equal_dimensions(const CSR_Format_Matrix &A, const CSR_Format_Matrix &B) {
 // }
 
 CSR_Format_Matrix operator*(const double k, const CSR_Format_Matrix &csr_format_matrix) {
-    Vector new_non_zero_values(csr_format_matrix.non_zero_values());
-    for (size_t i = 1; i <= new_non_zero_values.size(); i++)
-        new_non_zero_values(i) *= k;
-
-    CSR_Format_Matrix new_csr_format_matrix(new_non_zero_values,
+    CSR_Format_Matrix new_csr_format_matrix(k * csr_format_matrix.non_zero_values(),
     csr_format_matrix.col_indices(), csr_format_matrix.row_indices(), csr_format_matrix.cols());
     return new_csr_format_matrix;
 }

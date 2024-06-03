@@ -110,10 +110,6 @@ bool operator==(const Polynomial &p, const Polynomial &q) {
     return true;
 }
 
-// bool operator==(const Polynomial &p, const std::string &string) {
-
-// }
-
 bool operator!=(const Polynomial &p, const Polynomial &q) {
     size_t degree = max(p.degree(), q.degree());
 

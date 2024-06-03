@@ -53,9 +53,14 @@ Vector CSR_Format_Matrix::row_indices() const {
     return _row_indices;
 }
 
-// void CSR_Format_Matrix::set_value(const size_t row, const size_t col, const double value) {
-
-// }
+void CSR_Format_Matrix::set_value(const size_t row, const size_t col, const double value) {
+    size_t row_start = _row_indices.elem(row);
+    size_t row_end = _row_indices.elem(row + 1);
+    for (size_t c = row_start + 1; c <= row_end; c++)
+        if (_col_indices.elem(c) == col)
+            _non_zero_values(c) = value;
+    // If it doesn't exist
+}
 
 double CSR_Format_Matrix::elem(const size_t row, const size_t col) const {
     size_t row_start = _row_indices.elem(row);
