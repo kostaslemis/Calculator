@@ -113,6 +113,52 @@ void matrix_print(const Matrix *matrix) {
     }
 }
 
+void matrix_matrix_add_no_alloc(Matrix *A, const Matrix *B) {
+    if (A->rows != B->rows || A->cols != B->cols)
+        return;
+
+    for (size_t r = 0; r < A->rows; r++)
+        for (size_t c = 0; c < A->cols; c++)
+            A->elements[r][c] += B->elements[r][c];
+}
+
+void matrix_matrix_sub_no_alloc(Matrix *A, const Matrix *B) {
+    if (A->rows != B->rows || A->cols != B->cols)
+        return;
+
+    for (size_t r = 0; r < A->rows; r++)
+        for (size_t c = 0; c < A->cols; c++)
+            A->elements[r][c] -= B->elements[r][c];
+}
+
+void matrix_scalar_mult_no_alloc(Matrix *matrix, const double k) {
+    if (k == 0)
+        return;
+
+    for (size_t r = 0; r < matrix->rows; r++)
+        for (size_t c = 0; c < matrix->cols; c++)
+            matrix->elements[r][c] *= k;
+}
+
+void matrix_matrix_mult_no_alloc(Matrix *A, const Matrix *B) {
+    if (A->rows != B->rows || A->cols != B->cols)
+        return;
+
+    double *temp_row = malloc(B->cols * sizeof(double));
+
+    for (size_t r = 0; r < A->rows; r++) {
+        for (size_t c = 0; c < B->cols; c++) {
+            temp_row[c] = 0.0;
+            for (size_t k = 0; k < A->cols; k++)
+                temp_row[c] += A->elements[r][k] * B->elements[k][c];
+        }
+        for (size_t c = 0; c < B->cols; c++)
+            A->elements[r][c] = temp_row[c];
+    }
+
+    free(temp_row);
+}
+
 // row_a <-> row_b : swap row_a with row_b
 void matrix_swap(Matrix *matrix, size_t row_a, size_t row_b) {
     // Check row_a and row_b

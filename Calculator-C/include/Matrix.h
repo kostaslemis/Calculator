@@ -23,6 +23,14 @@ void matrix_set_value(Matrix *matrix, size_t row, size_t col, double value);
 
 void matrix_print(const Matrix *matrix);
 
+void matrix_matrix_add_no_alloc(Matrix *A, const Matrix *B);
+
+void matrix_matrix_sub_no_alloc(Matrix *A, const Matrix *B);
+
+void matrix_scalar_mult_no_alloc(Matrix *matrix, const double k);
+
+void matrix_matrix_mult_no_alloc(Matrix *A, const Matrix *B);
+
 void matrix_swap(Matrix *matrix, size_t row_a, size_t row_b);
 
 void matrix_scalar(Matrix *matrix, double k, size_t row);

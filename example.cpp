@@ -47,7 +47,6 @@ int main() {
 
     std::cout << matrix * vector << std::endl;
 
-
     // // Generalization of cross product to n dimensions ?
     // Vector v(4);
     // v.scan_vector("(1, 2, 3, 4)");
@@ -65,11 +64,11 @@ int main() {
     std::cout << 2 * csr_fromat_matrix << std::endl;
 
     Matrix I(3, 3);
-    I.scan_matrix("{{1, 0, 0}, {0, 1, 0}, {0, 0, 0}}");
+    I.scan_matrix("{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}");
     std::cout << I << std::endl;
 
     CSR_Format_Matrix A(I);
-    std::cout << A;
+    std::cout << A << std::endl;
 
     // Polynomial p(2);
     // p(2) = 5; p(1) = 2; p(0) = 1;
@@ -90,6 +89,32 @@ int main() {
 
     // Complex_Number a(2.0, 5.0);
     // std::cout << a << std::endl;
+
+    // Matrix Pow
+    double b[] = { 1.0, 1.0,
+                   1.0, 2.0 };
+    Matrix B(b, 2, 2);
+    Matrix base_matrix = B;
+    Matrix pow_matrix = B;
+    size_t no_primes = 2;
+    size_t primes[] =       {2, 5};
+    size_t exponents[] =    {1, 1};
+    for (size_t i = 0; i < no_primes; i++) {
+        size_t prime = primes[i];
+        size_t exponent = exponents[i];
+        for (size_t j = 1; j < prime; j++) {
+            pow_matrix = pow_matrix * base_matrix;
+        }
+        for (size_t j = 1; j < exponent; j++) {
+            base_matrix = pow_matrix;
+            for (size_t k = 1; k < prime; k++) {
+                pow_matrix = pow_matrix * base_matrix;
+            }
+        }
+        base_matrix = pow_matrix;
+    }
+
+    std::cout << pow_matrix;
 
     return EXIT_SUCCESS;
 }

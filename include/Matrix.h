@@ -26,9 +26,8 @@ class Matrix {
 
         void operator+=(const Matrix &matrix);
         void operator-=(const Matrix &matrix);
-        void operator*=(const double z);
-        // TO DO
-        // void operator*=(const Matrix &matrix);
+        void operator*=(const double k);
+        void operator*=(const Matrix &matrix);
 
         void swap(const size_t row_a, const size_t row_b);
         void scalar(const double k, const size_t row);

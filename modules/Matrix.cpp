@@ -163,7 +163,7 @@ void Matrix::operator+=(const Matrix &matrix) {
 
     for (size_t r = 0; r < _rows; r++)
         for (size_t c = 0; c < _cols; c++)
-            _elements[r][c] = _elements[r][c] + matrix._elements[r][c];
+            _elements[r][c] += matrix._elements[r][c];
 }
 
 void Matrix::operator-=(const Matrix &matrix) {
@@ -172,16 +172,35 @@ void Matrix::operator-=(const Matrix &matrix) {
 
     for (size_t r = 0; r < _rows; r++)
         for (size_t c = 0; c < _cols; c++)
-            _elements[r][c] = _elements[r][c] - matrix._elements[r][c];
+            _elements[r][c] -= matrix._elements[r][c];
 }
 
-void Matrix::operator*=(const double z) {
-    if (z == 0)
+void Matrix::operator*=(const double k) {
+    if (k == 0)
         return;
 
     for (size_t r = 0; r < _rows; r++)
         for (size_t c = 0; c < _cols; c++)
-            _elements[r][c] = z * _elements[r][c];
+            _elements[r][c] *= k;
+}
+
+void Matrix::operator*=(const Matrix &matrix) {
+    if (_rows != matrix._rows || _cols != matrix._cols)
+        return;
+    
+    double *temp_row = new double[matrix._cols];
+
+    for (size_t r = 0; r < _rows; r++) {
+        for (size_t c = 0; c < matrix._cols; c++) {
+            temp_row[c] = 0.0;
+            for (size_t k = 0; k < _cols; k++)
+                temp_row[c] += _elements[r][k] * matrix._elements[k][c];
+        }
+        for (size_t c = 0; c < matrix._cols; c++)
+            _elements[r][c] = temp_row[c];
+    }
+
+    delete[] temp_row;
 }
 
 // row_a <-> row_b : swap row_a with row_b
@@ -189,7 +208,7 @@ void Matrix::swap(const size_t row_a, const size_t row_b) {
     // Check row_a and row_b
 
     // temp_row <= row_a
-    double* temp_row = new double[_cols];
+    double *temp_row = new double[_cols];
     for (size_t i = 0; i < _cols; i++)
         temp_row[i] = _elements[row_a - 1][i]; 
 

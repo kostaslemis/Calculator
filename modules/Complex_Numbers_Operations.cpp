@@ -53,3 +53,11 @@ Complex_Number operator/(const Complex_Number &complex_number, const double k) {
     Complex_Number new_complex_number(complex_number.re() / k, complex_number.im() / k);
     return new_complex_number;
 }
+
+bool operator==(const Complex_Number &a, const Complex_Number &b) {
+    return a.re() == b.re() && a.im() == b.im();
+}
+
+bool operator!=(const Complex_Number &a, const Complex_Number &b) {
+    return a.re() != b.re() || a.im() != b.im();
+}
