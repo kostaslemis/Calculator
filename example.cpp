@@ -103,12 +103,12 @@ int main() {
         size_t prime = primes[i];
         size_t exponent = exponents[i];
         for (size_t j = 1; j < prime; j++) {
-            pow_matrix = pow_matrix * base_matrix;
+            pow_matrix *= base_matrix;
         }
         for (size_t j = 1; j < exponent; j++) {
             base_matrix = pow_matrix;
             for (size_t k = 1; k < prime; k++) {
-                pow_matrix = pow_matrix * base_matrix;
+                pow_matrix *= base_matrix;
             }
         }
         base_matrix = pow_matrix;

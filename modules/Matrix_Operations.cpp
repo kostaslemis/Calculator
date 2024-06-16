@@ -165,6 +165,7 @@ Matrix pow(const Matrix &matrix, const size_t exponent) {
         return new_matrix;
 
     for (size_t i = 0; i < exponent; i++) {
+        // new_matrix *= matrix
         Matrix result = new_matrix * matrix;
         new_matrix = result;
     }
@@ -206,6 +207,7 @@ Matrix cofactor(const Matrix &matrix) {
 
     for (size_t r = 1; r <= matrix.rows(); r++)
         for (size_t c = 1; c <= matrix.cols(); c++)
+            // pow func too slow
             new_matrix(r, c) = pow(-1, r + c)*det(minor(matrix, r, c));
 
     return new_matrix;
@@ -271,6 +273,7 @@ Vector get_col(const Matrix &matrix, const size_t col) {
 }
 
 static size_t factorial(size_t n) {
+    // Not efficient - Use of for loop
     if (n == 0 || n == 1)
         return 1;
     return n * factorial(n - 1);
@@ -281,6 +284,10 @@ Matrix exp(const Matrix &matrix, const double t) {
     Matrix exp_matrix(matrix.rows(), matrix.cols());
 
     for (size_t n = 0; n < 10; n++)
+        // factorial not efficient 
+        // pow use not efficient
+        // matrix_pow use not efficient - Need to rename most of the functions
+        // exp_matrix += pow(t, n)/factorial(n)*pow(matrix, n);
         exp_matrix = exp_matrix + pow(t, n)/factorial(n)*pow(matrix, n);
 
     return exp_matrix;
