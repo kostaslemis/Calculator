@@ -183,6 +183,26 @@ Matrix transpose(const Matrix &matrix) {
     return new_matrix;
 }
 
+Matrix matrix_upper_triangle(const Matrix &matrix) {
+    Matrix new_matrix(matrix.rows(), matrix.cols());
+
+    for (size_t r = 1; r <= matrix.rows(); r++)
+        for (size_t c = r; c <= matrix.cols(); c++)
+            new_matrix(r, c) = matrix.elem(r, c);
+
+    return new_matrix;
+}
+
+Matrix matrix_lower_triangle(const Matrix &matrix) {
+    Matrix new_matrix(matrix.rows(), matrix.cols());
+
+    for (size_t r = 1; r <= matrix.rows(); r++)
+        for (size_t c = 1; c <= r; c++)
+            new_matrix(r, c) = matrix.elem(r, c);
+
+    return new_matrix;
+}
+
 Matrix minor(const Matrix &matrix, const size_t row, const size_t col) {
     Matrix new_matrix(matrix.rows() - 1, matrix.cols() - 1);
 

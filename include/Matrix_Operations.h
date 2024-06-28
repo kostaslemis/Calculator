@@ -37,6 +37,10 @@ Matrix pow(const Matrix &matrix, const size_t exponent);
 
 Matrix transpose(const Matrix &matrix);
 
+Matrix matrix_upper_triangle(const Matrix &matrix);
+
+Matrix matrix_lower_triangle(const Matrix &matrix);
+
 Matrix minor(const Matrix &matrix, const size_t row, const size_t col);
 
 Matrix cofactor(const Matrix &matrix);
